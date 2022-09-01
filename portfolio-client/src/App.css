@@ -22,3 +22,13 @@
     max-width: 60rem;
     margin: auto;
 }
+
+.App-footer {
+    background-color: lightblue;
+    text-align: right;
+}
+
+.App-footer__text {
+    padding-right: 0.5rem;
+    margin: 0;
+}

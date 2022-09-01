@@ -12,6 +12,11 @@ function App() {
       <div className="App-content">
         <Home />
       </div>
+      <footer className="App-footer">
+        <p className="App-footer__text">
+          Made by me
+        </p>
+      </footer>
     </div>
   );
 }
