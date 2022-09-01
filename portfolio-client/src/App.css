@@ -29,6 +29,14 @@
     padding: 1rem 2rem;
 }
 
+.App-nav__icon:first-child {
+    margin-left: 2rem;
+}
+
+.App-nav__icon:last-child {
+    margin-right: 2rem;
+}
+
 .App-nav__icon:hover {
     background-color: lightgray;
 }

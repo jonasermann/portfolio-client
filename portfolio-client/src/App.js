@@ -1,7 +1,11 @@
+import React, { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
 
 function App() {
+
+  const [page, setPage] = useState(<Home />)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,7 +25,7 @@ function App() {
         </div>
       </nav>
       <div className="App-content">
-        <Home />
+        {page}
       </div>
       <footer className="App-footer">
         <p className="App-footer__text">
