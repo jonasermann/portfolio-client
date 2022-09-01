@@ -9,7 +9,7 @@
     font-size: 3rem;
     font-family: 'Luckiest Guy', cursive;
     background-color: lightblue;
-    
+    min-width: 21.5rem;
 }
 
 .App-header__text {
@@ -17,8 +17,23 @@
     padding-top: 3%;
 }
 
+.App-nav {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.App-nav__icon {
+    display: flex;
+    padding: 1rem 2rem;
+}
+
+.App-nav__icon:hover {
+    background-color: lightgray;
+}
+
 .App-content {
-    padding-top: 1rem;
     max-width: 60rem;
     margin: auto;
 }
@@ -26,6 +41,7 @@
 .App-footer {
     background-color: lightblue;
     text-align: right;
+    min-width: 21.5rem;
 }
 
 .App-footer__text {

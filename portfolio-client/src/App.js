@@ -9,6 +9,17 @@ function App() {
           Jonas Ermann .NET Full Stack Developer
         </p>
       </header>
+      <nav className="App-nav">
+        <div className="App-nav__icon">
+          About
+        </div>
+        <div className="App-nav__icon">
+          Projects
+        </div>
+        <div className="App-nav__icon">
+          Contact
+        </div>
+      </nav>
       <div className="App-content">
         <Home />
       </div>
