@@ -1,29 +1,44 @@
-.Home {
-    display: flex;
+.Home-content {
     height: 100%;
     width: 100%;
+    display: flex;
     align-items: center;
 }
 
 .Home img {
     padding: 1rem;
-    display: flex;
 }
 
 .Home__text {
     padding-right: 1rem;
-    display: flex;
     margin: 0;
     min-width: 15rem;
 }
 
+.Home__links {
+    text-align: left;
+    width: 75%;
+    margin: auto;
+}
+
+.Home__link {
+    display: flex;
+    align-content: center;
+    margin-left: 12%;
+}
+
+.Home__link a {
+    padding-top: 2rem;
+}
+
+
 @media only screen and (max-width: 600px) {
 
-    .Home {
+    .Home-content {
         display: unset;
     }
 
-    .Home img {
+    .Home-content img {
         padding: 1rem;
         margin: auto;
     }
@@ -32,4 +47,11 @@
         display: block;
         padding: 1rem;
     }
+
+    .Home__link {
+        display: flex;
+        align-content: center;
+        margin-left: 35%;
+    }
+
 }
