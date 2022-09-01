@@ -1,3 +1,18 @@
 .App {
   text-align: center;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.App-header {
+    min-height: 10rem;
+    font-size: 3rem;
+    font-family: 'Luckiest Guy', cursive;
+    background-color: lightblue;
+    
+}
+
+.App-header__text {
+    margin: 0;
+    padding-top: 3%;
+}
