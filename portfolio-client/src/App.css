@@ -16,3 +16,9 @@
     margin: 0;
     padding-top: 3%;
 }
+
+.App-content {
+    padding-top: 1rem;
+    max-width: 60rem;
+    margin: auto;
+}

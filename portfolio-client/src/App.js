@@ -1,4 +1,5 @@
 import './App.css';
+import Home from './components/Home';
 
 function App() {
   return (
@@ -8,6 +9,9 @@ function App() {
           Jonas Ermann .NET Full Stack Developer
         </p>
       </header>
+      <div className="App-content">
+        <Home />
+      </div>
     </div>
   );
 }

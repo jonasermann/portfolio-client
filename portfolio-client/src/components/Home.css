@@ -1,0 +1,35 @@
+.Home {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.Home img {
+    padding: 1rem;
+    display: flex;
+}
+
+.Home__text {
+    padding-right: 1rem;
+    display: flex;
+    margin: 0;
+    min-width: 15rem;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .Home {
+        display: unset;
+    }
+
+    .Home img {
+        padding: 1rem;
+        margin: auto;
+    }
+
+    .Home__text {
+        display: block;
+        padding: 1rem;
+    }
+}
