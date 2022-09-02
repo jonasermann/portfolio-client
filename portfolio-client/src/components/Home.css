@@ -31,9 +31,12 @@
     padding-top: 2rem;
 }
 
+.Home-history {
+    text-align: left;
+    margin: 1rem;
+}
 
 @media only screen and (max-width: 600px) {
-
     .Home-content {
         display: unset;
     }
@@ -54,4 +57,8 @@
         margin-left: 35%;
     }
 
+    .Home-history {
+        text-align: center;
+        margin: 1rem;
+    }
 }
