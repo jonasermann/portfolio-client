@@ -58,7 +58,7 @@ const Projects = () => {
         <p>In my early days of coding, I started off with Python. 
           It was an easy language to learn, and as my first project 
           I got to create a console-application of a game called "Kalaha". 
-          The rules are vary easy and thus it wasn't so hard to program. 
+          The rules are very easy and thus it wasn't so hard to program. 
           In this program, two players can play against each other, or
           one can play against a script where the computer will do random
           choices. There is also an application for simulating

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
 import Projects from './components/Projects';
+import Contact from './components/Contact';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
           <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
             Projects
           </div>
-          <div className="App-nav__icon">
+          <div className="App-nav__icon" onClick={() => setPage(<Contact />)}>
             Contact
           </div>
         </nav>
