@@ -1,0 +1,48 @@
+.Projects h3 {
+    margin-top: 5rem;
+}
+
+.Projects-content {
+    margin: 0 10%;
+    max-width: 85%;
+}
+
+.Projects-content img {
+    max-width: 75%;
+    height: auto;
+}
+
+.Projects a {
+    margin-right: 0;
+}
+
+@media only screen and (min-width: 600px) {
+
+    .Projects h3 {
+        text-align:left;
+        margin-left: 10%;
+    }
+
+    .Projects-content {
+        text-align: left;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .Projects-content img {
+        max-width: 25%;
+        height: auto;
+        
+    }
+
+    .Projects-content p {
+        padding-left: 3rem;
+        display: block;
+    }
+
+    .Projects a {
+        margin-right: 10%;
+    }
+}

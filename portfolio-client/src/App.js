@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
+import Projects from './components/Projects';
 
 function App() {
 
@@ -15,10 +16,10 @@ function App() {
       </header>
       <div className="App-content">
         <nav className="App-nav">
-          <div className="App-nav__icon">
+          <div className="App-nav__icon" onClick={() => setPage(<Home />)}>
             About
           </div>
-          <div className="App-nav__icon">
+          <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
             Projects
           </div>
           <div className="App-nav__icon">
