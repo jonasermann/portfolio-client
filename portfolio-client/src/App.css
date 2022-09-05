@@ -31,11 +31,11 @@
 }
 
 .App-nav__icon:first-child {
-    margin-left: 2rem;
+    margin-left: 0rem;
 }
 
 .App-nav__icon:last-child {
-    margin-right: 2rem;
+    margin-right: 0rem;
 }
 
 .App-nav__icon:hover {

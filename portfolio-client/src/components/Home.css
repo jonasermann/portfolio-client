@@ -15,19 +15,19 @@
     min-width: 15rem;
 }
 
-.Home__links {
+.Home-links {
     text-align: left;
     width: 75%;
     margin: auto;
 }
 
-.Home__link {
+.Home-link {
     display: flex;
     align-content: center;
     margin-left: 12%;
 }
 
-.Home__link a {
+.Home-link a {
     padding-top: 2rem;
 }
 
@@ -49,12 +49,6 @@
     .Home__text {
         display: block;
         padding: 1rem;
-    }
-
-    .Home__link {
-        display: flex;
-        align-content: center;
-        margin-left: 35%;
     }
 
     .Home-history {
