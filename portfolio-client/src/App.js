@@ -31,7 +31,7 @@ function App() {
       </div>
       <footer className="App-footer">
         <p className="App-footer__text">
-          Made by me
+          Made by me, Jonas Ermann, 2022.
         </p>
       </footer>
     </div>
