@@ -1,36 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Projects.css';
-import graduation from './graduation-project-quiz.gif';
-import hackday from './horizon-calculator-hackday.png';
-import mvc from './horizon-calculator-mvc.png'; 
-import kalaha from './kalaha-play.png';
-import python from './python-logo.jpg';
 
 const Projects = () => {
 
-  const projects = fetch('')
-    .then(response => response.json())
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch('https://localhost:7140/api/projects/')
+      .then(response => response.json())
+      .then(result => setProjects(result))
+  }, [])
 
   return (
     <div className="Projects">
-      {graduation}
-      {hackday}
-      {mvc}
-      {kalaha}
-      {python}
-      <h3>Quiz</h3>
-      <div className="Projects-content">
-        <img src={graduation} />
-        <p>This is a project I did together with three other
-          developers in the span of two weeks. It is a 
-          fullstack application with two single page front ends
-          using React, an ASP.NET CORE web Api backend and SQL
-          server database. It is an application where users
-          can take a multiple choize quiz, based on lecture
-          material given during the salt bootcamp.
-        </p>
-      </div>
-      <a href="https://github.com/jonasermann/hackday" >Github Link</a>
+      {projects.map((project, index) => (
+        <div className="Project" key={index}>
+          <h3>{project.title}</h3>
+          <div className="Projects-content">
+            <img src={project.imgUrl} />
+            <p>{project.text}</p>
+          </div>
+          <a href={project.gitUrl}>Github Link</a>
+        </div>
+      ))}
     </div>
   )
 }
