@@ -27,14 +27,13 @@ const Home = () => {
 
   return (
     <div className="Home">
-      {console.log(homeHistory)}
       <div className="Home-content">
         <img src={homeContent.profilePicUrl} alt="Profile" height="300rem" />
         <p className="Home__text">{homeContent.text}</p>
       </div>
       <div className="Home-history">
         <h3>{homeHistory.title}</h3>
-        {(homeHistory) && homeHistory.texts.map((text, index) => (
+        {homeHistory.texts.map((text, index) => (
           <p className="Home-history__text" key={index}>{text}</p>))}
       </div>
       <div className="Home-links">

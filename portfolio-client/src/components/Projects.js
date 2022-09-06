@@ -3,7 +3,7 @@ import './Projects.css';
 
 const Projects = () => {
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([{ title: '', imgUrl: '', text: '', githubUrl: '' }]);
 
   useEffect(() => {
     fetch('https://localhost:7140/api/projects/')
