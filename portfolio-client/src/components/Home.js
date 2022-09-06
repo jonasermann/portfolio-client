@@ -8,19 +8,19 @@ const Home = () => {
   const [homeLinks, setHomeLinks] = useState([{imgUrl: '', url: '', text: ''}]);
 
   useEffect(() => {
-    fetch('https://localhost:7140/home-content')
+    fetch('https://localhost:7140/api/home/home-content')
       .then(response => response.json())
       .then(result => setHomeContent(result))
   }, [])
 
   useEffect(() => {
-    fetch('https://localhost:7140/home-history')
+    fetch('https://localhost:7140/api/home/home-history')
       .then(response => response.json())
       .then(result => setHomeHistory(result))
   }, [])
 
   useEffect(() => {
-    fetch('https://localhost:7140/home-links')
+    fetch('https://localhost:7140/api/home/home-links')
       .then(response => response.json())
       .then(result => setHomeLinks(result))
   }, [])
