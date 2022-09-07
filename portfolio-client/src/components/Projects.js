@@ -17,7 +17,7 @@ const Projects = () => {
         <div className="Project" key={index}>
           <h3>{project.title}</h3>
           <div className="Projects-content">
-            <img src={project.imgUrl} />
+            <img src={project.imgUrl} alt="project impression" />
             <p>{project.text}</p>
           </div>
           <a href={project.gitUrl}>Github Link</a>

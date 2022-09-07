@@ -4,7 +4,7 @@ import './Home.css';
 const Home = () => {
 
   const [homeContent, setHomeContent] = useState({imgUrl: '', text:''});
-  const [homeHistory, setHomeHistory] = useState({title: '', texts: ['']});
+  const [homeHistory, setHomeHistory] = useState([{text: ''}]);
   const [homeLinks, setHomeLinks] = useState([{imgUrl: '', url: '', text: ''}]);
 
   useEffect(() => {
@@ -32,14 +32,14 @@ const Home = () => {
         <p className="Home__text">{homeContent.text}</p>
       </div>
       <div className="Home-history">
-        <h3>{homeHistory.title}</h3>
-        {homeHistory.texts.map((text, index) => (
-          <p className="Home-history__text" key={index}>{text}</p>))}
+        <h3>Background</h3>
+        {homeHistory.map((text, index) => (
+          <p className="Home-history__text" key={index}>{text.text}</p>))}
       </div>
       <div className="Home-links">
           {homeLinks.map((link, index) => (
             <div className="Home-link" key={index}>
-              <img src={link.imgUrl} alt="linked in logo" height="50rem" width="auto" />
+              <img src={link.imgUrl} alt="logo" height="50rem" width="auto" />
               <a href={link.url}>{link.text}</a>
             </div>
           ))}

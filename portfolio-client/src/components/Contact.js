@@ -14,8 +14,8 @@ const Contact = () => {
   return (
     <div className="Contact">
       <h3>You can reach me the following ways:</h3>
-      {contacts.map(contact => (
-        <div className="Contact-content">
+      {contacts.map((contact, index) => (
+        <div className="Contact-content" key={index}>
           <img src={contact.imgUrl} alt="mail icon" height="50rem" width="50rem" />
           <p>{contact.text}</p>
         </div>
