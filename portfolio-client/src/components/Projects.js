@@ -6,7 +6,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([{ title: '', imgUrl: '', text: '', githubUrl: '' }]);
 
   useEffect(() => {
-    fetch('https://localhost:7140/api/projects/')
+    fetch('https://jeportapi.azurewebsites.net/api/projects/')
       .then(response => response.json())
       .then(result => setProjects(result))
   }, [])

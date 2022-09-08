@@ -6,7 +6,7 @@ const Contact = () => {
   const [contacts, setContacts] = useState([{ imgUrl: '', text: '' }])
 
   useEffect(() => {
-    fetch('https://localhost:7140/api/contacts')
+    fetch('https://jonasermann.azurewebsites.net/api/contacts')
       .then(response => response.json())
       .then(result => setContacts(result));
   }, []);

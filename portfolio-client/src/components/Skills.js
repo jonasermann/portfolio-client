@@ -7,13 +7,13 @@ const Skills = () => {
   const [frontend, setFrontend] = useState([{ imgUrl: '', text: '' }])
 
   useEffect(() => {
-    fetch('https://localhost:7140/api/skills/backend')
+    fetch('https://jeportapi.azurewebsites.net/api/skills/backend')
       .then(response => response.json())
       .then(result => setBackend(result))
   }, [])
 
   useEffect(() => {
-    fetch('https://localhost:7140/api/skills/frontend')
+    fetch('https://jeportapi.azurewebsites.net/api/skills/frontend')
       .then(response => response.json())
       .then(result => setFrontend(result))
   }, [])
