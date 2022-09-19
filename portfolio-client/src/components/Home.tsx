@@ -3,7 +3,7 @@ import './Home.css';
 
 const Home = () => {
 
-  const [homeContent, setHomeContent] = useState({imgUrl: '', text:''});
+    const [homeContent, setHomeContent] = useState({ profilePicUrl: '', text:''});
   const [homeHistory, setHomeHistory] = useState([{text: ''}]);
   const [homeLinks, setHomeLinks] = useState([{imgUrl: '', url: '', text: ''}]);
 

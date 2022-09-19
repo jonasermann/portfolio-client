@@ -3,7 +3,7 @@ import './Projects.css';
 
 const Projects = () => {
 
-  const [projects, setProjects] = useState([{ title: '', imgUrl: '', text: '', githubUrl: '' }]);
+  const [projects, setProjects] = useState([{ title: '', imgUrl: '', text: '', gitUrl: '' }]);
 
   useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/projects/')
