@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
+import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
@@ -19,6 +20,9 @@ function App() {
       <div className="App-content">
         <nav className="App-nav">
           <div className="App-nav__icon" onClick={() => setPage(<Home />)}>
+            Home
+          </div>
+          <div className="App-nav__icon" onClick={() => setPage(<About />)}>
             About
           </div>
           <div className="App-nav__icon" onClick={() => setPage(<Skills />)}>
