@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Home from './components/Home';
 import About from './components/About';
-import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import Admin from './components/Admin';
 
 function App() {
 
@@ -25,9 +25,6 @@ function App() {
           <div className="App-nav__icon" onClick={() => setPage(<About />)}>
             About
           </div>
-          <div className="App-nav__icon" onClick={() => setPage(<Skills />)}>
-            Skills
-          </div>
           <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
             Projects
           </div>
@@ -38,6 +35,9 @@ function App() {
         {page}
       </div>
       <footer className="App-footer">
+        <p className="App-footer__text" onClick={() => setPage(<Admin />)}>
+          Admin
+        </p>
         <p className="App-footer__text">
           Made by me, Jonas Ermann, 2022.
         </p>

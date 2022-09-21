@@ -1,0 +1,26 @@
+.About {
+    text-align: left;
+}
+.About h3 {
+    margin-left: 2rem;
+}
+
+.About-content__text {
+    margin: 2rem;
+}
+
+.Home-links {
+    text-align: left;
+    width: 75%;
+    margin: auto;
+}
+
+.Home-link {
+    display: flex;
+    align-content: center;
+    margin-left: 12%;
+}
+
+.Home-link a {
+    padding-top: 2rem;
+}

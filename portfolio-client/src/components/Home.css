@@ -15,22 +15,6 @@
     min-width: 15rem;
 }
 
-.Home-links {
-    text-align: left;
-    width: 75%;
-    margin: auto;
-}
-
-.Home-link {
-    display: flex;
-    align-content: center;
-    margin-left: 12%;
-}
-
-.Home-link a {
-    padding-top: 2rem;
-}
-
 .Home-history {
     text-align: left;
     margin: 1rem;
