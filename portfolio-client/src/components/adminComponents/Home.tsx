@@ -26,17 +26,19 @@ const Home = () => {
   return (
     <div className="HomeAdmin-content">
       <form>
+        <div>
         <textarea
           className="HomeAdmin-content__input"
           value={homeContentText}
           onChange={e => setHomeContentText(e.target.value)}
           rows={5}
           cols={100}
-        />
+          />
+        </div>
         <button type="button" onClick={() => handleHomeContent()}>
           Save Changes
         </button>
-      </form>
+        </form>
     </div>
     )
 }

@@ -62,7 +62,7 @@ const About = () => {
     if (difference < 0) {
       for (let i = 0; i < updatedParagraphsLength; i++) {
         if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphs[i].text);
+          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
         }
       }
       for (let i = updatedParagraphsLength; i < currentParagraphsLength; i++) {
@@ -73,7 +73,7 @@ const About = () => {
     if (difference === 0) {
       for (let i = 0; i < updatedParagraphsLength; i++) {
         if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphs[i].text);
+          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
         }
       }
     }
@@ -81,13 +81,15 @@ const About = () => {
     if (difference > 0) {
       for (let i = 0; i < currentParagraphsLength; i++) {
         if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphs[i].text);
+          putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
         }
       }
       for (let i = currentParagraphsLength; i < updatedParagraphsLength; i++) {
         postAboutParagraph(aboutParagraphTexts[i]);
       }
     }
+
+    console.log('hi');
   }
 
   return (
@@ -106,10 +108,10 @@ const About = () => {
             rows={5}
             cols={100}
           />
-            <button type="button" onClick={() => deleteParagraph(paragraphIndex)}>Delete</button>
+          <button type="button" onClick={() => deleteParagraph(paragraphIndex)}>Delete</button>
         </div>
         )}
-        <button type="button" onClick={() => setAboutParagraphsTexts([... aboutParagraphTexts, '']) }>Add Paragraph</button>
+        <button type="button" onClick={() => setAboutParagraphsTexts([...aboutParagraphTexts, '']) }>Add Paragraph</button>
         <button type="button" onClick={() => handleChanges()}>Save Changes</button>
       </form>
     </div>
