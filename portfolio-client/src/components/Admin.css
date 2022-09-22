@@ -1,3 +1,8 @@
+.Admin-content {
+    max-width: 50rem;
+    margin: auto;
+}
+
 .Admin-nav {
     width: 95%;
     display: flex;

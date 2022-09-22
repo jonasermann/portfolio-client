@@ -13,6 +13,9 @@ const Admin = () => {
     <div className="Admin">
       <div className="Admin-content">
         <nav className="Admin-nav">
+          <div className="Admin-nav__icon" onClick={window.location.reload}>
+            Return Home
+          </div>
           <div className="Admin-nav__icon" onClick={() => setPage(<Home />)}>
             Home Change
           </div>
