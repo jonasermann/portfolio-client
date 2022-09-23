@@ -1,6 +1,10 @@
 import './ContactAdmin.css';
 
-const Contact = () => {
+type Props = {
+  accessAdmin: boolean;
+}
+
+const Contact = (props: Props) => {
 
   return (
     <div className="Contact-content">

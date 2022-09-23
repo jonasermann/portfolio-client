@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import './AboutAdmin.css';
 
-const About = () => {
+type Props = {
+  accessAdmin: boolean;
+}
+
+const About = (props: Props) => {
 
   const [aboutParagraphs, setAboutParagraphs] = useState([{ id: 0, text: '' }]);
   const [aboutParagraphTexts, setAboutParagraphsTexts] = useState(['']);
@@ -88,8 +92,6 @@ const About = () => {
         postAboutParagraph(aboutParagraphTexts[i]);
       }
     }
-
-    console.log('hi');
   }
 
   return (
@@ -112,7 +114,7 @@ const About = () => {
         </div>
         )}
         <button type="button" onClick={() => setAboutParagraphsTexts([...aboutParagraphTexts, '']) }>Add Paragraph</button>
-        <button type="button" onClick={() => handleChanges()}>Save Changes</button>
+        <button type="button" onClick={() => { if (props.accessAdmin) { handleChanges() } } }>Save Changes</button>
       </form>
     </div>
   )

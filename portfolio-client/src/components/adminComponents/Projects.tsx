@@ -1,6 +1,10 @@
 import './ProjectsAdmin.css';
 
-const Projects = () => {
+type Props = {
+  accessAdmin: boolean;
+}
+
+const Projects = (props: Props) => {
 
   return (
     <div className="Projects-content">

@@ -4,13 +4,15 @@ import Home from './components/Home';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Admin from './components/Admin';
-import ReactDOM from "react-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import Login from './components/Login';
 
 function App() {
 
   const [page, setPage] = useState(<Home />)
+  const [accessAdmin, setAccessAdmin] = useState(false);
+
+  const handlePage = (component: JSX.Element) => setPage(component);
+  const handleAccessAdmin = (access: boolean) => setAccessAdmin(access);
 
   return (
     <div className="App">
@@ -37,15 +39,8 @@ function App() {
         {page}
       </div>
       <footer className="App-footer">
-        <p className="App-footer__text" onClick={() => 
-          ReactDOM.render(
-            <Auth0Provider
-              domain=""
-              clientId=""
-              redirectUri={window.location.origin}>
-              <Admin />
-            </Auth0Provider>,
-            document.getElementById("root"))}>
+        <p className="App-footer__text" onClick={() =>
+          setPage(<Login handlePageFunction={handlePage} handleAccessAdminFunction={handleAccessAdmin} accessAdmin={accessAdmin} App={<App />} />)}>
           Admin
         </p>
         <p className="App-footer__text">

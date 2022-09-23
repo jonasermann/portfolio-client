@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import './HomeAdmin.css';
 
-const Home = () => {
+type Props = {
+  accessAdmin: boolean;
+}
+
+const Home = (props: Props) => {
 
   const [homeContent, setHomeContent] = useState({ Id: 0, profilePicUrl: '', text: '' });
   const [homeContentText, setHomeContentText] = useState(homeContent.text)
@@ -35,7 +39,7 @@ const Home = () => {
           cols={100}
           />
         </div>
-        <button type="button" onClick={() => handleHomeContent()}>
+        <button type="button" onClick={() => { if (props.accessAdmin) { handleHomeContent() } } }>
           Save Changes
         </button>
         </form>

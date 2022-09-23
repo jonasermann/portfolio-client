@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import './SkillsAdmin.css';
 
-const Skills = () => {
+type Props = {
+  accessAdmin: boolean;
+}
+
+const Skills = (props: Props) => {
 
   const [backend, setBackend] = useState([{ imgUrl: '', text: '' }])
   const [frontend, setFrontend] = useState([{ imgUrl: '', text: '' }])
