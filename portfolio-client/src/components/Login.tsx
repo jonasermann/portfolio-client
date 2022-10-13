@@ -14,7 +14,7 @@ const Login = (props: IAdminProps) => {
 
   const handleLogin = () => {
 
-    fetch('http://localhost:5133/api/Authentication', {
+    fetch('https://jeportapi.azurewebsites.net/api/Authentication', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ const Login = (props: IAdminProps) => {
       .then(response => response.text())
       .then(token => setToken(token))
 
-    if (token != 'Not Authorized') {
+    if (token !== 'Not Authorized') {
       props.handlePageFunction(<Admin token={token} />)
     }
     else {

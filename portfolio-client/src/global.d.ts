@@ -22,12 +22,8 @@ interface IContactProps {
 }
 
 interface ISkillsProps {
-  backend: { id: number, imgUrl: string, text: string }[]
-  frontend: { id: number, imgUrl: string, text: string }[]
-  languages: { id: number, imgUrl: string, text: string }[]
-  setBackend: Dispatch<SetStateAction<backend>>
-  setFrontend: Dispatch<SetStateAction<frontend>>
-  setLanguages: Dispatch<SetStateAction<Languages>>
+  skills: { id: number, imgUrl: string, text: string, type: number }[]
+  setSkills: Dispatch<SetStateAction<backend>>
 }
 
 interface IAppProps {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import './HomeAdmin.css';
+import './Home.css';
 import { AppContext } from '../../App'
 
 interface IHomeProps {
@@ -25,19 +25,19 @@ const Home = (props: IHomeProps) => {
   }
 
   return (
-    <div className="HomeAdmin-content">
+    <div className="Home-content">
       <form>
         <div>
           <textarea
-            className="HomeAdmin-content__input"
+            className="Home-content__input"
             value={homeContentText}
             onChange={e => setHomeContentText(e.target.value)}
             rows={5}
             cols={100}
           />
         </div>
-        <button type="button" onClick={() => { if (props.token) { handleHomeContent() } }}>
-          Save Changes
+        <button className="Home-content--Save"type="button" onClick={() => handleHomeContent() }>
+          Update Database
         </button>
       </form>
     </div>

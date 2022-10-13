@@ -1,31 +1,29 @@
-import { useState, useContext } from 'react';
-import './AboutAdmin.css';
+import { useContext } from 'react';
+import './About.css';
 import { AppContext } from '../../App';
 
 interface IAboutProps {
   token: string;
 }
 
+interface IAboutParagraph {
+  id: number,
+  text: string
+};
+
 const About = (props: IAboutProps) => {
 
   const adminAccess = props.token !== 'Not Authorized';
-
   const aboutProps = useContext(AppContext).aboutProps;
   const aboutParagraphs = aboutProps.aboutParagraphs;
   const setAboutParagraphs = aboutProps.setAboutParagraphs;
   const homeLinks = aboutProps.homeLinks;
   const setHomeLinks = aboutProps.setHomeLinks;
 
-  const [aboutParagraphTexts, setAboutParagraphsTexts] = useState(aboutParagraphs.map(p => p.text));
-  const [homeLinkTexts, setHomeLinkTexts] = useState(homeLinks.map(l => l.text))
+  console.log(props.token)
 
-  const deleteParagraph = (index: number) => {
-    setAboutParagraphsTexts(
-      aboutParagraphTexts.filter(aboutParagraph =>
-        aboutParagraphTexts.indexOf(aboutParagraph) !== index
-      )
-    )
-  }
+  const aboutParagraphsLength = aboutParagraphs.length;
+  const homeLinksLength = homeLinks.length;
 
   const postAboutParagraph = (text: string) => {
     fetch('https://jeportapi.azurewebsites.net/api/About', {
@@ -38,14 +36,14 @@ const About = (props: IAboutProps) => {
     })
   }
 
-  const putAboutParagraph = (id: number, text: string) => {
+  const putAboutParagraph = (aboutParagraph: IAboutParagraph) => {
     fetch('https://jeportapi.azurewebsites.net/api/About', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${props.token}`
       },
-      body: JSON.stringify({ id, text })
+      body: JSON.stringify(aboutParagraph)
     })
   }
 
@@ -58,104 +56,128 @@ const About = (props: IAboutProps) => {
     })
   }
 
-  const handleChanges = () => {
+  const addAboutParagraph = () => {
+    const arrayLength = aboutParagraphs.length;
+    const id = aboutParagraphs.sort(aboutParagraph => aboutParagraph.id)[arrayLength - 1].id + 1;
+    setAboutParagraphs([...aboutParagraphs, { id: id, text: '' }])
+  }
 
-    const currentParagraphsLength = aboutParagraphs.length;
-    const updatedParagraphsLength = aboutParagraphTexts.length;
-    const difference = updatedParagraphsLength - currentParagraphsLength;
+  const addHomeLinks = () => {
+    const arrayLength = homeLinks.length;
+    const id = homeLinks.sort(homeLink => homeLink.id)[arrayLength - 1].id + 1;
+    setHomeLinks([...homeLinks, { id: id, imgUrl: '', text: '', url: '' }])
+  }
 
-    interface IAboutParagraph {
-      id: number,
-      text: string
-    };
+  const deleteParagraph = (id: number) => {
+    setAboutParagraphs(
+      aboutParagraphs.filter(aboutParagraph =>
+        aboutParagraph.id !== id
+      )
+    )
+  }
 
-    if (adminAccess) {
-      if (difference < 0) {
-        for (let i = 0; i < updatedParagraphsLength; i++) {
-          if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-            putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
-          }
-        }
-        for (let i = updatedParagraphsLength; i < currentParagraphsLength; i++) {
-          deleteAboutParagraph(aboutParagraphs[i].id);
-        }
+  const deleteLink = (id: number) => {
+    setHomeLinks(
+      homeLinks.filter(homeLink =>
+        homeLink.id !== id
+      )
+    )
+  }
+
+  const handleAboutParagraphs = () => {
+
+    const aboutParagraphDifference = aboutParagraphsLength - aboutParagraphs.length;
+
+    if (aboutParagraphDifference < 0) {
+      for (let i = 0; i < aboutParagraphsLength; i++) {
+        putAboutParagraph(aboutParagraphs[i])
       }
-
-      if (difference === 0) {
-        for (let i = 0; i < updatedParagraphsLength; i++) {
-          if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-            putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
-          }
-        }
-      }
-
-      if (difference > 0) {
-        for (let i = 0; i < currentParagraphsLength; i++) {
-          if (aboutParagraphs[i].text !== aboutParagraphTexts[i]) {
-            putAboutParagraph(aboutParagraphs[i].id, aboutParagraphTexts[i]);
-          }
-        }
-        for (let i = currentParagraphsLength; i < updatedParagraphsLength; i++) {
-          postAboutParagraph(aboutParagraphTexts[i]);
-        }
+      for (let i = aboutParagraphsLength; i < aboutParagraphs.length; i++) {
+        postAboutParagraph(aboutParagraphs[i].text)
       }
     }
-    else {
-      const newAboutParagraphs: IAboutParagraph[] = [];
-      aboutParagraphTexts.forEach((value, index) =>
-        newAboutParagraphs.push({ id: index, text: value })
-      )
-      setAboutParagraphs(newAboutParagraphs);
+
+    if (aboutParagraphDifference === 0) {
+      for (let i = 0; i < aboutParagraphsLength; i++) {
+        putAboutParagraph(aboutParagraphs[i])
+      }
+    }
+
+    if (aboutParagraphDifference > 0) {
+      for (let i = 0; i < aboutParagraphs.length; i++) {
+        putAboutParagraph(aboutParagraphs[i])
+      }
+      for (let i = aboutParagraphs.length; i < aboutParagraphsLength; i++) {
+        deleteAboutParagraph(aboutParagraphs[i].id)
+      }
     }
   }
 
   return (
     <div className="About-content">
       <form>
-        {aboutParagraphTexts.map((aboutParagraph, paragraphIndex) =>
-          <div key={paragraphIndex}>
-            <textarea
-              value={aboutParagraph}
-              onChange={e => setAboutParagraphsTexts(aboutParagraphTexts.map((p, textIndex) => {
-                if (paragraphIndex === textIndex) {
-                  p = e.target.value;
-                }
-                return p;
-              }))}
-              rows={5}
-              cols={100}
-            />
-            <button type="button" onClick={() => deleteParagraph(paragraphIndex)}>Delete</button>
-          </div>
-        )}
-        <button type="button" onClick={() => setAboutParagraphsTexts([...aboutParagraphTexts, ''])}>Add Paragraph</button>
-        <button type="button" onClick={() => { if (props.token) { handleChanges() } }}>Save Changes</button>
-      </form>
-      <form>
-        {homeLinkTexts.map((homeLinkText, index) => 
-          <div key={index}>
-            <img src={homeLinks[index].imgUrl} alt="logo" height="50rem" width="auto" />
-            <textarea
-              value={homeLinkText}
-              onChange={e => setHomeLinkTexts(homeLinkTexts.map((l, textindex) => {
-                if (index === textindex) {
-                  l = e.target.value
-                }
-                return l;
-              }))}
-              rows={2}
-              cols={100}
-            />
-          </div>
-        )}
+        <div className="About-content__aboutParagraphs">
+          {aboutParagraphs.map((aboutParagraph, paragraphIndex) =>
+            <div className="About-content__aboutParagraph" key={paragraphIndex}>
+              <textarea
+                value={aboutParagraph.text}
+                onChange={e => setAboutParagraphs(aboutParagraphs.map((p, textIndex) => {
+                  if (paragraphIndex === textIndex) {
+                    p.text = e.target.value;
+                  }
+                  return p;
+                }))}
+                rows={5}
+                cols={100}
+              />
+              <button type="button" onClick={() => deleteParagraph(aboutParagraph.id)}>Delete</button>
+            </div>
+          )}
+          <button type="button" onClick={() => addAboutParagraph()}>Add Paragraph</button>
+        </div>
+
+        <div className="About-content__homeLinks">
+          {homeLinks.map((homeLink, homeIndex) =>
+            <div className="About-content__homeLink">
+              <div key={homeIndex}>
+                <img src={homeLinks[homeIndex].imgUrl} alt="logo" height="50rem" width="auto" />
+                <input type="text" value={homeLinks[homeIndex].imgUrl} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
+                  if (homeIndex === linkIndex) {
+                    l.imgUrl = e.target.value
+                  }
+                  return l;
+                }))}
+                />
+                <textarea
+                  value={homeLink.text}
+                  onChange={e => setHomeLinks(homeLinks.map((l, textindex) => {
+                    if (homeIndex === textindex) {
+                      l.text = e.target.value
+                    }
+                    return l;
+                  }))}
+                  rows={2}
+                  cols={100}
+                />
+                <input type="text" value={homeLinks[homeIndex].url} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
+                  if (homeIndex === linkIndex) {
+                    l.url = e.target.value
+                  }
+                  return l;
+                }))}
+                />
+              </div>
+              <button className="About-content__homeLink-delete" type="button" onClick={() => deleteLink(homeLink.id)}>Delete</button>
+            </div>
+          )}
+        </div>
+        <button type="button" onClick={() => addHomeLinks()}>Add Icon Description</button>
+        <div className="About-content__Save">
+          <button type="submit" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update Database</button>
+        </div>
       </form>
     </div>
   )
 }
 
 export default About;
-
-
-//{
-
-//}

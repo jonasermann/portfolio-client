@@ -15,9 +15,7 @@ function App() {
   const [homeContent, setHomeContent] = useState({ id: 0, profilePicUrl: '', text: '' });
   const [projects, setProjects] = useState([{ id: 0, title: '', imgUrl: '', text: '', gitUrl: '' }]);
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
-  const [backend, setBackend] = useState([{ id: 0, imgUrl: '', text: '' }])
-  const [frontend, setFrontend] = useState([{ id: 0, imgUrl: '', text: '' }])
-  const [languages, setLanguages] = useState([{ id: 0, imgUrl: '', text: '' }])
+  const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
 
   useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
@@ -50,21 +48,9 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/backend')
+    fetch('https://jeportapi.azurewebsites.net/api/skills')
       .then(response => response.json())
-      .then(result => setBackend(result))
-  }, []);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/frontend')
-      .then(response => response.json())
-      .then(result => setFrontend(result))
-  }, []);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/languages')
-      .then(response => response.json())
-      .then(result => setLanguages(result))
+      .then(result => setSkills(result))
   }, []);
 
   const homeProps: IHomeProps = {
@@ -84,7 +70,7 @@ function App() {
   }
 
   const skillProps: ISkillsProps = {
-    backend, frontend, languages, setBackend, setFrontend, setLanguages
+    skills, setSkills
   }
 
   const appProps: IAppProps = {
