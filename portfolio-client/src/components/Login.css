@@ -1,2 +1,8 @@
+.Login-content {
+    max-width: 40rem;
+    margin: auto;
+}
 
-
+.Login-content__Description {
+    margin: 3rem;
+}

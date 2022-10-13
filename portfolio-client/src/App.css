@@ -1,6 +1,6 @@
 .App {
     text-align: center;
-    min-height: 60.5rem;
+    min-height: 100%;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
@@ -27,7 +27,7 @@
 }
 
 .App-nav__icon {
-    padding: 1rem 6%;
+    padding: 1rem 4%;
 }
 
 .App-nav__icon:hover {
@@ -42,7 +42,7 @@
 .App-footer {
     background-color: lightblue;
     text-align: right;
-    min-width: 21.5rem;
+    width: 100%
 }
 
 .App-footer__text {

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import './SkillsAdmin.css';
 
-type Props = {
-  accessAdmin: boolean;
+interface IAboutProps {
+  token: string;
 }
 
-const Skills = (props: Props) => {
+const Skills = (props: IAboutProps) => {
 
   const [backend, setBackend] = useState([{ imgUrl: '', text: '' }])
   const [frontend, setFrontend] = useState([{ imgUrl: '', text: '' }])

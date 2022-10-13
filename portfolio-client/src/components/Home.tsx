@@ -1,16 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import './Home.css';
 import Skills from './Skills';
+import { AppContext } from '../App'
 
 const Home = () => {
 
-  const [homeContent, setHomeContent] = useState({ profilePicUrl: '', text:''});
- 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
-      .then(response => response.json())
-      .then(result => setHomeContent(result))
-  }, [])
+  const homeProps = useContext(AppContext).homeProps;
+  const homeContent = homeProps.homeContent;
 
   return (
     <div className="Home">

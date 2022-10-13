@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import './Projects.css';
+import { AppContext } from '../App';
 
 const Projects = () => {
 
-  const [projects, setProjects] = useState([{ title: '', imgUrl: '', text: '', gitUrl: '' }]);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects/')
-      .then(response => response.json())
-      .then(result => setProjects(result))
-  }, [])
+  const projectProps = useContext(AppContext).projectProps;
+  const projects = projectProps.projects;
 
   return (
     <div className="Projects">

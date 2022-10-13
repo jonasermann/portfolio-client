@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import './Contact.css';
+import { AppContext } from '../App'
 
 const Contact = () => {
 
-  const [contacts, setContacts] = useState([{ imgUrl: '', text: '' }])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/contacts')
-      .then(response => response.json())
-      .then(result => setContacts(result));
-  }, []);
+  const contactProps = useContext(AppContext).contactProps;
+  const contacts = contactProps.contacts
 
   return (
     <div className="Contact">

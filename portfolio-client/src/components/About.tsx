@@ -1,28 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import './About.css';
+import { AppContext } from '../App';
 
 const About = () => {
 
-  const [aboutParagraphs, setAboutParagraphs] = useState([{ text: '' }]);
-  const [homeLinks, setHomeLinks] = useState([{ imgUrl: '', url: '', text: '' }]);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/about/')
-      .then(response => response.json())
-      .then(result => setAboutParagraphs(result))
-  }, [])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
-      .then(response => response.json())
-      .then(result => setHomeLinks(result))
-  }, [])
+  const aboutProps = useContext(AppContext).aboutProps;
+  const aboutParagraphs = aboutProps.aboutParagraphs;
+  const homeLinks = aboutProps.homeLinks;
 
   return (
     <div className="About">
       <h3>Background</h3>
-      {aboutParagraphs.map(aboutParagraph => 
-        <div className="About-content">
+      {aboutParagraphs.map((aboutParagraph, index) =>
+        <div className="About-content" key={index}>
           <p className="About-content__text">{aboutParagraph.text}</p>
         </div>
       )}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import './App.css';
 import Home from './components/Home';
 import About from './components/About';
@@ -6,49 +6,131 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Login from './components/Login';
 
+const AppContext = createContext<IAppProps>({} as IAppProps)
+
 function App() {
 
-  const [page, setPage] = useState(<Home />)
-  const [accessAdmin, setAccessAdmin] = useState(false);
+  const [aboutParagraphs, setAboutParagraphs] = useState([{ id: 0, text: '' }]);
+  const [homeLinks, setHomeLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
+  const [homeContent, setHomeContent] = useState({ id: 0, profilePicUrl: '', text: '' });
+  const [projects, setProjects] = useState([{ id: 0, title: '', imgUrl: '', text: '', gitUrl: '' }]);
+  const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
+  const [backend, setBackend] = useState([{ id: 0, imgUrl: '', text: '' }])
+  const [frontend, setFrontend] = useState([{ id: 0, imgUrl: '', text: '' }])
+  const [languages, setLanguages] = useState([{ id: 0, imgUrl: '', text: '' }])
 
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
+      .then(response => response.json())
+      .then(result => setHomeContent(result))
+  }, [])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/about/')
+      .then(response => response.json())
+      .then(result => setAboutParagraphs(result))
+  }, [])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
+      .then(response => response.json())
+      .then(result => setHomeLinks(result))
+  }, [])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/projects/')
+      .then(response => response.json())
+      .then(result => setProjects(result))
+  }, [])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/contacts')
+      .then(response => response.json())
+      .then(result => setContacts(result));
+  }, []);
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/skills/backend')
+      .then(response => response.json())
+      .then(result => setBackend(result))
+  }, []);
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/skills/frontend')
+      .then(response => response.json())
+      .then(result => setFrontend(result))
+  }, []);
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/skills/languages')
+      .then(response => response.json())
+      .then(result => setLanguages(result))
+  }, []);
+
+  const homeProps: IHomeProps = {
+    homeContent, setHomeContent
+  }
+
+  const aboutProps: IAboutProps = {
+    aboutParagraphs, setAboutParagraphs, homeLinks, setHomeLinks
+  }
+
+  const projectProps: IProjectProps = {
+    projects, setProjects
+  }
+
+  const contactProps: IContactProps = {
+    contacts, setContacts
+  }
+
+  const skillProps: ISkillsProps = {
+    backend, frontend, languages, setBackend, setFrontend, setLanguages
+  }
+
+  const appProps: IAppProps = {
+    homeProps, aboutProps, projectProps, contactProps, skillProps
+  }
+
+  const [page, setPage] = useState(<Home />)
   const handlePage = (component: JSX.Element) => setPage(component);
-  const handleAccessAdmin = (access: boolean) => setAccessAdmin(access);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p className="App-header__text">
-          Jonas Ermann .NET Full Stack Developer
-        </p>
-      </header>
-      <div className="App-content">
-        <nav className="App-nav">
-          <div className="App-nav__icon" onClick={() => setPage(<Home />)}>
-            Home
-          </div>
-          <div className="App-nav__icon" onClick={() => setPage(<About />)}>
-            About
-          </div>
-          <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
-            Projects
-          </div>
-          <div className="App-nav__icon" onClick={() => setPage(<Contact />)}>
-            Contact
-          </div>
-        </nav>
-        {page}
+    <AppContext.Provider value={appProps}>
+      <div className="App">
+        <header className="App-header">
+          <p className="App-header__text">
+            Jonas Ermann .NET Full Stack Developer
+          </p>
+        </header>
+        <div className="App-content">
+          <nav className="App-nav">
+            <div className="App-nav__icon" onClick={() => setPage(<Home />)}>
+              Home
+            </div>
+            <div className="App-nav__icon" onClick={() => setPage(<About />)}>
+              About
+            </div>
+            <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
+              Projects
+            </div>
+            <div className="App-nav__icon" onClick={() => setPage(<Login handlePageFunction={handlePage} App={<App />} />)}>
+              CRUD
+            </div>
+            <div className="App-nav__icon" onClick={() => setPage(<Contact />)}>
+              Contact
+            </div>
+          </nav>
+          {page}
+        </div>
+        <footer className="App-footer">
+          <p className="App-footer__text">
+            Made by me, Jonas Ermann, 2022.
+          </p>
+        </footer>
       </div>
-      <footer className="App-footer">
-        <p className="App-footer__text" onClick={() =>
-          setPage(<Login handlePageFunction={handlePage} handleAccessAdminFunction={handleAccessAdmin} accessAdmin={accessAdmin} App={<App />} />)}>
-          Admin
-        </p>
-        <p className="App-footer__text">
-          Made by me, Jonas Ermann, 2022.
-        </p>
-      </footer>
-    </div>
+    </AppContext.Provider>
   );
 }
 
 export default App;
+export { AppContext }

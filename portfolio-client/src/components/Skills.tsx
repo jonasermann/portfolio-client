@@ -1,29 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useContext} from 'react';
 import './Skills.css';
+import { AppContext } from '../App';
 
 const Skills = () => {
 
-  const [backend, setBackend] = useState([{ imgUrl: '', text: '' }])
-  const [frontend, setFrontend] = useState([{ imgUrl: '', text: '' }])
-  const [languages, setLanguages] = useState([{ imgUrl: '', text: '' }])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/backend')
-      .then(response => response.json())
-      .then(result => setBackend(result))
-  }, []);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/frontend')
-      .then(response => response.json())
-      .then(result => setFrontend(result))
-  }, []);
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills/languages')
-      .then(response => response.json())
-      .then(result => setLanguages(result))
-  }, []);
+  const skillProps = useContext(AppContext).skillProps;
+  const backend = skillProps.backend;
+  const frontend = skillProps.frontend;
+  const languages = skillProps.languages;
 
   return (
     <div className="Skills">

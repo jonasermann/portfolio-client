@@ -5,28 +5,28 @@ import About from './adminComponents/About';
 import Projects from './adminComponents/Projects';
 import Contact from './adminComponents/Contact';
 
-type Props = {
-  accessAdmin: boolean;
+interface IAdminProps {
+  token: string;
 }
 
-const Admin = (props: Props) => {
+const Admin = (props: IAdminProps) => {
 
-  const [page, setPage] = useState(<Home accessAdmin={props.accessAdmin} />)
+  const [page, setPage] = useState(<Home token={props.token} />)
 
   return (
     <div className="Admin">
       <div className="Admin-content">
         <nav className="Admin-nav">
-          <div className="Admin-nav__icon" onClick={() => setPage(<Home accessAdmin={props.accessAdmin} />)}>
+          <div className="Admin-nav__icon" onClick={() => setPage(<Home token={props.token} />)}>
             Home Change
           </div>
-          <div className="Admin-nav__icon" onClick={() => setPage(<About accessAdmin={props.accessAdmin} />)}>
+          <div className="Admin-nav__icon" onClick={() => setPage(<About token={props.token} />)}>
             About Change
           </div>
-          <div className="Admin-nav__icon" onClick={() => setPage(<Projects accessAdmin={props.accessAdmin} />)}>
+          <div className="Admin-nav__icon" onClick={() => setPage(<Projects token={props.token} />)}>
             Projects Change
           </div>
-          <div className="Admin-nav__icon" onClick={() => setPage(<Contact accessAdmin={props.accessAdmin} />)}>
+          <div className="Admin-nav__icon" onClick={() => setPage(<Contact token={props.token} />)}>
             Contact Change
           </div>
         </nav>
