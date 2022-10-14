@@ -1,3 +1,11 @@
+.Projects-content {
+    text-align: center;
+}
+
 .Projects-content__project {
-    margin-bottom:3rem;
+    margin-bottom: 3rem;
+}
+
+.Projects-content__Save {
+    margin-top: 3rem;
 }

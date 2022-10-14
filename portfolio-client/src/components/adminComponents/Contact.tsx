@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import './Contact.css';
 import { AppContext } from '../../App';
 
@@ -6,7 +6,21 @@ interface IContactProps {
   token: string;
 }
 
+interface IContact {
+  id: number
+  text: string
+  imgUrl: string
+}
+
 const Contact = (props: IContactProps) => {
+
+  const [oldContacts, setOldContacts] = useState([{id: 1, text: '', imgUrl: ''}])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/contacts')
+      .then(response => response.json())
+      .then(result => setOldContacts(result));
+  }, []);
 
   const adminAccess = props.token !== 'Not Authorized';
   const contactProps = useContext(AppContext).contactProps;
@@ -25,10 +39,68 @@ const Contact = (props: IContactProps) => {
         contact.id !== id
       )
     )
+   }
+
+  const postContact = (text: string, imgUrl: string) => {
+    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${props.token}`
+      },
+      body: JSON.stringify({ text, imgUrl })
+    })
+  }
+
+  const putContact = (contact: IContact) => {
+    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${props.token}`
+      },
+      body: JSON.stringify(contact)
+    })
+  }
+
+  const deleteContact = (id: number) => {
+    fetch(`https://jeportapi.azurewebsites.net/api/Contacts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${props.token}`
+      }
+    })
   }
 
   const handleContacts = () => {
 
+    const oldContactsLength = oldContacts.length;
+    const newContactsLength = contacts.length;
+    const contactDifference = oldContactsLength - newContactsLength;
+
+    if (contactDifference < 0) {
+      for (let i = 0; i < oldContactsLength; i++) {
+        putContact(contacts[i])
+      }
+      for (let i = oldContactsLength; i < newContactsLength; i++) {
+        postContact(contacts[i].text, contacts[i].imgUrl)
+      }
+    }
+
+    if (contactDifference === 0) {
+      for (let i = 0; i < oldContactsLength; i++) {
+        putContact(contacts[i])
+      }
+    }
+
+    if (contactDifference > 0) {
+      for (let i = 0; i < newContactsLength; i++) {
+        putContact(contacts[i])
+      }
+      for (let i = newContactsLength; i < oldContactsLength; i++) {
+        deleteContact(oldContacts[i].id)
+      }
+    }
   }
 
   return (
@@ -66,7 +138,7 @@ const Contact = (props: IContactProps) => {
         </div>
         <button type="button" onClick={() => addcontact()}>Add contact</button>
         <div className="Contact-content__Save">
-          <button type="submit" onClick={() => handleContacts()} disabled={!adminAccess}>Update Database</button>
+          <button type="submit" onClick={() => handleContacts()} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>

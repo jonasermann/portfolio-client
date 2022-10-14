@@ -5,9 +5,12 @@ interface IHomeProps {
 }
 
 interface IAboutProps {
-  aboutParagraphs: { id: number, text: string }[],
-  setAboutParagraphs: Dispatch<SetStateAction<aboutParagraphs>>,
-  homeLinks: { id: number, imgUrl: string, url: string, text: string }[],
+  aboutParagraphs: { id: number, text: string }[]
+  setAboutParagraphs: Dispatch<SetStateAction<aboutParagraphs>>
+}
+
+interface IHomeLinkProps {
+  homeLinks: { id: number, imgUrl: string, url: string, text: string }[]
   setHomeLinks: Dispatch<SetStateAction<homeLinks>>
 }
 
@@ -32,4 +35,5 @@ interface IAppProps {
   projectProps: IProjectProps
   contactProps: IContactProps
   skillProps: ISkillsProps
+  homeLinkProps: IHomeLinkProps
 }

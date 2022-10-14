@@ -33,6 +33,7 @@ function App() {
     fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
       .then(response => response.json())
       .then(result => setHomeLinks(result))
+      
   }, [])
 
   useEffect(() => {
@@ -58,7 +59,11 @@ function App() {
   }
 
   const aboutProps: IAboutProps = {
-    aboutParagraphs, setAboutParagraphs, homeLinks, setHomeLinks
+    aboutParagraphs, setAboutParagraphs
+  }
+
+  const homeLinkProps: IHomeLinkProps = {
+    homeLinks, setHomeLinks
   }
 
   const projectProps: IProjectProps = {
@@ -74,7 +79,7 @@ function App() {
   }
 
   const appProps: IAppProps = {
-    homeProps, aboutProps, projectProps, contactProps, skillProps
+    homeProps, aboutProps, projectProps, contactProps, skillProps, homeLinkProps
   }
 
   const [page, setPage] = useState(<Home />)
@@ -99,7 +104,7 @@ function App() {
             <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
               Projects
             </div>
-            <div className="App-nav__icon" onClick={() => setPage(<Login handlePageFunction={handlePage} App={<App />} />)}>
+            <div className="App-nav__icon" onClick={() => setPage(<Login handlePageFunction={handlePage} />)}>
               CRUD
             </div>
             <div className="App-nav__icon" onClick={() => setPage(<Contact />)}>

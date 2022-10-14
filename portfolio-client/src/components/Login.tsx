@@ -4,13 +4,13 @@ import './Login.css';
 
 interface IAdminProps {
   handlePageFunction: (component: JSX.Element) => void
-  App: JSX.Element
 }
 
 const Login = (props: IAdminProps) => {
 
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('Not Authorized');
+  console.log(token);
 
   const handleLogin = () => {
 
@@ -24,11 +24,11 @@ const Login = (props: IAdminProps) => {
       .then(response => response.text())
       .then(token => setToken(token))
 
-    if (token !== 'Not Authorized') {
-      props.handlePageFunction(<Admin token={token} />)
+    if (token === 'Not Authorized') {
+      setPassword('');
     }
     else {
-      setPassword('');
+      props.handlePageFunction(<Admin token={token} />)
     }
   }
 

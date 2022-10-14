@@ -9,7 +9,7 @@
 
 .Skills-content {
     display: inline-block;
-    padding-left: 4rem;
+    padding-left: 1rem;
 }
 
 @media only screen and (max-width: 480px) {

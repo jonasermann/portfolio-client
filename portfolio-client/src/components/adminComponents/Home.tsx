@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import './Home.css';
-import { AppContext } from '../../App'
+import Skills from './Skills';
+import { AppContext } from '../../App';
 
 interface IHomeProps {
   token: string;
@@ -8,13 +9,21 @@ interface IHomeProps {
 
 const Home = (props: IHomeProps) => {
 
+  const [oldProjects, setOldProjects] = useState([{ id: 1, imgUrl: '', text: '', gitUrl: '' }])
+
+  useEffect(() => {
+    fetch('https://jeportapi.azurewebsites.net/api/projects')
+      .then(response => response.json())
+      .then(result => setOldProjects(result));
+  }, []);
+
+  const adminAccess = props.token !== 'Not Authorized';
   const homeProps = useContext(AppContext).homeProps;
   const homeContent = homeProps.homeContent;
   const setHomeContent = homeProps.setHomeContent;
-  const [homeContentText, setHomeContentText] = useState(homeContent.text)
+
 
   const handleHomeContent = () => {
-    homeContent.text = homeContentText;
     fetch('https://jeportapi.azurewebsites.net/api/home/home-content', {
       method: 'PUT',
       headers: {
@@ -25,21 +34,26 @@ const Home = (props: IHomeProps) => {
   }
 
   return (
-    <div className="Home-content">
-      <form>
-        <div>
-          <textarea
-            className="Home-content__input"
-            value={homeContentText}
-            onChange={e => setHomeContentText(e.target.value)}
-            rows={5}
-            cols={100}
-          />
-        </div>
-        <button className="Home-content--Save"type="button" onClick={() => handleHomeContent() }>
-          Update Database
-        </button>
-      </form>
+    <div>
+      <div className="Home-content">
+        <form>
+          <div className="Home-content__homeContent">
+            <img src={homeContent.profilePicUrl} alt="profile-pic" height="100rem" width="auto" />
+            <input type="text" value={homeContent.profilePicUrl} onChange={(e => setHomeContent({ id: homeContent.id, text: homeContent.text, profilePicUrl: e.target.value }))} />
+            <textarea
+              className="Home-content__input"
+              value={homeContent.text}
+              onChange={e => setHomeContent({ id: homeContent.id, text: e.target.value, profilePicUrl: homeContent.profilePicUrl })}
+              rows={5}
+              cols={100}
+            />
+          </div>
+          <button className="Home-content--Save" type="submit" onClick={() => handleHomeContent()} disabled={!adminAccess}>
+            Update Home
+          </button>
+        </form>
+      </div>
+      <Skills token={props.token} />
     </div>
   )
 }
