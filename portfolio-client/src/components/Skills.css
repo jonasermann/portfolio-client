@@ -7,10 +7,6 @@
     padding-top: 5rem;
 }
 
-.Skills-content:first-child {
-    padding-left: 0;
-}
-
 .Skills-row {
     border-top: 1px solid black;
 }
@@ -23,6 +19,10 @@
 
    .Skills-content {
        display: inline-block;
-       padding-left: 3rem;
+       padding-left: 5rem;
    }
+
+    .Skills-content:first-child {
+        padding-left: 0;
+    }
 }

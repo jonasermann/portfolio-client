@@ -14,7 +14,7 @@ const Skills = () => {
   <div className ="Skills-content">
     {
       types.map(type => (
-        <div className="Skills">
+        <div className="Skills" key={type.name}>
           <h2>{type.name}</h2>
           <div className="Skills-row">
             {type.type.map((content, index) => (
