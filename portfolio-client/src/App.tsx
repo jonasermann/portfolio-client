@@ -1,10 +1,17 @@
 import { useState, useEffect, createContext } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import Navigation from './components/Navigation';
 import Home from './components/Home';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Login from './Login';
+import Authentication from './Authentication';
+import CRUDNavigation from './crudComponents/CRUDNavigation'
+import CRUDHome from './crudComponents/CRUDHome';
+import CRUDAbout from './crudComponents/CRUDAbout';
+import CRUDProjects from './crudComponents/CRUDProjects';
+import CRUDContact from './crudComponents/CRUDContact';
 
 const AppContext = createContext<IAppProps>({} as IAppProps)
 
@@ -16,6 +23,7 @@ function App() {
   const [projects, setProjects] = useState([{ id: 0, title: '', imgUrl: '', text: '', gitUrl: '' }]);
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
   const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
+  const [token, setToken] = useState('Unauthorized');
 
   useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
@@ -33,7 +41,7 @@ function App() {
     fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
       .then(response => response.json())
       .then(result => setHomeLinks(result))
-      
+
   }, [])
 
   useEffect(() => {
@@ -82,9 +90,6 @@ function App() {
     homeProps, aboutProps, projectProps, contactProps, skillProps, homeLinkProps
   }
 
-  const [page, setPage] = useState(<Home />)
-  const handlePage = (component: JSX.Element) => setPage(component);
-
   return (
     <AppContext.Provider value={appProps}>
       <div className="App">
@@ -94,24 +99,23 @@ function App() {
           </p>
         </header>
         <div className="App-content">
-          <nav className="App-nav">
-            <div className="App-nav__icon" onClick={() => setPage(<Home />)}>
-              Home
-            </div>
-            <div className="App-nav__icon" onClick={() => setPage(<About />)}>
-              About
-            </div>
-            <div className="App-nav__icon" onClick={() => setPage(<Projects />)}>
-              Projects
-            </div>
-            <div className="App-nav__icon" onClick={() => setPage(<Login handlePageFunction={handlePage} />)}>
-              CRUD
-            </div>
-            <div className="App-nav__icon" onClick={() => setPage(<Contact />)}>
-              Contact
-            </div>
-          </nav>
-          {page}
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Navigation />}>
+                <Route index element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="projects" element={<Projects />} />
+                <Route path="crud" element={<Authentication token={token} setToken={setToken} />} />
+                <Route path="/crud/changes" element={<CRUDNavigation />} >
+                  <Route path="home" element={<CRUDHome token={token} />} />
+                  <Route path="about" element={<CRUDAbout token={token} />} />
+                  <Route path="projects" element={<CRUDProjects token={token} />} />
+                  <Route path="contact" element={<CRUDContact token={token} />} />
+                </Route>
+                <Route path="contact" element={<Contact />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
         </div>
         <footer className="App-footer">
           <p className="App-footer__text">

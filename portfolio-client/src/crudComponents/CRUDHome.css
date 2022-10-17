@@ -1,15 +1,15 @@
-.Home-content {
+.CRUDHome-content {
     margin-bottom: 3rem;
 }
 
-Home-content__input {
+.CRUDHome-content__input {
     resize: none;
 }
 
-.Home-content--Save {
+.CRUDHome-content--Save {
     margin-top: 3rem;
 }
 
-.Home-content__skill {
+.CRUDHome-content__skill {
     margin-bottom: 3rem;
 }

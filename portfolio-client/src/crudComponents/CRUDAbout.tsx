@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import './About.css';
-import HomeLinks from './HomeLinks';
+import './CRUDAbout.css';
+import CRUDHomeLinks from './CRUDHomeLinks';
 import { AppContext } from '../App';
 
 interface IAboutProps {
@@ -22,7 +22,7 @@ const About = (props: IAboutProps) => {
       .then(result => setOldAboutParagraphs(result));
   }, []);
 
-  const adminAccess = props.token !== 'Not Authorized';
+  const adminAccess = props.token.length > 163;
   const aboutProps = useContext(AppContext).aboutProps;
   const aboutParagraphs = aboutProps.aboutParagraphs;
   const setAboutParagraphs = aboutProps.setAboutParagraphs;
@@ -105,11 +105,11 @@ const About = (props: IAboutProps) => {
 
   return (
     <div>
-      <div className="About-content">
+      <div className="CRUDAbout-content">
         <form>
-          <div className="About-content__aboutParagraphs">
+          <div className="CRUDAbout-content__aboutParagraphs">
             {aboutParagraphs.map((aboutParagraph, paragraphIndex) =>
-              <div className="About-content__aboutParagraph" key={paragraphIndex}>
+              <div className="CRUDAbout-content__aboutParagraph" key={paragraphIndex}>
                 <textarea
                   value={aboutParagraph.text}
                   onChange={e => setAboutParagraphs(aboutParagraphs.map((p, textIndex) => {
@@ -121,17 +121,19 @@ const About = (props: IAboutProps) => {
                   rows={5}
                   cols={100}
                 />
-                <button type="button" onClick={() => deleteParagraph(aboutParagraph.id)}>Delete</button>
+                <div>
+                  <button type="button" onClick={() => deleteParagraph(aboutParagraph.id)}>Delete</button>
+                </div>
               </div>
             )}
             <button type="button" onClick={() => addAboutParagraph()}>Add Paragraph</button>
           </div>
-          <div className="About-content__Save">
+          <div className="CRUDAbout-content__Save">
             <button type="submit" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update About</button>
           </div>
         </form>
       </div>
-      <HomeLinks token={props.token} />
+      <CRUDHomeLinks token={props.token} />
     </div>
   )
 }

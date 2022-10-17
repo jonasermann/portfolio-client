@@ -1,0 +1,30 @@
+.App-nav {
+    width: 95%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.App-nav__icon {
+    padding: 1rem 4%;
+}
+
+.App-nav__icon:hover {
+     background-color: lightgray;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .App-nav__icon {
+        padding: 1rem 2rem;
+    }
+
+    .App-nav__icon:first-child {
+        padding-left: 2rem;
+    }
+
+    .App-nav__icon:last-child {
+        padding-right: 2rem;
+    }
+}
