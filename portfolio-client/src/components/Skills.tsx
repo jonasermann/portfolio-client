@@ -5,9 +5,9 @@ import { AppContext } from '../App';
 const Skills = () => {
 
   const skillProps = useContext(AppContext).skillProps;
-  const backend = skillProps.skills.filter(skill => skill.type == 0);
-  const frontend = skillProps.skills.filter(skill => skill.type == 1);
-  const languages = skillProps.skills.filter(skill => skill.type == 2);
+  const backend = skillProps.skills.filter(skill => skill.type === 0);
+  const frontend = skillProps.skills.filter(skill => skill.type === 1);
+  const languages = skillProps.skills.filter(skill => skill.type === 2);
   const types = [{ name: 'languages', type: languages }, { name: 'backend', type: backend }, { name: 'frontend', type: frontend}];
 
   return (

@@ -8,7 +8,7 @@ import Login from './Login';
 
 const AppContext = createContext<IAppProps>({} as IAppProps)
 
-function App() {
+const App = () => {
 
   const [aboutParagraphs, setAboutParagraphs] = useState([{ id: 0, text: '' }]);
   const [homeLinks, setHomeLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
@@ -124,4 +124,4 @@ function App() {
 }
 
 export default App;
-export { AppContext }
+export { AppContext };
