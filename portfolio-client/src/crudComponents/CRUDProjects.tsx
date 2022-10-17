@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
-import './Projects.css';
-import { AppContext } from '../App'; 
+import './CRUDProjects.css';
+import { AppContext } from '../App';
 
 interface IProjectProps {
   token: string;
@@ -23,7 +23,7 @@ const Projects = (props: IProjectProps) => {
       .then(result => setOldProjects(result));
   }, []);
 
-  const adminAccess = props.token !== 'Not Authorized';
+  const adminAccess = props.token.length > 163;
   const projectProps = useContext(AppContext).projectProps;
   const projects = projectProps.projects;
   const setProjects = projectProps.setProjects;
@@ -105,20 +105,22 @@ const Projects = (props: IProjectProps) => {
   }
 
   return (
-    <div className="Projects-content">
+    <div className="CRUDProjects-content">
       <form>
-        <div className="Projects-content__projects">
+        <div className="CRUDProjects-content__projects">
           {projects.map((project, projectIndex) =>
-            <div className="Projects-content__project" key={projectIndex}>
+            <div className="CRUDProjects-content__project" key={projectIndex}>
               <div key={projectIndex}>
-                <img src={projects[projectIndex].imgUrl} alt="logo" height="50rem" width="auto" />
-                <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                  if (projectIndex === linkIndex) {
-                    p.imgUrl = e.target.value
-                  }
-                  return p;
-                }))}
-                />
+                <img src={projects[projectIndex].imgUrl} alt="logo" height="350rem" width="auto" />
+                <div>
+                  <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
+                    if (projectIndex === linkIndex) {
+                      p.imgUrl = e.target.value
+                    }
+                    return p;
+                  }))}
+                  />
+                </div>
                 <textarea
                   value={project.text}
                   onChange={e => setProjects(projects.map((l, textindex) => {
@@ -130,20 +132,22 @@ const Projects = (props: IProjectProps) => {
                   rows={5}
                   cols={100}
                 />
-                <input type="text" value={projects[projectIndex].gitUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                  if (projectIndex === linkIndex) {
-                    p.gitUrl = e.target.value
-                  }
-                  return p;
-                }))}
-                />
+                <div>
+                  <input type="text" value={projects[projectIndex].gitUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
+                    if (projectIndex === linkIndex) {
+                      p.gitUrl = e.target.value
+                    }
+                    return p;
+                  }))}
+                  />
+                </div>
               </div>
-              <button className="Projects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)}>Delete</button>
+              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)}>Delete</button>
             </div>
           )}
+          <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
-        <button type="button" onClick={() => addProject()}>Add Project</button>
-        <div className="Projects-content__Save">
+        <div className="CRUDProjects-content__Save">
           <button type="submit" onClick={() => handleProjects()} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>

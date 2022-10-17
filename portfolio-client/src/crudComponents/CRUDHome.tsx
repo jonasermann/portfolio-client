@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import './Home.css';
-import Skills from './Skills';
+import './CRUDHome.css';
+import CRUDSkills from './CRUDSkills';
 import { AppContext } from '../App';
 
 interface IHomeProps {
@@ -9,7 +9,7 @@ interface IHomeProps {
 
 const Home = (props: IHomeProps) => {
 
-  const adminAccess = props.token !== 'Not Authorized';
+  const adminAccess = props.token.length > 163;
   const homeProps = useContext(AppContext).homeProps;
   const homeContent = homeProps.homeContent;
   const setHomeContent = homeProps.setHomeContent;
@@ -26,25 +26,25 @@ const Home = (props: IHomeProps) => {
 
   return (
     <div>
-      <div className="Home-content">
+      <div className="CRUDHome-content">
         <form>
-          <div className="Home-content__homeContent">
+          <div className="CRUDHome-content__homeContent">
             <img src={homeContent.profilePicUrl} alt="profile-pic" height="100rem" width="auto" />
             <input type="text" value={homeContent.profilePicUrl} onChange={(e => setHomeContent({ id: homeContent.id, text: homeContent.text, profilePicUrl: e.target.value }))} />
             <textarea
-              className="Home-content__input"
+              className="CRUDHome-content__input"
               value={homeContent.text}
               onChange={e => setHomeContent({ id: homeContent.id, text: e.target.value, profilePicUrl: homeContent.profilePicUrl })}
               rows={5}
               cols={100}
             />
           </div>
-          <button className="Home-content--Save" type="submit" onClick={() => handleHomeContent()} disabled={!adminAccess}>
+          <button className="CRUDHome-content--Save" type="submit" onClick={() => handleHomeContent()} disabled={!adminAccess}>
             Update Home
           </button>
         </form>
       </div>
-      <Skills token={props.token} />
+      <CRUDSkills token={props.token} />
     </div>
   )
 }

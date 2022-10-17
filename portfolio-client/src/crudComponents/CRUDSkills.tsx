@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import './Skills.css';
+import './CRUDSkills.css';
 import { AppContext } from '../App'
 
 interface ISkillsProps {
@@ -23,7 +23,7 @@ const Skills = (props: ISkillsProps) => {
       .then(result => setOldSkills(result));
   }, []);
 
-  const adminAccess = props.token !== 'Unauthorized';
+  const adminAccess = props.token.length > 163;
   const skillProps = useContext(AppContext).skillProps;
   const skills = skillProps.skills;
   const setSkills = skillProps.setSkills;
@@ -107,10 +107,10 @@ const Skills = (props: ISkillsProps) => {
 
   return (
     <form>
-      < div className="Skills-content" >
+      < div className="CRUDSkills-content" >
         {
           skills.map((skill, skillIndex) => (
-            <div className="Skills-content__skill" key={skillIndex}>
+            <div className="CRUDSkills-content__skill" key={skillIndex}>
               <img src={skill.imgUrl} alt="logo" height="auto" width="100rem" />
               <input type="text" value={skills[skillIndex].imgUrl} onChange={e => setSkills(skills.map((s, linkIndex) => {
                 if (skillIndex === linkIndex) {
@@ -133,13 +133,13 @@ const Skills = (props: ISkillsProps) => {
                 return s;
               }))}
               />
-              <button className="Skills-content__skill-delete" type="button" onClick={() => deleteSkill_(skill.id)}>Delete</button>
+              <button className="CRUDSkills-content__skill-delete" type="button" onClick={() => deleteSkill_(skill.id)}>Delete</button>
             </div>
           ))
         }
         < button type="button" onClick={() => addSkill()}> Add Skill</button >
       </div >
-      <button className="Skills-content--Save" type="submit" onClick={() => handleSkills()} disabled={!adminAccess}>
+      <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleSkills()} disabled={!adminAccess}>
         Update Skills
       </button>
     </form>

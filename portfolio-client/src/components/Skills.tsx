@@ -19,7 +19,7 @@ const Skills = () => {
           <div className="Skills-row">
             {type.type.map((content, index) => (
               <div className="Skills-content" key={index}>
-                <img src={content.imgUrl} alt="logo" width="auto" height="100rem" />
+                <img src={content.imgUrl} alt="logo" width="100rem" height="auto" />
                 <p>{content.text}</p>
               </div>
             ))}

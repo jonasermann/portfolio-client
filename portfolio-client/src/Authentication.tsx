@@ -1,16 +1,25 @@
-import { useState, useEffect } from 'react';
-import Admin from './Admin';
-import './Login.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Authentication.css';
 
-interface IAdminProps {
-  handlePageFunction: (component: JSX.Element) => void
+interface IAuthenticationProps {
+  token: string
+  setToken: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Login = (props: IAdminProps) => {
+const Authentication = (props: IAuthenticationProps) => {
 
+  const token = props.token;
+  const setToken = props.setToken;
+  const navigate = useNavigate();
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('Unauthorized');
   const [admin, setAdmin] = useState('Admin')
+
+  const handleNavigation = () => navigate('/crud/changes/home', {
+    state: {
+      token: token,
+    }
+  })
 
   useEffect(() => {
     handleToken()
@@ -22,7 +31,7 @@ const Login = (props: IAdminProps) => {
       setPassword('');
     }
     else {
-      props.handlePageFunction(<Admin token={token} />)
+      handleNavigation()
     }
 
     setAdmin('Admin');
@@ -53,10 +62,10 @@ const Login = (props: IAdminProps) => {
       <div className="Login-content__Buttons">
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>
-        <p onClick={() => props.handlePageFunction(<Admin token={token} />)}>Continue With Preview</p>
+        <p onClick={() => handleNavigation()}>Continue With Preview</p>
       </div>
     </div>
   )
 }
 
-export default Login;
+export default Authentication;

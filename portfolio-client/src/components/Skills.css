@@ -1,25 +1,28 @@
+.Skills {
+    margin: 0 3rem;
+}
 
 .Skills h2 {
-    text-align: left;
-    margin-left: 15%;
-    margin-right: 10%;
+    text-align: center;
     padding-top: 5rem;
-    border-bottom: 1px solid black;
 }
 
-.Skills-content {
-    display: inline-block;
-    padding-left: 1rem;
+.Skills-content:first-child {
+    padding-left: 0;
 }
 
-@media only screen and (max-width: 480px) {
+.Skills-row {
+    border-top: 1px solid black;
+}
+
+
+@media only screen and (min-width: 480px) {
    .Skills h2 {
-       text-align: center;
+       text-align: left;
    }
 
-    .Skills-content {
-        display: inline-block;
-        padding-left: 1rem;
-    }
-
+   .Skills-content {
+       display: inline-block;
+       padding-left: 3rem;
+   }
 }

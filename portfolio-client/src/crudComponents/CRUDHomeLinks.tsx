@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import './HomeLinks.css';
+import './CRUDHomeLinks.css';
 import { AppContext } from '../App';
 
 interface IHomeLinkProps {
@@ -23,7 +23,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
       .then(result => setOldHomeLinks(result));
   }, []);
 
-  const adminAccess = props.token !== 'Not Authorized';
+  const adminAccess = props.token.length > 163;
   const homeLinkProps = useContext(AppContext).homeLinkProps;
   const homeLinks = homeLinkProps.homeLinks;
   const setHomeLinks = homeLinkProps.setHomeLinks;
@@ -105,9 +105,9 @@ const HomeLinks = (props: IHomeLinkProps) => {
   }
 
   return (
-    <div className="HomeLinks-content">
+    <div className="CRUDHomeLinks-content">
       {homeLinks.map((homeLink, homeIndex) =>
-        <div className="HomeLinks-content__homeLink" key={homeIndex}>
+        <div className="CRUDHomeLinks-content__homeLink" key={homeIndex}>
           <div key={homeIndex}>
             <img src={homeLinks[homeIndex].imgUrl} alt="logo" height="50rem" width="auto" />
             <input type="text" value={homeLinks[homeIndex].imgUrl} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
@@ -128,19 +128,21 @@ const HomeLinks = (props: IHomeLinkProps) => {
               rows={2}
               cols={100}
             />
-            <input type="text" value={homeLinks[homeIndex].url} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
-              if (homeIndex === linkIndex) {
-                l.url = e.target.value
-              }
-              return l;
-            }))}
-            />
+            <div>
+              <input type="text" value={homeLinks[homeIndex].url} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
+                if (homeIndex === linkIndex) {
+                  l.url = e.target.value
+                }
+                return l;
+              }))}
+              />
+            </div>
           </div>
-          <button className="HomeLinks-content__homeLink-delete" type="button" onClick={() => deleteLink(homeLink.id)}>Delete</button>
+          <button className="CRUDHomeLinks-content__homeLink-delete" type="button" onClick={() => deleteLink(homeLink.id)}>Delete</button>
         </div>
       )}
       <button type="button" onClick={() => addHomeLinks()}>Add Icon Description</button>
-      <div className="Skill-content__Save">
+      <div className="CRUDHomeLinks-content__Save">
         <button type="submit" onClick={() => handleHomeLinks()} disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
