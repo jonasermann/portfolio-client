@@ -108,7 +108,7 @@ const Contact = (props: IContactProps) => {
       <form>
         <div className="Contact-content__contacts">
           {contacts.map((contact, contactIndex) =>
-            <div className="Contact-content__contact">
+            <div className="Contact-content__contact" key={contactIndex}>
               <div key={contactIndex}>
                 <img src={contacts[contactIndex].imgUrl} alt="logo" height="50rem" width="auto" />
                 <input type="text" value={contacts[contactIndex].imgUrl} onChange={e => setContacts(contacts.map((p, linkIndex) => {

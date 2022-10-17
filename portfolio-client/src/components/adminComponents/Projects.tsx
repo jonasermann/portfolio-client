@@ -42,7 +42,7 @@ const Projects = (props: IProjectProps) => {
     )
   }
 
-  const postProject = (text: string, imgUrl: string) => {
+  const postProject = (text: string, imgUrl: string, gitUrl: string) => {
     fetch('https://jeportapi.azurewebsites.net/api/projects', {
       method: 'POST',
       headers: {
@@ -84,7 +84,7 @@ const Projects = (props: IProjectProps) => {
         putProject(projects[i])
       }
       for (let i = oldProjectsLength; i < newProjectsLength; i++) {
-        postProject(projects[i].text, projects[i].imgUrl)
+        postProject(projects[i].text, projects[i].imgUrl, projects[i].gitUrl)
       }
     }
 
@@ -109,7 +109,7 @@ const Projects = (props: IProjectProps) => {
       <form>
         <div className="Projects-content__projects">
           {projects.map((project, projectIndex) =>
-            <div className="Projects-content__project">
+            <div className="Projects-content__project" key={projectIndex}>
               <div key={projectIndex}>
                 <img src={projects[projectIndex].imgUrl} alt="logo" height="50rem" width="auto" />
                 <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {

@@ -23,7 +23,7 @@ const Skills = (props: ISkillsProps) => {
       .then(result => setOldSkills(result));
   }, []);
 
-  const adminAccess = props.token !== 'Not Authorized';
+  const adminAccess = props.token !== 'Unauthorized';
   const skillProps = useContext(AppContext).skillProps;
   const skills = skillProps.skills;
   const setSkills = skillProps.setSkills;
@@ -110,9 +110,8 @@ const Skills = (props: ISkillsProps) => {
       < div className="Skills-content" >
         {
           skills.map((skill, skillIndex) => (
-
-            <div className="Skills-content__skill">
-              <img src={skill.imgUrl} height="auto" width="100rem" />
+            <div className="Skills-content__skill" key={skillIndex}>
+              <img src={skill.imgUrl} alt="logo" height="auto" width="100rem" />
               <input type="text" value={skills[skillIndex].imgUrl} onChange={e => setSkills(skills.map((s, linkIndex) => {
                 if (skillIndex === linkIndex) {
                   s.imgUrl = e.target.value

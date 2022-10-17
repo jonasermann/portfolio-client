@@ -107,7 +107,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   return (
     <div className="HomeLinks-content">
       {homeLinks.map((homeLink, homeIndex) =>
-        <div className="HomeLinks-content__homeLink">
+        <div className="HomeLinks-content__homeLink" key={homeIndex}>
           <div key={homeIndex}>
             <img src={homeLinks[homeIndex].imgUrl} alt="logo" height="50rem" width="auto" />
             <input type="text" value={homeLinks[homeIndex].imgUrl} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {

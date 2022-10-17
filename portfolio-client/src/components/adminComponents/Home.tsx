@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import './Home.css';
 import Skills from './Skills';
 import { AppContext } from '../../App';
@@ -9,19 +9,10 @@ interface IHomeProps {
 
 const Home = (props: IHomeProps) => {
 
-  const [oldProjects, setOldProjects] = useState([{ id: 1, imgUrl: '', text: '', gitUrl: '' }])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects')
-      .then(response => response.json())
-      .then(result => setOldProjects(result));
-  }, []);
-
   const adminAccess = props.token !== 'Not Authorized';
   const homeProps = useContext(AppContext).homeProps;
   const homeContent = homeProps.homeContent;
   const setHomeContent = homeProps.setHomeContent;
-
 
   const handleHomeContent = () => {
     fetch('https://jeportapi.azurewebsites.net/api/home/home-content', {
