@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import './Projects.css';
-import { AppContext } from '../../App'; 
+import { AppContext } from '../App'; 
 
 interface IProjectProps {
   token: string;

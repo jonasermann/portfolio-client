@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import './Contact.css';
-import { AppContext } from '../../App';
+import { AppContext } from '../App';
 
 interface IContactProps {
   token: string;

@@ -4,7 +4,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Login from './components/Login';
+import Login from './Login';
 
 const AppContext = createContext<IAppProps>({} as IAppProps)
 

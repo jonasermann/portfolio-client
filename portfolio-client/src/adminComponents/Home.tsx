@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import './Home.css';
 import Skills from './Skills';
-import { AppContext } from '../../App';
+import { AppContext } from '../App';
 
 interface IHomeProps {
   token: string;

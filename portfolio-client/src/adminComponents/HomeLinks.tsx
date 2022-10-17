@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import './HomeLinks.css';
-import { AppContext } from '../../App';
+import { AppContext } from '../App';
 
 interface IHomeLinkProps {
   token: string;

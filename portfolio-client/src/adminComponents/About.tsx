@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import './About.css';
 import HomeLinks from './HomeLinks';
-import { AppContext } from '../../App';
+import { AppContext } from '../App';
 
 interface IAboutProps {
   token: string;
