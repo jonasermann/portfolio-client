@@ -18,7 +18,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   const [oldHomeLinks, setOldHomeLinks] = useState([{ id: 1, imgUrl: '', text: '', url: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink')
+    fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
       .then(response => response.json())
       .then(result => setOldHomeLinks(result));
   }, []);
@@ -43,7 +43,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   }
 
   const postHomeLink = (text: string, imgUrl: string, url: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink', {
+    fetch('https://jeportapi.azurewebsites.net/api/home/home-links', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   }
 
   const putHomeLink = (project: IHomeLink) => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink', {
+    fetch('https://jeportapi.azurewebsites.net/api/home/home-links', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   }
 
   const deleteHomeLink = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/homeLink/${id}`, {
+    fetch(`https://jeportapi.azurewebsites.net/api/home/home-links/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${props.token}`
@@ -143,7 +143,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
       )}
       <button type="button" onClick={() => addHomeLinks()}>Add Icon Description</button>
       <div className="CRUDHomeLinks-content__Save">
-        <button type="submit" onClick={() => handleHomeLinks()} disabled={!adminAccess}>Update Links</button>
+        <button type="button" onClick={() => handleHomeLinks()} disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
   )

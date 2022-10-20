@@ -17,7 +17,7 @@ const About = (props: IAboutProps) => {
   const [oldAboutParagraphs, setOldAboutParagraphs] = useState([{ id: 1, text: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/aboutParagraphs')
+    fetch('http://localhost:5133/api/About')
       .then(response => response.json())
       .then(result => setOldAboutParagraphs(result));
   }, []);
@@ -129,7 +129,7 @@ const About = (props: IAboutProps) => {
             <button type="button" onClick={() => addAboutParagraph()}>Add Paragraph</button>
           </div>
           <div className="CRUDAbout-content__Save">
-            <button type="submit" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update About</button>
+            <button type="button" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update About</button>
           </div>
         </form>
       </div>

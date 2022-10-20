@@ -15,7 +15,7 @@ interface IProject {
 
 const Projects = (props: IProjectProps) => {
 
-  const [oldProjects, setOldProjects] = useState([{ id: 1, imgUrl: '', text: '', gitUrl: '' }])
+  const [oldProjects, setOldProjects] = useState([{ id: 1, title: '', imgUrl: '', text: '', gitUrl: '' }])
 
   useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/projects')
@@ -31,7 +31,7 @@ const Projects = (props: IProjectProps) => {
   const addProject = () => {
     const arrayLength = projects.length;
     const id = projects.sort(project => project.id)[arrayLength - 1].id + 1;
-    setProjects([...projects, { id: id, imgUrl: '', text: '', url: '' }])
+    setProjects([...projects, { id: id, title: '', imgUrl: '', text: '', url: '' }])
   }
 
   const deleteProject_ = (id: number) => {
@@ -42,14 +42,14 @@ const Projects = (props: IProjectProps) => {
     )
   }
 
-  const postProject = (text: string, imgUrl: string, gitUrl: string) => {
+  const postProject = (title: string, imgUrl: string, text: string, gitUrl: string) => {
     fetch('https://jeportapi.azurewebsites.net/api/projects', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${props.token}`
       },
-      body: JSON.stringify({ text, imgUrl })
+      body: JSON.stringify({ title, imgUrl, text, gitUrl })
     })
   }
 
@@ -84,7 +84,7 @@ const Projects = (props: IProjectProps) => {
         putProject(projects[i])
       }
       for (let i = oldProjectsLength; i < newProjectsLength; i++) {
-        postProject(projects[i].text, projects[i].imgUrl, projects[i].gitUrl)
+        postProject(projects[i].title, projects[i].imgUrl, projects[i].text, projects[i].gitUrl)
       }
     }
 
@@ -111,6 +111,15 @@ const Projects = (props: IProjectProps) => {
           {projects.map((project, projectIndex) =>
             <div className="CRUDProjects-content__project" key={projectIndex}>
               <div key={projectIndex}>
+                <div>
+                  <input type="text" value={projects[projectIndex].title} onChange={e => setProjects(projects.map((p, linkIndex) => {
+                    if (projectIndex === linkIndex) {
+                      p.title = e.target.value
+                    }
+                    return p;
+                  }))}
+                  />
+                </div>
                 <img src={projects[projectIndex].imgUrl} alt="logo" height="350rem" width="auto" />
                 <div>
                   <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
@@ -148,7 +157,7 @@ const Projects = (props: IProjectProps) => {
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
         <div className="CRUDProjects-content__Save">
-          <button type="submit" onClick={() => handleProjects()} disabled={!adminAccess}>Update Projects</button>
+          <button type="button" onClick={() => handleProjects()} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>
     </div>

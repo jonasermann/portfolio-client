@@ -139,7 +139,7 @@ const Skills = (props: ISkillsProps) => {
         }
         < button type="button" onClick={() => addSkill()}> Add Skill</button >
       </div >
-      <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleSkills()} disabled={!adminAccess}>
+      <button className="CRUDSkills-content--Save" type="button" onClick={() => handleSkills()} disabled={!adminAccess}>
         Update Skills
       </button>
     </form>

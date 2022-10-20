@@ -39,7 +39,7 @@ const Home = (props: IHomeProps) => {
               cols={100}
             />
           </div>
-          <button className="CRUDHome-content--Save" type="submit" onClick={() => handleHomeContent()} disabled={!adminAccess}>
+          <button className="CRUDHome-content--Save" type="button" onClick={() => handleHomeContent()} disabled={!adminAccess}>
             Update Home
           </button>
         </form>

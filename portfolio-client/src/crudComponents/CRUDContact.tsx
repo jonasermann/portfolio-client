@@ -138,7 +138,7 @@ const Contact = (props: IContactProps) => {
         </div>
         <button type="button" onClick={() => addcontact()}>Add contact</button>
         <div className="CRUDContact-content__Save">
-          <button type="submit" onClick={() => handleContacts()} disabled={!adminAccess}>Update Contacts</button>
+          <button type="button" onClick={() => handleContacts()} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>
