@@ -18,7 +18,7 @@ const HomeLinks = (props: IHomeLinkProps) => {
   const [oldHomeLinks, setOldHomeLinks] = useState([{ id: 1, imgUrl: '', text: '', url: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink')
+    fetch('https://jeportapi.azurewebsites.net/api/mediaLinks')
       .then(response => response.json())
       .then(result => setOldHomeLinks(result));
   }, []);

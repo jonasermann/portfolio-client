@@ -17,61 +17,50 @@ const AppContext = createContext<IAppProps>({} as IAppProps)
 
 function App() {
 
-  const [aboutParagraphs, setAboutParagraphs] = useState([{ id: 0, text: '' }]);
-  const [homeLinks, setHomeLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
-  const [homeContent, setHomeContent] = useState({ id: 0, profilePicUrl: '', text: '' });
+  const [backgroundParagraphs, setBackgroundParagraphs] = useState([{ id: 0, text: '' }]);
+  const [mediaLinks, setMediaLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
+  const [introduction, setIntroduction] = useState({ id: 0, profilePicUrl: '', text: '' });
   const [projects, setProjects] = useState([{ id: 0, title: '', imgUrl: '', text: '', gitUrl: '' }]);
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
   const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
   const [token, setToken] = useState('Unauthorized');
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
+    fetch('https://jeportapi.azurewebsites.net/api/introduction')
       .then(response => response.json())
-      .then(result => setHomeContent(result))
-  }, [])
+      .then(result => setIntroduction(result));
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/about/')
+    fetch('https://jeportapi.azurewebsites.net/api/backgroundParagraphs')
       .then(response => response.json())
-      .then(result => setAboutParagraphs(result))
-  }, [])
+      .then(result => setBackgroundParagraphs(result));
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
+    fetch('https://jeportapi.azurewebsites.net/api/mediaLinks')
       .then(response => response.json())
-      .then(result => setHomeLinks(result))
+      .then(result => setMediaLinks(result));
 
-  }, [])
-
-  useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/projects/')
       .then(response => response.json())
-      .then(result => setProjects(result))
-  }, [])
+      .then(result => setProjects(result));
 
-  useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/contacts')
       .then(response => response.json())
       .then(result => setContacts(result));
-  }, []);
 
-  useEffect(() => {
     fetch('https://jeportapi.azurewebsites.net/api/skills')
       .then(response => response.json())
-      .then(result => setSkills(result))
+      .then(result => setSkills(result));
   }, []);
 
   const homeProps: IHomeProps = {
-    homeContent, setHomeContent
+    introduction, setIntroduction
   }
 
   const aboutProps: IAboutProps = {
-    aboutParagraphs, setAboutParagraphs
+    backgroundParagraphs, setBackgroundParagraphs
   }
 
-  const homeLinkProps: IHomeLinkProps = {
-    homeLinks, setHomeLinks
+  const mediaLinkProps: IMediaLinkProps = {
+    mediaLinks, setMediaLinks
   }
 
   const projectProps: IProjectProps = {
@@ -87,7 +76,7 @@ function App() {
   }
 
   const appProps: IAppProps = {
-    homeProps, aboutProps, projectProps, contactProps, skillProps, homeLinkProps
+    homeProps, aboutProps, projectProps, contactProps, skillProps, mediaLinkProps
   }
 
   return (

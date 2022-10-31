@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import './CRUDSkills.css';
-import { AppContext } from '../App'
+import { AppContext } from '../App';
+import { handleChanges } from '../libraries/crudLibrary';
 
 interface ISkillsProps {
   token: string;
@@ -28,6 +29,8 @@ const Skills = (props: ISkillsProps) => {
   const skills = skillProps.skills;
   const setSkills = skillProps.setSkills;
 
+
+
   const addSkill = () => {
     const arrayLength = skills.length;
     const id = skills.sort(skill => skill.id)[arrayLength - 1].id + 1;
@@ -42,67 +45,6 @@ const Skills = (props: ISkillsProps) => {
     )
   }
 
-  const postSkill = (text: string, imgUrl: string, type: number) => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text, imgUrl })
-    })
-  }
-
-  const putSkill = (skill: ISkill) => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(skill)
-    })
-  }
-
-  const deleteSkill = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/skills/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleSkills = () => {
-
-    const oldSkillsLength = oldSkills.length;
-    const newSkillsLength = skills.length;
-    const skillDifference = oldSkillsLength - newSkillsLength;
-
-    if (skillDifference < 0) {
-      for (let i = 0; i < oldSkillsLength; i++) {
-        putSkill(skills[i])
-      }
-      for (let i = oldSkillsLength; i < newSkillsLength; i++) {
-        postSkill(skills[i].text, skills[i].imgUrl, skills[i].type)
-      }
-    }
-
-    if (skillDifference === 0) {
-      for (let i = 0; i < oldSkillsLength; i++) {
-        putSkill(skills[i])
-      }
-    }
-
-    if (skillDifference > 0) {
-      for (let i = 0; i < newSkillsLength; i++) {
-        putSkill(skills[i])
-      }
-      for (let i = newSkillsLength; i < oldSkillsLength; i++) {
-        deleteSkill(oldSkills[i].id)
-      }
-    }
-  }
 
 
   return (
@@ -139,10 +81,12 @@ const Skills = (props: ISkillsProps) => {
         }
         < button type="button" onClick={() => addSkill()}> Add Skill</button >
       </div >
-      <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleSkills()} disabled={!adminAccess}>
-        Update Skills
-      </button>
-    </form>
+      <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleChanges<ISkill>(
+        skills, oldSkills, skills.length, oldSkills.length, 'http://localhost:3000/api/skills', props.token
+      )} disabled={!adminAccess}>
+      Update Skills
+    </button>
+    </form >
   )
 }
 

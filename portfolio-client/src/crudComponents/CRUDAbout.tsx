@@ -1,33 +1,33 @@
 import { useState, useEffect, useContext } from 'react';
 import './CRUDAbout.css';
-import CRUDHomeLinks from './CRUDHomeLinks';
+import CRUDMediaLinks from './CRUDMediaLinks';
 import { AppContext } from '../App';
 
 interface IAboutProps {
   token: string;
 }
 
-interface IAboutParagraph {
+interface IbackgroundParagraph {
   id: number,
   text: string
 };
 
 const About = (props: IAboutProps) => {
 
-  const [oldAboutParagraphs, setOldAboutParagraphs] = useState([{ id: 1, text: '' }])
+  const [oldBackgroundParagraphs, setOldBackgroundParagraphs] = useState([{ id: 1, text: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/aboutParagraphs')
+    fetch('https://jeportapi.azurewebsites.net/api/backgroundParagraphs')
       .then(response => response.json())
-      .then(result => setOldAboutParagraphs(result));
+      .then(result => setOldBackgroundParagraphs(result));
   }, []);
 
   const adminAccess = props.token.length > 163;
   const aboutProps = useContext(AppContext).aboutProps;
-  const aboutParagraphs = aboutProps.aboutParagraphs;
-  const setAboutParagraphs = aboutProps.setAboutParagraphs;
+  const backgroundParagraphs = aboutProps.backgroundParagraphs;
+  const setbackgroundParagraphs = aboutProps.setBackgroundParagraphs;
 
-  const postAboutParagraph = (text: string) => {
+  const postBackgroundParagraph = (text: string) => {
     fetch('https://jeportapi.azurewebsites.net/api/About', {
       method: 'POST',
       headers: {
@@ -38,18 +38,18 @@ const About = (props: IAboutProps) => {
     })
   }
 
-  const putAboutParagraph = (aboutParagraph: IAboutParagraph) => {
+  const putBackgroundParagraph = (backgroundParagraph: IbackgroundParagraph) => {
     fetch('https://jeportapi.azurewebsites.net/api/About', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${props.token}`
       },
-      body: JSON.stringify(aboutParagraph)
+      body: JSON.stringify(backgroundParagraph)
     })
   }
 
-  const deleteAboutParagraph = (id: number) => {
+  const deleteBackgroundParagraph = (id: number) => {
     fetch(`https://jeportapi.azurewebsites.net/api/About/${id}`, {
       method: 'DELETE',
       headers: {
@@ -58,47 +58,47 @@ const About = (props: IAboutProps) => {
     })
   }
 
-  const addAboutParagraph = () => {
-    const arrayLength = aboutParagraphs.length;
-    const id = aboutParagraphs.sort(aboutParagraph => aboutParagraph.id)[arrayLength - 1].id + 1;
-    setAboutParagraphs([...aboutParagraphs, { id: id, text: '' }])
+  const addBackgroundParagraph = () => {
+    const arrayLength = backgroundParagraphs.length;
+    const id = backgroundParagraphs.sort(backgroundParagraph => backgroundParagraph.id)[arrayLength - 1].id + 1;
+    setbackgroundParagraphs([...backgroundParagraphs, { id: id, text: '' }])
   }
 
   const deleteParagraph = (id: number) => {
-    setAboutParagraphs(
-      aboutParagraphs.filter(aboutParagraph =>
-        aboutParagraph.id !== id
+    setbackgroundParagraphs(
+      backgroundParagraphs.filter(backgroundParagraph =>
+        backgroundParagraph.id !== id
       )
     )
   }
 
-  const handleAboutParagraphs = () => {
+  const handleBackgroundParagraphs = () => {
 
-    const oldAboutParagraphsLength = oldAboutParagraphs.length;
-    const newAboutParagraphsLength = aboutParagraphs.length;
-    const aboutParagraphDifference = oldAboutParagraphsLength - newAboutParagraphsLength;
+    const oldBackgroundParagraphsLength = oldBackgroundParagraphs.length;
+    const newBackgroundParagraphsLength = backgroundParagraphs.length;
+    const backgroundParagraphDifference = oldBackgroundParagraphsLength - newBackgroundParagraphsLength;
 
-    if (aboutParagraphDifference < 0) {
-      for (let i = 0; i < oldAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
+    if (backgroundParagraphDifference < 0) {
+      for (let i = 0; i < oldBackgroundParagraphsLength; i++) {
+        putBackgroundParagraph(backgroundParagraphs[i])
       }
-      for (let i = oldAboutParagraphsLength; i < newAboutParagraphsLength; i++) {
-        postAboutParagraph(aboutParagraphs[i].text)
-      }
-    }
-
-    if (aboutParagraphDifference === 0) {
-      for (let i = 0; i < oldAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
+      for (let i = oldBackgroundParagraphsLength; i < newBackgroundParagraphsLength; i++) {
+        postBackgroundParagraph(backgroundParagraphs[i].text)
       }
     }
 
-    if (aboutParagraphDifference > 0) {
-      for (let i = 0; i < newAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
+    if (backgroundParagraphDifference === 0) {
+      for (let i = 0; i < oldBackgroundParagraphsLength; i++) {
+        putBackgroundParagraph(backgroundParagraphs[i])
       }
-      for (let i = newAboutParagraphsLength; i < oldAboutParagraphsLength; i++) {
-        deleteAboutParagraph(oldAboutParagraphs[i].id)
+    }
+
+    if (backgroundParagraphDifference > 0) {
+      for (let i = 0; i < newBackgroundParagraphsLength; i++) {
+        putBackgroundParagraph(backgroundParagraphs[i])
+      }
+      for (let i = newBackgroundParagraphsLength; i < oldBackgroundParagraphsLength; i++) {
+        deleteBackgroundParagraph(oldBackgroundParagraphs[i].id)
       }
     }
   }
@@ -107,12 +107,12 @@ const About = (props: IAboutProps) => {
     <div>
       <div className="CRUDAbout-content">
         <form>
-          <div className="CRUDAbout-content__aboutParagraphs">
-            {aboutParagraphs.map((aboutParagraph, paragraphIndex) =>
-              <div className="CRUDAbout-content__aboutParagraph" key={paragraphIndex}>
+          <div className="CRUDAbout-content__backgroundParagraphs">
+            {backgroundParagraphs.map((backgroundParagraph, paragraphIndex) =>
+              <div className="CRUDAbout-content__backgroundParagraph" key={paragraphIndex}>
                 <textarea
-                  value={aboutParagraph.text}
-                  onChange={e => setAboutParagraphs(aboutParagraphs.map((p, textIndex) => {
+                  value={backgroundParagraph.text}
+                  onChange={e => setbackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
                     if (paragraphIndex === textIndex) {
                       p.text = e.target.value;
                     }
@@ -122,18 +122,18 @@ const About = (props: IAboutProps) => {
                   cols={100}
                 />
                 <div>
-                  <button type="button" onClick={() => deleteParagraph(aboutParagraph.id)}>Delete</button>
+                  <button type="button" onClick={() => deleteParagraph(backgroundParagraph.id)}>Delete</button>
                 </div>
               </div>
             )}
-            <button type="button" onClick={() => addAboutParagraph()}>Add Paragraph</button>
+            <button type="button" onClick={() => addBackgroundParagraph()}>Add Paragraph</button>
           </div>
           <div className="CRUDAbout-content__Save">
-            <button type="submit" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update About</button>
+            <button type="submit" onClick={() => handleBackgroundParagraphs()} disabled={!adminAccess}>Update About</button>
           </div>
         </form>
       </div>
-      <CRUDHomeLinks token={props.token} />
+      <CRUDMediaLinks token={props.token} />
     </div>
   )
 }

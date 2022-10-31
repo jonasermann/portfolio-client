@@ -1,17 +1,16 @@
-
 interface IHomeProps {
-  homeContent: { id: number, profilePicUrl: string, text: string }
-  setHomeContent: Dispatch<SetStateAction<homeContent>>
+  introduction: { id: number, profilePicUrl: string, text: string }
+  setIntroduction: Dispatch<SetStateAction<introduction>>
 }
 
 interface IAboutProps {
-  aboutParagraphs: { id: number, text: string }[]
-  setAboutParagraphs: Dispatch<SetStateAction<aboutParagraphs>>
+  backgroundParagraphs: { id: number, text: string }[]
+  setBackgroundParagraphs: Dispatch<SetStateAction<backgroundParagraphs>>
 }
 
-interface IHomeLinkProps {
-  homeLinks: { id: number, imgUrl: string, url: string, text: string }[]
-  setHomeLinks: Dispatch<SetStateAction<homeLinks>>
+interface IMediaLinkProps {
+  mediaLinks: { id: number, imgUrl: string, url: string, text: string }[]
+  setMediaLinks: Dispatch<SetStateAction<mediaLinks>>
 }
 
 interface IProjectProps {
@@ -35,5 +34,5 @@ interface IAppProps {
   projectProps: IProjectProps
   contactProps: IContactProps
   skillProps: ISkillsProps
-  homeLinkProps: IHomeLinkProps
+  mediaLinkProps: IMediaLinkProps
 }
