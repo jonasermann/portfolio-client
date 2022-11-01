@@ -35,4 +35,5 @@ interface IAppProps {
   contactProps: IContactProps
   skillProps: ISkillsProps
   mediaLinkProps: IMediaLinkProps
+  rootUrl: string
 }

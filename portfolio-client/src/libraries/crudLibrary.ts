@@ -30,7 +30,7 @@ function remove(id: number, url: string, token: string) {
 }
 
 
-function handleChanges<T>(
+async function handleChanges<T>(
   objects: T[],
   oldObjects: T[],
   oldObjectsIds: number[],
@@ -73,4 +73,10 @@ function handleChanges<T>(
   }
 }
 
-export { handleChanges };
+async function fetchOldData(url: string) {
+  const response = await fetch(url);
+  if (!response.ok) { console.log(response.status) };
+  return response.json() as unknown;
+}
+
+export { handleChanges, fetchOldData };

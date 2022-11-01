@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import './CRUDMediaLinks.css';
 import { AppContext } from '../App';
-import { handleChanges } from '../libraries/crudLibrary';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IMediaLinkProps {
   token: string;
@@ -16,26 +16,28 @@ interface IMediaLink {
 
 const MediaLinks = (props: IMediaLinkProps) => {
 
-  const [oldmediaLinks, setOldmediaLinks] = useState([{ id: 1, imgUrl: '', text: '', url: '' }])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/mediaLinks')
-      .then(response => response.json())
-      .then(result => setOldmediaLinks(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const mediaLinkProps = useContext(AppContext).mediaLinkProps;
+  const appProps = useContext(AppContext);
+  const rootUrl = appProps.rootUrl;
+  const mediaLinkProps = appProps.mediaLinkProps;
   const mediaLinks = mediaLinkProps.mediaLinks;
   const setmediaLinks = mediaLinkProps.setMediaLinks;
 
-  const addmediaLinks = () => {
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/medialinks`;
+    const oldMediaLinks = await fetchOldData(url) as IMediaLink[];
+    handleChanges<IMediaLink>(
+      mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, props.token
+    )
+  }
+
+  const addMediaLinks = () => {
     const arrayLength = mediaLinks.length;
     const id = mediaLinks.sort(mediaLink => mediaLink.id)[arrayLength - 1].id + 1;
     setmediaLinks([...mediaLinks, { id: id, imgUrl: '', text: '', url: '' }])
   }
 
-  const deleteLink = (id: number) => {
+  const deleteMediaLink = (id: number) => {
     setmediaLinks(
       mediaLinks.filter(mediaLink =>
         mediaLink.id !== id
@@ -77,14 +79,12 @@ const MediaLinks = (props: IMediaLinkProps) => {
               />
             </div>
           </div>
-          <button className="CRUDmediaLinks-content__mediaLink-delete" type="button" onClick={() => deleteLink(mediaLink.id)}>Delete</button>
+          <button className="CRUDmediaLinks-content__mediaLink-delete" type="button" onClick={() => deleteMediaLink(mediaLink.id)}>Delete</button>
         </div>
       )}
-      <button type="button" onClick={() => addmediaLinks()}>Add Icon Description</button>
+      <button type="button" onClick={() => addMediaLinks()}>Add Icon Description</button>
       <div className="CRUDmediaLinks-content__Save">
-        <button type="submit" onClick={() => handleChanges<IMediaLink>(
-          mediaLinks, oldmediaLinks, oldmediaLinks.map(o => o.id), 'http://localhost:5133/api/mediaLinks', props.token
-        )} disabled={!adminAccess}>Update Links</button>
+        <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
   )

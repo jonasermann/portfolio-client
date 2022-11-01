@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import './CRUDProjects.css';
 import { AppContext } from '../App';
-import { handleChanges } from '../libraries/crudLibrary';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IProjectProps {
   token: string;
@@ -16,18 +16,20 @@ interface IProject {
 
 const Projects = (props: IProjectProps) => {
 
-  const [oldProjects, setOldProjects] = useState([{ id: 1, imgUrl: '', text: '', gitUrl: '' }])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/projects')
-      .then(response => response.json())
-      .then(result => setOldProjects(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const projectProps = useContext(AppContext).projectProps;
+  const appProps = useContext(AppContext);
+  const rootUrl = appProps.rootUrl;
+  const projectProps = appProps.projectProps;
   const projects = projectProps.projects;
   const setProjects = projectProps.setProjects;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/projects`;
+    const oldProjects = await fetchOldData(url) as IProject[];
+    handleChanges<IProject>(
+      projects, oldProjects, oldProjects.map(p => p.id), url, props.token
+    )
+  }
 
   const addProject = () => {
     const arrayLength = projects.length;
@@ -87,9 +89,7 @@ const Projects = (props: IProjectProps) => {
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
         <div className="CRUDProjects-content__Save">
-          <button type="submit" onClick={() => handleChanges<IProject>(
-            projects, oldProjects, oldProjects.map(o => o.id), 'http://localhost:5133/api/paragraphs', props.token
-          )} disabled={!adminAccess}>Update Projects</button>
+          <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>
     </div>

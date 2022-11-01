@@ -62,7 +62,7 @@ const Authentication = (props: IAuthenticationProps) => {
       <div className="Login-content__Buttons">
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>
-        <p onClick={() => handleNavigation()}>Continue With Preview</p>
+        <p className="Login-content__Text" onClick={() => handleNavigation()}>Continue With Preview</p>
       </div>
     </div>
   )

@@ -24,29 +24,30 @@ function App() {
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
   const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
   const [token, setToken] = useState('Unauthorized');
+  const rootUrl: string = 'http://localhost:5133';
 
   useEffect(() => {
-    fetch('http://localhost:5133/api/introduction')
+    fetch(`${rootUrl}/api/introduction`)
       .then(response => response.json())
       .then(result => setIntroduction(result));
 
-    fetch('http://localhost:5133/api/backgroundparagraphs')
+    fetch(`${rootUrl}/api/backgroundparagraphs`)
       .then(response => response.json())
       .then(result => setBackgroundParagraphs(result));
 
-    fetch('http://localhost:5133/api/medialinks')
+    fetch(`${rootUrl}/api/medialinks`)
       .then(response => response.json())
       .then(result => setMediaLinks(result));
 
-    fetch('http://localhost:5133/api/projects/')
+    fetch(`${rootUrl}/api/projects`)
       .then(response => response.json())
       .then(result => setProjects(result));
 
-    fetch('http://localhost:5133/api/contacts')
+    fetch(`${rootUrl}/api/contacts`)
       .then(response => response.json())
       .then(result => setContacts(result));
 
-    fetch('http://localhost:5133/api/skills')
+    fetch(`${rootUrl}/api/skills`)
       .then(response => response.json())
       .then(result => setSkills(result));
   }, []);
@@ -76,7 +77,7 @@ function App() {
   }
 
   const appProps: IAppProps = {
-    homeProps, aboutProps, projectProps, contactProps, skillProps, mediaLinkProps
+    homeProps, aboutProps, projectProps, contactProps, skillProps, mediaLinkProps, rootUrl
   }
 
   return (

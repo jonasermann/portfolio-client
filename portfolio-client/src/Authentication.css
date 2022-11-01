@@ -6,3 +6,7 @@
 .Login-content__Description {
     margin: 3rem;
 }
+
+.Login-content__Text {
+    cursor: pointer;
+}

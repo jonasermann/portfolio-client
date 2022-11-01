@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import './CRUDContact.css';
 import { AppContext } from '../App';
-import { handleChanges } from '../libraries/crudLibrary';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IContactProps {
   token: string;
@@ -15,18 +15,20 @@ interface IContact {
 
 const Contact = (props: IContactProps) => {
 
-  const [oldContacts, setOldContacts] = useState([{id: 1, text: '', imgUrl: ''}])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/contacts')
-      .then(response => response.json())
-      .then(result => setOldContacts(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const contactProps = useContext(AppContext).contactProps;
+  const appProps = useContext(AppContext);
+  const rootUrl = appProps.rootUrl;
+  const contactProps = appProps.contactProps;
   const contacts = contactProps.contacts;
   const setContacts = contactProps.setContacts;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/contacts`;
+    const oldContacts = await fetchOldData(url) as IContact[];
+    handleChanges<IContact>(
+      contacts, oldContacts, oldContacts.map(c => c.id), url, props.token
+    )
+  }
 
   const addcontact = () => {
     const arrayLength = contacts.length;
@@ -77,9 +79,7 @@ const Contact = (props: IContactProps) => {
         </div>
         <button type="button" onClick={() => addcontact()}>Add contact</button>
         <div className="CRUDContact-content__Save">
-          <button type="submit" onClick={() => handleChanges<IContact>(
-            contacts, oldContacts, oldContacts.map(o => o.id), 'http://localhost:5133/api/backgroundParagraphs', props.token
-          )} disabled={!adminAccess}>Update Contacts</button>
+          <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>

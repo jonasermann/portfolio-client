@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import './CRUDAbout.css';
 import CRUDMediaLinks from './CRUDMediaLinks';
 import { AppContext } from '../App';
-import { handleChanges } from '../libraries/crudLibrary';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IAboutProps {
   token: string;
@@ -15,18 +15,20 @@ interface IBackgroundParagraph {
 
 const About = (props: IAboutProps) => {
 
-  const [oldBackgroundParagraphs, setOldBackgroundParagraphs] = useState([{ id: 1, text: '' }])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/backgroundParagraphs')
-      .then(response => response.json())
-      .then(result => setOldBackgroundParagraphs(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const aboutProps = useContext(AppContext).aboutProps;
+  const appProps = useContext(AppContext);
+  const rootUrl = appProps.rootUrl;
+  const aboutProps = appProps.aboutProps;
   const backgroundParagraphs = aboutProps.backgroundParagraphs;
   const setbackgroundParagraphs = aboutProps.setBackgroundParagraphs;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/backgroundparagraphs`;
+    const oldBackgroundParagraphs = await fetchOldData(url) as IBackgroundParagraph[];
+    handleChanges<IBackgroundParagraph>(
+      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, props.token
+    )
+  }
 
   const addBackgroundParagraph = () => {
     const arrayLength = backgroundParagraphs.length;
@@ -68,9 +70,7 @@ const About = (props: IAboutProps) => {
             <button type="button" onClick={() => addBackgroundParagraph()}>Add Paragraph</button>
           </div>
           <div className="CRUDAbout-content__Save">
-            <button type="submit" onClick={() => handleChanges<IBackgroundParagraph>(
-              backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(o => o.id ), 'http://localhost:5133/api/backgroundParagraphs', props.token
-            )} disabled={!adminAccess}>Update About</button>
+            <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update About</button>
           </div>
         </form>
       </div>

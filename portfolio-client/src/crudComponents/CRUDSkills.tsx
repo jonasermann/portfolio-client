@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import './CRUDSkills.css';
 import { AppContext } from '../App';
-import { handleChanges } from '../libraries/crudLibrary';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface ISkillsProps {
   token: string;
@@ -16,18 +16,20 @@ interface ISkill {
 
 const Skills = (props: ISkillsProps) => {
 
-  const [oldSkills, setOldSkills] = useState([{ id: 1, imgUrl: '', text: '', type: 0 }])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/skills')
-      .then(response => response.json())
-      .then(result => setOldSkills(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const skillProps = useContext(AppContext).skillProps;
+  const appProps = useContext(AppContext);
+  const rootUrl = appProps.rootUrl;
+  const skillProps = appProps.skillProps;
   const skills = skillProps.skills;
   const setSkills = skillProps.setSkills;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/api/skills`;
+    const oldSkills = await fetchOldData(url) as ISkill[];
+    handleChanges<ISkill>(
+      skills, oldSkills, oldSkills.map(s => s.id), url, props.token
+    )
+  }
 
   const addSkill = () => {
     const arrayLength = skills.length;
@@ -77,9 +79,7 @@ const Skills = (props: ISkillsProps) => {
         }
         < button type="button" onClick={() => addSkill()}> Add Skill</button >
       </div >
-      <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleChanges<ISkill>(
-        skills, oldSkills, oldSkills.map(o => o.id), 'http://localhost:5133/api/skills', props.token
-      )} disabled={!adminAccess}>
+      <button className="CRUDSkills-content--Save" type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>
       Update Skills
     </button>
     </form >
