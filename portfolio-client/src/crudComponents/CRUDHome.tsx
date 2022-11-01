@@ -1,7 +1,7 @@
-import { useContext } from 'react';
 import './CRUDHome.css';
-import CRUDSkills from './CRUDSkills';
+import { useContext } from 'react';
 import { AppContext } from '../App';
+import CRUDSkills from './CRUDSkills';
 
 interface IHomeProps {
   token: string;
@@ -40,7 +40,7 @@ const Home = (props: IHomeProps) => {
               cols={100}
             />
           </div>
-          <button className="CRUDHome-content--Save" type="submit" onClick={() => handleHomeContent()} disabled={!adminAccess}>
+          <button className="CRUDHome-content--Save" type="button" onClick={() => handleHomeContent()} disabled={!adminAccess}>
             Update Home
           </button>
         </form>

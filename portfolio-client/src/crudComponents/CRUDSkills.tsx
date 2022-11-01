@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import './CRUDSkills.css';
+import { useContext } from 'react';
 import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 

@@ -1,8 +1,8 @@
-import { useContext } from 'react';
 import './CRUDAbout.css';
-import CRUDMediaLinks from './CRUDMediaLinks';
+import { useContext } from 'react';
 import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
+import CRUDMediaLinks from './CRUDMediaLinks';
 
 interface IAboutProps {
   token: string;
@@ -53,12 +53,14 @@ const About = (props: IAboutProps) => {
               <div className="CRUDAbout-content__backgroundParagraph" key={paragraphIndex}>
                 <textarea
                   value={backgroundParagraph.text}
-                  onChange={e => setbackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
-                    if (paragraphIndex === textIndex) {
-                      p.text = e.target.value;
-                    }
-                    return p;
-                  }))}
+                  onChange={e => {
+                    setbackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
+                      if (paragraphIndex === textIndex) {
+                        p.text = e.target.value;
+                      }
+                      return p;
+                    }))
+                  }}
                   rows={5}
                   cols={100}
                 />

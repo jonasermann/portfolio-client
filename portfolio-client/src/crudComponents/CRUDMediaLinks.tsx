@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import './CRUDMediaLinks.css';
+import { useContext } from 'react';
 import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
@@ -84,7 +84,7 @@ const MediaLinks = (props: IMediaLinkProps) => {
       )}
       <button type="button" onClick={() => addMediaLinks()}>Add Icon Description</button>
       <div className="CRUDmediaLinks-content__Save">
-        <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Links</button>
+        <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
   )

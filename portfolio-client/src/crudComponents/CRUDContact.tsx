@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import './CRUDContact.css';
+import { useContext } from 'react';
 import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
@@ -62,11 +62,11 @@ const Contact = (props: IContactProps) => {
                 <div className="CRUDContact-content__contact-text">
                   <textarea
                     value={contact.text}
-                    onChange={e => setContacts(contacts.map((l, textindex) => {
+                    onChange={e => setContacts(contacts.map((c, textindex) => {
                       if (contactIndex === textindex) {
-                        l.text = e.target.value
+                        c.text = e.target.value
                       }
-                      return l;
+                      return c;
                     }))}
                     rows={2}
                     cols={50}
@@ -79,7 +79,7 @@ const Contact = (props: IContactProps) => {
         </div>
         <button type="button" onClick={() => addcontact()}>Add contact</button>
         <div className="CRUDContact-content__Save">
-          <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Contacts</button>
+          <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>

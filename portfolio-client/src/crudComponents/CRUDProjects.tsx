@@ -1,5 +1,5 @@
-import { useContext } from 'react'
 import './CRUDProjects.css';
+import { useContext } from 'react'
 import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
@@ -64,11 +64,11 @@ const Projects = (props: IProjectProps) => {
                 </div>
                 <textarea
                   value={project.text}
-                  onChange={e => setProjects(projects.map((l, textindex) => {
+                  onChange={e => setProjects(projects.map((p, textindex) => {
                     if (projectIndex === textindex) {
-                      l.text = e.target.value
+                      p.text = e.target.value
                     }
-                    return l;
+                    return p;
                   }))}
                   rows={5}
                   cols={100}
@@ -89,7 +89,7 @@ const Projects = (props: IProjectProps) => {
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
         <div className="CRUDProjects-content__Save">
-          <button type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>Update Projects</button>
+          <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>
     </div>
