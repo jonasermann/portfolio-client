@@ -11,14 +11,15 @@ const Home = (props: IHomeProps) => {
 
   const adminAccess = props.token.length > 163;
   const homeProps = useContext(AppContext).homeProps;
-  const homeContent = homeProps.homeContent;
-  const setHomeContent = homeProps.setHomeContent;
+  const homeContent = homeProps.introduction;
+  const setHomeContent = homeProps.setIntroduction;
 
   const handleHomeContent = () => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-content', {
+    fetch('http://localhost:5133/api/introduction', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${props.token}`
       },
       body: JSON.stringify(homeContent)
     });

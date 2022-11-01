@@ -34,12 +34,12 @@ function handleChanges<T>(
   objects: T[],
   oldObjects: T[],
   oldObjectsIds: number[],
-  oldLength: number,
-  newLength: number,
   url: string,
   token: string
 ) {
 
+  const oldLength = oldObjects.length;
+  const newLength = objects.length;
   const difference = oldLength - newLength;
 
   if (difference < 0) {
@@ -68,7 +68,7 @@ function handleChanges<T>(
       }
     }
     for (let i = newLength; i < oldLength; i++) {
-      remove(oldObjects[i].id, url, token)
+      remove(oldObjectsIds[i], url, token)
     }
   }
 }

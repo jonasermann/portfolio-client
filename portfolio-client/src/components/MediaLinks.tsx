@@ -1,11 +1,11 @@
 import { useContext } from 'react';
-import './About.css';
+import './MediaLinks.css';
 import { AppContext } from '../App';
 
 const MediaLinks = () => {
 
   const mediaLinkProps = useContext(AppContext).mediaLinkProps;
-  const mediaLinks = mediaLinkProps.mediaLinks
+  const mediaLinks = mediaLinkProps.mediaLinks;
 
   return (
     <div className="Media-links">

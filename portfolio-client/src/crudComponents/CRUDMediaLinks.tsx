@@ -1,126 +1,65 @@
 import { useState, useEffect, useContext } from 'react';
-import './CRUDHomeLinks.css';
+import './CRUDMediaLinks.css';
 import { AppContext } from '../App';
+import { handleChanges } from '../libraries/crudLibrary';
 
-interface IHomeLinkProps {
+interface IMediaLinkProps {
   token: string;
 }
 
-interface IHomeLink {
+interface IMediaLink {
   id: number
   imgUrl: string
   text: string
   url: string
 };
 
-const HomeLinks = (props: IHomeLinkProps) => {
+const MediaLinks = (props: IMediaLinkProps) => {
 
-  const [oldHomeLinks, setOldHomeLinks] = useState([{ id: 1, imgUrl: '', text: '', url: '' }])
+  const [oldmediaLinks, setOldmediaLinks] = useState([{ id: 1, imgUrl: '', text: '', url: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/mediaLinks')
+    fetch('http://localhost:5133/api/mediaLinks')
       .then(response => response.json())
-      .then(result => setOldHomeLinks(result));
+      .then(result => setOldmediaLinks(result));
   }, []);
 
   const adminAccess = props.token.length > 163;
-  const homeLinkProps = useContext(AppContext).homeLinkProps;
-  const homeLinks = homeLinkProps.homeLinks;
-  const setHomeLinks = homeLinkProps.setHomeLinks;
+  const mediaLinkProps = useContext(AppContext).mediaLinkProps;
+  const mediaLinks = mediaLinkProps.mediaLinks;
+  const setmediaLinks = mediaLinkProps.setMediaLinks;
 
-  const addHomeLinks = () => {
-    const arrayLength = homeLinks.length;
-    const id = homeLinks.sort(homeLink => homeLink.id)[arrayLength - 1].id + 1;
-    setHomeLinks([...homeLinks, { id: id, imgUrl: '', text: '', url: '' }])
+  const addmediaLinks = () => {
+    const arrayLength = mediaLinks.length;
+    const id = mediaLinks.sort(mediaLink => mediaLink.id)[arrayLength - 1].id + 1;
+    setmediaLinks([...mediaLinks, { id: id, imgUrl: '', text: '', url: '' }])
   }
 
   const deleteLink = (id: number) => {
-    setHomeLinks(
-      homeLinks.filter(homeLink =>
-        homeLink.id !== id
+    setmediaLinks(
+      mediaLinks.filter(mediaLink =>
+        mediaLink.id !== id
       )
     )
   }
 
-  const postHomeLink = (text: string, imgUrl: string, url: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text, imgUrl, url })
-    })
-  }
-
-  const putHomeLink = (project: IHomeLink) => {
-    fetch('https://jeportapi.azurewebsites.net/api/homeLink', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(project)
-    })
-  }
-
-  const deleteHomeLink = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/homeLink/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleHomeLinks = () => {
-
-    const oldHomeLinkLength = oldHomeLinks.length;
-    const newHomeLinkLength = homeLinks.length;
-    const homeLinkDifference = oldHomeLinkLength - newHomeLinkLength;
-
-    if (homeLinkDifference < 0) {
-      for (let i = 0; i < oldHomeLinkLength; i++) {
-        putHomeLink(homeLinks[i])
-      }
-      for (let i = oldHomeLinkLength; i < newHomeLinkLength; i++) {
-        postHomeLink(homeLinks[i].text, homeLinks[i].imgUrl, homeLinks[i].url)
-      }
-    }
-
-    if (homeLinkDifference === 0) {
-      for (let i = 0; i < oldHomeLinkLength; i++) {
-        putHomeLink(homeLinks[i])
-      }
-    }
-
-    if (homeLinkDifference > 0) {
-      for (let i = 0; i < newHomeLinkLength; i++) {
-        putHomeLink(homeLinks[i])
-      }
-      for (let i = newHomeLinkLength; i < oldHomeLinkLength; i++) {
-        deleteHomeLink(oldHomeLinks[i].id)
-      }
-    }
-  }
-
   return (
-    <div className="CRUDHomeLinks-content">
-      {homeLinks.map((homeLink, homeIndex) =>
-        <div className="CRUDHomeLinks-content__homeLink" key={homeIndex}>
-          <div key={homeIndex}>
-            <img src={homeLinks[homeIndex].imgUrl} alt="logo" height="50rem" width="auto" />
-            <input type="text" value={homeLinks[homeIndex].imgUrl} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
-              if (homeIndex === linkIndex) {
+    <div className="CRUDmediaLinks-content">
+      {mediaLinks.map((mediaLink, mediaIndex) =>
+        <div className="CRUDmediaLinks-content__mediaLink" key={mediaIndex}>
+          <div key={mediaIndex}>
+            <img src={mediaLinks[mediaIndex].imgUrl} alt="logo" height="50rem" width="auto" />
+            <input type="text" value={mediaLinks[mediaIndex].imgUrl} onChange={e => setmediaLinks(mediaLinks.map((l, linkIndex) => {
+              if (mediaIndex === linkIndex) {
                 l.imgUrl = e.target.value
               }
               return l;
             }))}
             />
             <textarea
-              value={homeLink.text}
-              onChange={e => setHomeLinks(homeLinks.map((l, textindex) => {
-                if (homeIndex === textindex) {
+              value={mediaLink.text}
+              onChange={e => setmediaLinks(mediaLinks.map((l, textindex) => {
+                if (mediaIndex === textindex) {
                   l.text = e.target.value
                 }
                 return l;
@@ -129,8 +68,8 @@ const HomeLinks = (props: IHomeLinkProps) => {
               cols={100}
             />
             <div>
-              <input type="text" value={homeLinks[homeIndex].url} onChange={e => setHomeLinks(homeLinks.map((l, linkIndex) => {
-                if (homeIndex === linkIndex) {
+              <input type="text" value={mediaLinks[mediaIndex].url} onChange={e => setmediaLinks(mediaLinks.map((l, linkIndex) => {
+                if (mediaIndex === linkIndex) {
                   l.url = e.target.value
                 }
                 return l;
@@ -138,15 +77,17 @@ const HomeLinks = (props: IHomeLinkProps) => {
               />
             </div>
           </div>
-          <button className="CRUDHomeLinks-content__homeLink-delete" type="button" onClick={() => deleteLink(homeLink.id)}>Delete</button>
+          <button className="CRUDmediaLinks-content__mediaLink-delete" type="button" onClick={() => deleteLink(mediaLink.id)}>Delete</button>
         </div>
       )}
-      <button type="button" onClick={() => addHomeLinks()}>Add Icon Description</button>
-      <div className="CRUDHomeLinks-content__Save">
-        <button type="submit" onClick={() => handleHomeLinks()} disabled={!adminAccess}>Update Links</button>
+      <button type="button" onClick={() => addmediaLinks()}>Add Icon Description</button>
+      <div className="CRUDmediaLinks-content__Save">
+        <button type="submit" onClick={() => handleChanges<IMediaLink>(
+          mediaLinks, oldmediaLinks, oldmediaLinks.map(o => o.id), 'http://localhost:5133/api/mediaLinks', props.token
+        )} disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
   )
 }
 
-export default HomeLinks;
+export default MediaLinks;

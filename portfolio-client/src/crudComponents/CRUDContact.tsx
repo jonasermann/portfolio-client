@@ -17,7 +17,7 @@ const Contact = (props: IContactProps) => {
   const [oldContacts, setOldContacts] = useState([{id: 1, text: '', imgUrl: ''}])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/contacts')
+    fetch('http://localhost:5133/api/contacts')
       .then(response => response.json())
       .then(result => setOldContacts(result));
   }, []);

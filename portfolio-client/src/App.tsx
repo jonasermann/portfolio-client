@@ -26,27 +26,27 @@ function App() {
   const [token, setToken] = useState('Unauthorized');
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/introduction')
+    fetch('http://localhost:5133/api/introduction')
       .then(response => response.json())
       .then(result => setIntroduction(result));
 
-    fetch('https://jeportapi.azurewebsites.net/api/backgroundParagraphs')
+    fetch('http://localhost:5133/api/backgroundparagraphs')
       .then(response => response.json())
       .then(result => setBackgroundParagraphs(result));
 
-    fetch('https://jeportapi.azurewebsites.net/api/mediaLinks')
+    fetch('http://localhost:5133/api/medialinks')
       .then(response => response.json())
       .then(result => setMediaLinks(result));
 
-    fetch('https://jeportapi.azurewebsites.net/api/projects/')
+    fetch('http://localhost:5133/api/projects/')
       .then(response => response.json())
       .then(result => setProjects(result));
 
-    fetch('https://jeportapi.azurewebsites.net/api/contacts')
+    fetch('http://localhost:5133/api/contacts')
       .then(response => response.json())
       .then(result => setContacts(result));
 
-    fetch('https://jeportapi.azurewebsites.net/api/skills')
+    fetch('http://localhost:5133/api/skills')
       .then(response => response.json())
       .then(result => setSkills(result));
   }, []);

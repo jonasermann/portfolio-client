@@ -14,11 +14,11 @@ const Skills = () => {
   <div className ="Skills-content">
     {
       types.map(type => (
-        <div className="Skills">
+        <div className="Skills" key={type.name}>
           <h2>{type.name}</h2>
           <div className="Skills-row">
-            {type.type.map((content, index) => (
-              <div className="Skills-content" key={index}>
+            {type.type.map(content => (
+              <div className="Skills-content" key={content.text}>
                 <img src={content.imgUrl} alt="logo" width="100rem" height="auto" />
                 <p>{content.text}</p>
               </div>

@@ -6,7 +6,7 @@ import { AppContext } from '../App'
 const Home = () => {
 
   const homeProps = useContext(AppContext).homeProps;
-  const homeContent = homeProps.homeContent;
+  const homeContent = homeProps.introduction;
 
   return (
     <div className="Home">

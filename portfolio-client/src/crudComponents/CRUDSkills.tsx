@@ -19,7 +19,7 @@ const Skills = (props: ISkillsProps) => {
   const [oldSkills, setOldSkills] = useState([{ id: 1, imgUrl: '', text: '', type: 0 }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills')
+    fetch('http://localhost:5133/api/skills')
       .then(response => response.json())
       .then(result => setOldSkills(result));
   }, []);
@@ -28,8 +28,6 @@ const Skills = (props: ISkillsProps) => {
   const skillProps = useContext(AppContext).skillProps;
   const skills = skillProps.skills;
   const setSkills = skillProps.setSkills;
-
-
 
   const addSkill = () => {
     const arrayLength = skills.length;
@@ -44,8 +42,6 @@ const Skills = (props: ISkillsProps) => {
       )
     )
   }
-
-
 
   return (
     <form>
@@ -82,7 +78,7 @@ const Skills = (props: ISkillsProps) => {
         < button type="button" onClick={() => addSkill()}> Add Skill</button >
       </div >
       <button className="CRUDSkills-content--Save" type="submit" onClick={() => handleChanges<ISkill>(
-        skills, oldSkills, skills.length, oldSkills.length, 'http://localhost:3000/api/skills', props.token
+        skills, oldSkills, oldSkills.map(o => o.id), 'http://localhost:5133/api/skills', props.token
       )} disabled={!adminAccess}>
       Update Skills
     </button>

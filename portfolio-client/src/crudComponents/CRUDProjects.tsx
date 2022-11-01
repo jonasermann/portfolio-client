@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import './CRUDProjects.css';
 import { AppContext } from '../App';
+import { handleChanges } from '../libraries/crudLibrary';
 
 interface IProjectProps {
   token: string;
@@ -18,7 +19,7 @@ const Projects = (props: IProjectProps) => {
   const [oldProjects, setOldProjects] = useState([{ id: 1, imgUrl: '', text: '', gitUrl: '' }])
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects')
+    fetch('http://localhost:5133/api/projects')
       .then(response => response.json())
       .then(result => setOldProjects(result));
   }, []);
@@ -40,68 +41,6 @@ const Projects = (props: IProjectProps) => {
         project.id !== id
       )
     )
-  }
-
-  const postProject = (text: string, imgUrl: string, gitUrl: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text, imgUrl })
-    })
-  }
-
-  const putProject = (project: IProject) => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(project)
-    })
-  }
-
-  const deleteProject = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/projects/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleProjects = () => {
-
-    const oldProjectsLength = oldProjects.length;
-    const newProjectsLength = projects.length;
-    const projectDifference = oldProjectsLength - newProjectsLength;
-
-    if (projectDifference < 0) {
-      for (let i = 0; i < oldProjectsLength; i++) {
-        putProject(projects[i])
-      }
-      for (let i = oldProjectsLength; i < newProjectsLength; i++) {
-        postProject(projects[i].text, projects[i].imgUrl, projects[i].gitUrl)
-      }
-    }
-
-    if (projectDifference === 0) {
-      for (let i = 0; i < oldProjectsLength; i++) {
-        putProject(projects[i])
-      }
-    }
-
-    if (projectDifference > 0) {
-      for (let i = 0; i < newProjectsLength; i++) {
-        putProject(projects[i])
-      }
-      for (let i = newProjectsLength; i < oldProjectsLength; i++) {
-        deleteProject(oldProjects[i].id)
-      }
-    }
   }
 
   return (
@@ -148,7 +87,9 @@ const Projects = (props: IProjectProps) => {
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
         <div className="CRUDProjects-content__Save">
-          <button type="submit" onClick={() => handleProjects()} disabled={!adminAccess}>Update Projects</button>
+          <button type="submit" onClick={() => handleChanges<IProject>(
+            projects, oldProjects, oldProjects.map(o => o.id), 'http://localhost:5133/api/paragraphs', props.token
+          )} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>
     </div>

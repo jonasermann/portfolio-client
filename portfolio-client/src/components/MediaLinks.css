@@ -1,0 +1,16 @@
+.Media-links {
+    text-align: left;
+    width: 75%;
+    margin: auto;
+    display: flex;
+}
+
+.Media-link {
+    display: flex;
+    align-content: center;
+    margin-left: 12%;
+}
+
+    .Media-link a {
+        padding-top: 2rem;
+    }
