@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import './CRUDContact.css';
 import { AppContext } from '../App';
+import { handleChanges } from '../libraries/crudLibrary';
 
 interface IContactProps {
   token: string;
@@ -41,68 +42,6 @@ const Contact = (props: IContactProps) => {
     )
    }
 
-  const postContact = (text: string, imgUrl: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text, imgUrl })
-    })
-  }
-
-  const putContact = (contact: IContact) => {
-    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(contact)
-    })
-  }
-
-  const deleteContact = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/Contacts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleContacts = () => {
-
-    const oldContactsLength = oldContacts.length;
-    const newContactsLength = contacts.length;
-    const contactDifference = oldContactsLength - newContactsLength;
-
-    if (contactDifference < 0) {
-      for (let i = 0; i < oldContactsLength; i++) {
-        putContact(contacts[i])
-      }
-      for (let i = oldContactsLength; i < newContactsLength; i++) {
-        postContact(contacts[i].text, contacts[i].imgUrl)
-      }
-    }
-
-    if (contactDifference === 0) {
-      for (let i = 0; i < oldContactsLength; i++) {
-        putContact(contacts[i])
-      }
-    }
-
-    if (contactDifference > 0) {
-      for (let i = 0; i < newContactsLength; i++) {
-        putContact(contacts[i])
-      }
-      for (let i = newContactsLength; i < oldContactsLength; i++) {
-        deleteContact(oldContacts[i].id)
-      }
-    }
-  }
-
   return (
     <div className="CRUDContact-content">
       <form>
@@ -138,7 +77,9 @@ const Contact = (props: IContactProps) => {
         </div>
         <button type="button" onClick={() => addcontact()}>Add contact</button>
         <div className="CRUDContact-content__Save">
-          <button type="submit" onClick={() => handleContacts()} disabled={!adminAccess}>Update Contacts</button>
+          <button type="submit" onClick={() => handleChanges<IContact>(
+            contacts, oldContacts, oldContacts.map(o => o.id), 'http://localhost:5133/api/backgroundParagraphs', props.token
+          )} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>
