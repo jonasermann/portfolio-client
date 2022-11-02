@@ -1,11 +1,14 @@
 import { useContext } from 'react';
 import './About.css';
 import MediaLinks from './MediaLinks'
-import { AppContext } from '../App';
 
-const About = () => {
+interface IAboutProps {
+  context: React.Context<IAppProps>
+}
 
-  const aboutProps = useContext(AppContext).aboutProps;
+const About = (props: IAboutProps) => {
+
+  const aboutProps = useContext(props.context).aboutProps;
   const backgroundParagraphs = aboutProps.backgroundParagraphs;
 
   return (
@@ -16,7 +19,7 @@ const About = () => {
           <p className="About-content__text">{backgroundParagraph.text}</p>
         </div>
       )}
-      <MediaLinks />
+      <MediaLinks context={props.context} />
     </div>
   )
 }

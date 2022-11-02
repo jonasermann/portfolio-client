@@ -1,21 +1,23 @@
 import './CRUDHome.css';
 import { useContext } from 'react';
-import { AppContext } from '../App';
 import CRUDSkills from './CRUDSkills';
 
 interface IHomeProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
 const Home = (props: IHomeProps) => {
 
   const adminAccess = props.token.length > 163;
-  const homeProps = useContext(AppContext).homeProps;
+  const appProps = useContext(props.context);
+  const rootUrl = appProps.rootUrl;
+  const homeProps = appProps.homeProps;
   const homeContent = homeProps.introduction;
   const setHomeContent = homeProps.setIntroduction;
 
   const handleHomeContent = () => {
-    fetch('http://localhost:5133/api/introduction', {
+    fetch(`${rootUrl}/api/introduction`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ const Home = (props: IHomeProps) => {
           </button>
         </form>
       </div>
-      <CRUDSkills token={props.token} />
+      <CRUDSkills context={props.context} token={props.token} />
     </div>
   )
 }

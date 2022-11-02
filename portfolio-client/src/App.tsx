@@ -92,17 +92,17 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigation />}>
-                <Route index element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="projects" element={<Projects />} />
+                <Route index element={<Home context={AppContext} />} />
+                <Route path="about" element={<About context={AppContext} />} />
+                <Route path="projects" element={<Projects context={AppContext} />} />
                 <Route path="crud" element={<Authentication token={token} setToken={setToken} />} />
                 <Route path="/crud/changes" element={<CRUDNavigation />} >
-                  <Route path="home" element={<CRUDHome token={token} />} />
-                  <Route path="about" element={<CRUDAbout token={token} />} />
-                  <Route path="projects" element={<CRUDProjects token={token} />} />
-                  <Route path="contact" element={<CRUDContact token={token} />} />
+                  <Route path="home" element={<CRUDHome context={AppContext} token={token} />} />
+                  <Route path="about" element={<CRUDAbout context={AppContext} token={token} />} />
+                  <Route path="projects" element={<CRUDProjects context={AppContext} token={token} />} />
+                  <Route path="contact" element={<CRUDContact context={AppContext} token={token} />} />
                 </Route>
-                <Route path="contact" element={<Contact />} />
+                <Route path="contact" element={<Contact context={AppContext} />} />
               </Route>
             </Routes>
           </BrowserRouter>

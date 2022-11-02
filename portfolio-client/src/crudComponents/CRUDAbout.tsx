@@ -1,10 +1,10 @@
 import './CRUDAbout.css';
 import { useContext } from 'react';
-import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 import CRUDMediaLinks from './CRUDMediaLinks';
 
 interface IAboutProps {
+  context: React.Context<IAppProps>
   token: string;
 }
 
@@ -16,14 +16,14 @@ interface IBackgroundParagraph {
 const About = (props: IAboutProps) => {
 
   const adminAccess = props.token.length > 163;
-  const appProps = useContext(AppContext);
+  const appProps = useContext(props.context);
   const rootUrl = appProps.rootUrl;
   const aboutProps = appProps.aboutProps;
   const backgroundParagraphs = aboutProps.backgroundParagraphs;
-  const setbackgroundParagraphs = aboutProps.setBackgroundParagraphs;
+  const setBackgroundParagraphs = aboutProps.setBackgroundParagraphs;
 
   const initiateChange = async () => {
-    const url: string = `${rootUrl}/backgroundparagraphs`;
+    const url: string = `${rootUrl}/api/backgroundparagraphs`;
     const oldBackgroundParagraphs = await fetchOldData(url) as IBackgroundParagraph[];
     handleChanges<IBackgroundParagraph>(
       backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, props.token
@@ -33,11 +33,11 @@ const About = (props: IAboutProps) => {
   const addBackgroundParagraph = () => {
     const arrayLength = backgroundParagraphs.length;
     const id = backgroundParagraphs.sort(backgroundParagraph => backgroundParagraph.id)[arrayLength - 1].id + 1;
-    setbackgroundParagraphs([...backgroundParagraphs, { id: id, text: '' }])
+    setBackgroundParagraphs([...backgroundParagraphs, { id: id, text: '' }])
   }
 
   const deleteParagraph = (id: number) => {
-    setbackgroundParagraphs(
+    setBackgroundParagraphs(
       backgroundParagraphs.filter(backgroundParagraph =>
         backgroundParagraph.id !== id
       )
@@ -50,11 +50,11 @@ const About = (props: IAboutProps) => {
         <form>
           <div className="CRUDAbout-content__backgroundParagraphs">
             {backgroundParagraphs.map((backgroundParagraph, paragraphIndex) =>
-              <div className="CRUDAbout-content__backgroundParagraph" key={paragraphIndex}>
+              <div className="CRUDAbout-content__backgroundParagraph" key={paragraphIndex} data-testid="backgroundParagraph">
                 <textarea
                   value={backgroundParagraph.text}
                   onChange={e => {
-                    setbackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
+                    setBackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
                       if (paragraphIndex === textIndex) {
                         p.text = e.target.value;
                       }
@@ -65,7 +65,7 @@ const About = (props: IAboutProps) => {
                   cols={100}
                 />
                 <div>
-                  <button type="button" onClick={() => deleteParagraph(backgroundParagraph.id)}>Delete</button>
+                  <button type="button" onClick={() => deleteParagraph(backgroundParagraph.id)} data-testid={`delete${paragraphIndex}`}>Delete</button>
                 </div>
               </div>
             )}
@@ -76,7 +76,7 @@ const About = (props: IAboutProps) => {
           </div>
         </form>
       </div>
-      <CRUDMediaLinks token={props.token} />
+      <CRUDMediaLinks context={props.context} token={props.token} />
     </div>
   )
 }

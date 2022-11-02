@@ -1,9 +1,9 @@
 import './CRUDContact.css';
 import { useContext } from 'react';
-import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IContactProps {
+  context: React.Context<IAppProps>
   token: string;
 }
 
@@ -16,14 +16,14 @@ interface IContact {
 const Contact = (props: IContactProps) => {
 
   const adminAccess = props.token.length > 163;
-  const appProps = useContext(AppContext);
+  const appProps = useContext(props.context);
   const rootUrl = appProps.rootUrl;
   const contactProps = appProps.contactProps;
   const contacts = contactProps.contacts;
   const setContacts = contactProps.setContacts;
 
   const initiateChange = async () => {
-    const url: string = `${rootUrl}/contacts`;
+    const url: string = `${rootUrl}/api/contacts`;
     const oldContacts = await fetchOldData(url) as IContact[];
     handleChanges<IContact>(
       contacts, oldContacts, oldContacts.map(c => c.id), url, props.token
@@ -49,7 +49,7 @@ const Contact = (props: IContactProps) => {
       <form>
         <div className="CRUDContact-content__contacts">
           {contacts.map((contact, contactIndex) =>
-            <div className="CRUDContact-content__contact" key={contactIndex}>
+            <div className="CRUDContact-content__contact" key={contactIndex} data-testid="contact">
               <div key={contactIndex}>
                 <img src={contacts[contactIndex].imgUrl} alt="logo" height="50rem" width="auto" />
                 <input type="text" value={contacts[contactIndex].imgUrl} onChange={e => setContacts(contacts.map((p, linkIndex) => {
@@ -73,11 +73,11 @@ const Contact = (props: IContactProps) => {
                   />
                 </div>
               </div>
-              <button className="CRUDContact-content__project-delete" type="button" onClick={() => deletecontact(contact.id)}>Delete</button>
+              <button className="CRUDContact-content__project-delete" type="button" onClick={() => deletecontact(contact.id)} data-testid={`delete${contactIndex}`} >Delete</button>
             </div>
           )}
         </div>
-        <button type="button" onClick={() => addcontact()}>Add contact</button>
+        <button type="button" onClick={() => addcontact()}>Add Contact</button>
         <div className="CRUDContact-content__Save">
           <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Contacts</button>
         </div>

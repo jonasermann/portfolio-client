@@ -1,10 +1,13 @@
-import { useContext } from 'react';
 import './Skills.css';
-import { AppContext } from '../App';
+import { useContext } from 'react';
 
-const Skills = () => {
+interface ISkillsProps {
+  context: React.Context<IAppProps>
+}
 
-  const skillProps = useContext(AppContext).skillProps;
+const Skills = (props: ISkillsProps) => {
+
+  const skillProps = useContext(props.context).skillProps;
   const backend = skillProps.skills.filter(skill => skill.type === 0);
   const frontend = skillProps.skills.filter(skill => skill.type === 1);
   const languages = skillProps.skills.filter(skill => skill.type === 2);

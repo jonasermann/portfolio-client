@@ -1,9 +1,9 @@
 import './CRUDProjects.css';
-import { useContext } from 'react'
-import { AppContext } from '../App';
+import { useContext } from 'react';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IProjectProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
@@ -17,14 +17,14 @@ interface IProject {
 const Projects = (props: IProjectProps) => {
 
   const adminAccess = props.token.length > 163;
-  const appProps = useContext(AppContext);
+  const appProps = useContext(props.context);
   const rootUrl = appProps.rootUrl;
   const projectProps = appProps.projectProps;
   const projects = projectProps.projects;
   const setProjects = projectProps.setProjects;
 
   const initiateChange = async () => {
-    const url: string = `${rootUrl}/projects`;
+    const url: string = `${rootUrl}/api/projects`;
     const oldProjects = await fetchOldData(url) as IProject[];
     handleChanges<IProject>(
       projects, oldProjects, oldProjects.map(p => p.id), url, props.token
@@ -50,24 +50,20 @@ const Projects = (props: IProjectProps) => {
       <form>
         <div className="CRUDProjects-content__projects">
           {projects.map((project, projectIndex) =>
-            <div className="CRUDProjects-content__project" key={projectIndex}>
+            <div className="CRUDProjects-content__project" key={projectIndex} data-testid="project">
               <div key={projectIndex}>
                 <img src={projects[projectIndex].imgUrl} alt="logo" height="350rem" width="auto" />
                 <div>
                   <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                    if (projectIndex === linkIndex) {
-                      p.imgUrl = e.target.value
-                    }
-                    return p;
-                  }))}
-                  />
+                    if (projectIndex === linkIndex) { p.imgUrl = e.target.value }; return p;
+                  }))} />
                 </div>
                 <textarea
                   value={project.text}
                   onChange={e => setProjects(projects.map((p, textindex) => {
                     if (projectIndex === textindex) {
                       p.text = e.target.value
-                    }
+                    };
                     return p;
                   }))}
                   rows={5}
@@ -75,15 +71,11 @@ const Projects = (props: IProjectProps) => {
                 />
                 <div>
                   <input type="text" value={projects[projectIndex].gitUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                    if (projectIndex === linkIndex) {
-                      p.gitUrl = e.target.value
-                    }
-                    return p;
-                  }))}
-                  />
+                    if (projectIndex === linkIndex) { p.gitUrl = e.target.value }; return p;
+                  }))} />
                 </div>
               </div>
-              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)}>Delete</button>
+              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)} data-testid={`delete${projectIndex}`}>Delete</button>
             </div>
           )}
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>

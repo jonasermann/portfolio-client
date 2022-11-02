@@ -1,9 +1,9 @@
 import './CRUDSkills.css';
 import { useContext } from 'react';
-import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface ISkillsProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
@@ -17,7 +17,7 @@ interface ISkill {
 const Skills = (props: ISkillsProps) => {
 
   const adminAccess = props.token.length > 163;
-  const appProps = useContext(AppContext);
+  const appProps = useContext(props.context);
   const rootUrl = appProps.rootUrl;
   const skillProps = appProps.skillProps;
   const skills = skillProps.skills;
@@ -47,41 +47,43 @@ const Skills = (props: ISkillsProps) => {
 
   return (
     <form>
-      < div className="CRUDSkills-content" >
+      <div className="CRUDSkills-content">
         {
           skills.map((skill, skillIndex) => (
-            <div className="CRUDSkills-content__skill" key={skillIndex}>
+            <div className="CRUDSkills-content__skill" key={skillIndex} data-testid="skill">
+
               <img src={skill.imgUrl} alt="logo" height="auto" width="100rem" />
+
               <input type="text" value={skills[skillIndex].imgUrl} onChange={e => setSkills(skills.map((s, linkIndex) => {
                 if (skillIndex === linkIndex) {
                   s.imgUrl = e.target.value
-                }
+                };
                 return s;
-              }))}
-              />
+              }))} />
+
               <input type="text" value={skills[skillIndex].text} onChange={e => setSkills(skills.map((s, linkIndex) => {
                 if (skillIndex === linkIndex) {
                   s.text = e.target.value
-                }
+                };
                 return s;
-              }))}
-              />
+              }))} />
+
               <input type="number" value={skills[skillIndex].type} onChange={e => setSkills(skills.map((s, linkIndex) => {
                 if (skillIndex === linkIndex) {
                   s.type = parseInt(e.target.value)
-                }
+                };
                 return s;
-              }))}
-              />
-              <button className="CRUDSkills-content__skill-delete" type="button" onClick={() => deleteSkill_(skill.id)}>Delete</button>
+              }))} />
+
+              <button className="CRUDSkills-content__skill-delete" type="button" onClick={() => deleteSkill_(skill.id)} data-testid={`delete${skillIndex}`}>Delete</button>
             </div>
           ))
         }
-        < button type="button" onClick={() => addSkill()}> Add Skill</button >
-      </div >
+        <button type="button" onClick={() => addSkill()}>Add Skill</button >
+      </div>
       <button className="CRUDSkills-content--Save" type="submit" onClick={() => initiateChange()} disabled={!adminAccess}>
-      Update Skills
-    </button>
+        Update Skills
+      </button>
     </form >
   )
 }

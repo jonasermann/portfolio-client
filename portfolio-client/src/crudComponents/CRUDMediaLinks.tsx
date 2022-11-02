@@ -1,9 +1,9 @@
 import './CRUDMediaLinks.css';
 import { useContext } from 'react';
-import { AppContext } from '../App';
 import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IMediaLinkProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
@@ -17,14 +17,14 @@ interface IMediaLink {
 const MediaLinks = (props: IMediaLinkProps) => {
 
   const adminAccess = props.token.length > 163;
-  const appProps = useContext(AppContext);
+  const appProps = useContext(props.context);
   const rootUrl = appProps.rootUrl;
   const mediaLinkProps = appProps.mediaLinkProps;
   const mediaLinks = mediaLinkProps.mediaLinks;
   const setmediaLinks = mediaLinkProps.setMediaLinks;
 
   const initiateChange = async () => {
-    const url: string = `${rootUrl}/medialinks`;
+    const url: string = `${rootUrl}/api/medialinks`;
     const oldMediaLinks = await fetchOldData(url) as IMediaLink[];
     handleChanges<IMediaLink>(
       mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, props.token
@@ -48,7 +48,7 @@ const MediaLinks = (props: IMediaLinkProps) => {
   return (
     <div className="CRUDmediaLinks-content">
       {mediaLinks.map((mediaLink, mediaIndex) =>
-        <div className="CRUDmediaLinks-content__mediaLink" key={mediaIndex}>
+        <div className="CRUDmediaLinks-content__mediaLink" key={mediaIndex} data-testid="mediaLink">
           <div key={mediaIndex}>
             <img src={mediaLinks[mediaIndex].imgUrl} alt="logo" height="50rem" width="auto" />
             <input type="text" value={mediaLinks[mediaIndex].imgUrl} onChange={e => setmediaLinks(mediaLinks.map((l, linkIndex) => {
@@ -79,7 +79,7 @@ const MediaLinks = (props: IMediaLinkProps) => {
               />
             </div>
           </div>
-          <button className="CRUDmediaLinks-content__mediaLink-delete" type="button" onClick={() => deleteMediaLink(mediaLink.id)}>Delete</button>
+          <button className="CRUDmediaLinks-content__mediaLink-delete" type="button" onClick={() => deleteMediaLink(mediaLink.id)} data-testid={`delete${mediaIndex}`}>Delete</button>
         </div>
       )}
       <button type="button" onClick={() => addMediaLinks()}>Add Icon Description</button>
