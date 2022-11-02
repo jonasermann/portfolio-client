@@ -24,7 +24,7 @@ function App() {
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
   const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
   const [token, setToken] = useState('Unauthorized');
-  const rootUrl: string = 'http://localhost:5133';
+  const rootUrl: string = 'https://jeportapi.azurewebsites.net';
 
   useEffect(() => {
     fetch(`${rootUrl}/api/introduction`)
