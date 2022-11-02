@@ -1,10 +1,13 @@
 import { useContext } from 'react';
 import './Contact.css';
-import { AppContext } from '../App'
 
-const Contact = () => {
+interface IContactProps {
+  context: React.Context<IAppProps>
+}
 
-  const contactProps = useContext(AppContext).contactProps;
+const Contact = (props: IContactProps) => {
+
+  const contactProps = useContext(props.context).contactProps;
   const contacts = contactProps.contacts
 
   return (

@@ -1,139 +1,82 @@
-import { useState, useEffect, useContext } from 'react';
 import './CRUDAbout.css';
-import CRUDHomeLinks from './CRUDHomeLinks';
-import { AppContext } from '../App';
+import { useContext } from 'react';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
+import CRUDMediaLinks from './CRUDMediaLinks';
 
 interface IAboutProps {
+  context: React.Context<IAppProps>
   token: string;
 }
 
-interface IAboutParagraph {
+interface IBackgroundParagraph {
   id: number,
   text: string
 };
 
 const About = (props: IAboutProps) => {
 
-  const [oldAboutParagraphs, setOldAboutParagraphs] = useState([{ id: 1, text: '' }])
-
-  useEffect(() => {
-    fetch('http://localhost:5133/api/About')
-      .then(response => response.json())
-      .then(result => setOldAboutParagraphs(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const aboutProps = useContext(AppContext).aboutProps;
-  const aboutParagraphs = aboutProps.aboutParagraphs;
-  const setAboutParagraphs = aboutProps.setAboutParagraphs;
+  const appProps = useContext(props.context);
+  const rootUrl = appProps.rootUrl;
+  const aboutProps = appProps.aboutProps;
+  const backgroundParagraphs = aboutProps.backgroundParagraphs;
+  const setBackgroundParagraphs = aboutProps.setBackgroundParagraphs;
 
-  const postAboutParagraph = (text: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/About', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text })
-    })
-  }
-
-  const putAboutParagraph = (aboutParagraph: IAboutParagraph) => {
-    fetch('https://jeportapi.azurewebsites.net/api/About', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(aboutParagraph)
-    })
-  }
-
-  const deleteAboutParagraph = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/About/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const addAboutParagraph = () => {
-    const arrayLength = aboutParagraphs.length;
-    const id = aboutParagraphs.sort(aboutParagraph => aboutParagraph.id)[arrayLength - 1].id + 1;
-    setAboutParagraphs([...aboutParagraphs, { id: id, text: '' }])
-  }
-
-  const deleteParagraph = (id: number) => {
-    setAboutParagraphs(
-      aboutParagraphs.filter(aboutParagraph =>
-        aboutParagraph.id !== id
-      )
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/api/backgroundparagraphs`;
+    const oldBackgroundParagraphs = await fetchOldData(url) as IBackgroundParagraph[];
+    handleChanges<IBackgroundParagraph>(
+      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, props.token
     )
   }
 
-  const handleAboutParagraphs = () => {
+  const addBackgroundParagraph = () => {
+    const arrayLength = backgroundParagraphs.length;
+    const id = backgroundParagraphs.sort(backgroundParagraph => backgroundParagraph.id)[arrayLength - 1].id + 1;
+    setBackgroundParagraphs([...backgroundParagraphs, { id: id, text: '' }])
+  }
 
-    const oldAboutParagraphsLength = oldAboutParagraphs.length;
-    const newAboutParagraphsLength = aboutParagraphs.length;
-    const aboutParagraphDifference = oldAboutParagraphsLength - newAboutParagraphsLength;
-
-    if (aboutParagraphDifference < 0) {
-      for (let i = 0; i < oldAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
-      }
-      for (let i = oldAboutParagraphsLength; i < newAboutParagraphsLength; i++) {
-        postAboutParagraph(aboutParagraphs[i].text)
-      }
-    }
-
-    if (aboutParagraphDifference === 0) {
-      for (let i = 0; i < oldAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
-      }
-    }
-
-    if (aboutParagraphDifference > 0) {
-      for (let i = 0; i < newAboutParagraphsLength; i++) {
-        putAboutParagraph(aboutParagraphs[i])
-      }
-      for (let i = newAboutParagraphsLength; i < oldAboutParagraphsLength; i++) {
-        deleteAboutParagraph(oldAboutParagraphs[i].id)
-      }
-    }
+  const deleteParagraph = (id: number) => {
+    setBackgroundParagraphs(
+      backgroundParagraphs.filter(backgroundParagraph =>
+        backgroundParagraph.id !== id
+      )
+    )
   }
 
   return (
     <div>
       <div className="CRUDAbout-content">
         <form>
-          <div className="CRUDAbout-content__aboutParagraphs">
-            {aboutParagraphs.map((aboutParagraph, paragraphIndex) =>
-              <div className="CRUDAbout-content__aboutParagraph" key={paragraphIndex}>
+          <div className="CRUDAbout-content__backgroundParagraphs">
+            {backgroundParagraphs.map((backgroundParagraph, paragraphIndex) =>
+              <div className="CRUDAbout-content__backgroundParagraph" key={paragraphIndex} data-testid="backgroundParagraph">
                 <textarea
-                  value={aboutParagraph.text}
-                  onChange={e => setAboutParagraphs(aboutParagraphs.map((p, textIndex) => {
-                    if (paragraphIndex === textIndex) {
-                      p.text = e.target.value;
-                    }
-                    return p;
-                  }))}
+                  value={backgroundParagraph.text}
+                  onChange={e => {
+                    setBackgroundParagraphs(backgroundParagraphs.map((p, textIndex) => {
+                      if (paragraphIndex === textIndex) {
+                        p.text = e.target.value;
+                      }
+                      return p;
+                    }))
+                  }}
                   rows={5}
                   cols={100}
                 />
                 <div>
-                  <button type="button" onClick={() => deleteParagraph(aboutParagraph.id)}>Delete</button>
+                  <button type="button" onClick={() => deleteParagraph(backgroundParagraph.id)} data-testid={`delete${paragraphIndex}`}>Delete</button>
                 </div>
               </div>
             )}
-            <button type="button" onClick={() => addAboutParagraph()}>Add Paragraph</button>
+            <button type="button" onClick={() => addBackgroundParagraph()}>Add Paragraph</button>
           </div>
           <div className="CRUDAbout-content__Save">
-            <button type="button" onClick={() => handleAboutParagraphs()} disabled={!adminAccess}>Update About</button>
+            <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update About</button>
           </div>
         </form>
       </div>
-      <CRUDHomeLinks token={props.token} />
+      <CRUDMediaLinks context={props.context} token={props.token} />
     </div>
   )
 }

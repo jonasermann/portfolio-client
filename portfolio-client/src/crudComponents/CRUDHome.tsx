@@ -1,24 +1,27 @@
-import { useContext } from 'react';
 import './CRUDHome.css';
+import { useContext } from 'react';
 import CRUDSkills from './CRUDSkills';
-import { AppContext } from '../App';
 
 interface IHomeProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
 const Home = (props: IHomeProps) => {
 
   const adminAccess = props.token.length > 163;
-  const homeProps = useContext(AppContext).homeProps;
-  const homeContent = homeProps.homeContent;
-  const setHomeContent = homeProps.setHomeContent;
+  const appProps = useContext(props.context);
+  const rootUrl = appProps.rootUrl;
+  const homeProps = appProps.homeProps;
+  const homeContent = homeProps.introduction;
+  const setHomeContent = homeProps.setIntroduction;
 
   const handleHomeContent = () => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-content', {
+    fetch(`${rootUrl}/api/introduction`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${props.token}`
       },
       body: JSON.stringify(homeContent)
     });
@@ -44,7 +47,7 @@ const Home = (props: IHomeProps) => {
           </button>
         </form>
       </div>
-      <CRUDSkills token={props.token} />
+      <CRUDSkills context={props.context} token={props.token} />
     </div>
   )
 }

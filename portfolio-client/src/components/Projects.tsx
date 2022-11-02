@@ -2,9 +2,13 @@ import { useContext } from 'react';
 import './Projects.css';
 import { AppContext } from '../App';
 
-const Projects = () => {
+interface IProjectProps {
+  context: React.Context<IAppProps>
+}
 
-  const projectProps = useContext(AppContext).projectProps;
+const Projects = (props: IProjectProps) => {
+
+  const projectProps = useContext(props.context).projectProps;
   const projects = projectProps.projects;
 
   return (

@@ -1,22 +1,25 @@
 import { useContext } from 'react';
 import './About.css';
-import HomeLinks from './HomeLinks'
-import { AppContext } from '../App';
+import MediaLinks from './MediaLinks'
 
-const About = () => {
+interface IAboutProps {
+  context: React.Context<IAppProps>
+}
 
-  const aboutProps = useContext(AppContext).aboutProps;
-  const aboutParagraphs = aboutProps.aboutParagraphs;
+const About = (props: IAboutProps) => {
+
+  const aboutProps = useContext(props.context).aboutProps;
+  const backgroundParagraphs = aboutProps.backgroundParagraphs;
 
   return (
     <div className="About">
       <h3>Background</h3>
-      {aboutParagraphs.map((aboutParagraph, index) =>
+      {backgroundParagraphs.map((backgroundParagraph, index) =>
         <div className="About-content" key={index}>
-          <p className="About-content__text">{aboutParagraph.text}</p>
+          <p className="About-content__text">{backgroundParagraph.text}</p>
         </div>
       )}
-      <HomeLinks />
+      <MediaLinks context={props.context} />
     </div>
   )
 }

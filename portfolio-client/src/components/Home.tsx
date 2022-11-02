@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import './Home.css';
 import Skills from './Skills';
-import { AppContext } from '../App'
 
-const Home = () => {
+interface IHomeProps {
+  context: React.Context<IAppProps>
+}
 
-  const homeProps = useContext(AppContext).homeProps;
-  const homeContent = homeProps.homeContent;
+const Home = (props: IHomeProps) => {
+
+  const homeProps = useContext(props.context).homeProps;
+  const homeContent = homeProps.introduction;
 
   return (
     <div className="Home">
@@ -14,7 +17,7 @@ const Home = () => {
         <img src={homeContent.profilePicUrl} alt="Profile" height="300rem" />
         <p className="Home__text">{homeContent.text}</p>
       </div>
-      <Skills />
+      <Skills context={props.context } />
     </div>
   )
 }

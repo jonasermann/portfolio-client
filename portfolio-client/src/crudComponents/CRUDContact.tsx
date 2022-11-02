@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
 import './CRUDContact.css';
-import { AppContext } from '../App';
+import { useContext } from 'react';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IContactProps {
+  context: React.Context<IAppProps>
   token: string;
 }
 
@@ -14,18 +15,20 @@ interface IContact {
 
 const Contact = (props: IContactProps) => {
 
-  const [oldContacts, setOldContacts] = useState([{id: 1, text: '', imgUrl: ''}])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/contacts')
-      .then(response => response.json())
-      .then(result => setOldContacts(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const contactProps = useContext(AppContext).contactProps;
+  const appProps = useContext(props.context);
+  const rootUrl = appProps.rootUrl;
+  const contactProps = appProps.contactProps;
   const contacts = contactProps.contacts;
   const setContacts = contactProps.setContacts;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/api/contacts`;
+    const oldContacts = await fetchOldData(url) as IContact[];
+    handleChanges<IContact>(
+      contacts, oldContacts, oldContacts.map(c => c.id), url, props.token
+    )
+  }
 
   const addcontact = () => {
     const arrayLength = contacts.length;
@@ -41,74 +44,12 @@ const Contact = (props: IContactProps) => {
     )
    }
 
-  const postContact = (text: string, imgUrl: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ text, imgUrl })
-    })
-  }
-
-  const putContact = (contact: IContact) => {
-    fetch('https://jeportapi.azurewebsites.net/api/Contacts', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(contact)
-    })
-  }
-
-  const deleteContact = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/Contacts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleContacts = () => {
-
-    const oldContactsLength = oldContacts.length;
-    const newContactsLength = contacts.length;
-    const contactDifference = oldContactsLength - newContactsLength;
-
-    if (contactDifference < 0) {
-      for (let i = 0; i < oldContactsLength; i++) {
-        putContact(contacts[i])
-      }
-      for (let i = oldContactsLength; i < newContactsLength; i++) {
-        postContact(contacts[i].text, contacts[i].imgUrl)
-      }
-    }
-
-    if (contactDifference === 0) {
-      for (let i = 0; i < oldContactsLength; i++) {
-        putContact(contacts[i])
-      }
-    }
-
-    if (contactDifference > 0) {
-      for (let i = 0; i < newContactsLength; i++) {
-        putContact(contacts[i])
-      }
-      for (let i = newContactsLength; i < oldContactsLength; i++) {
-        deleteContact(oldContacts[i].id)
-      }
-    }
-  }
-
   return (
     <div className="CRUDContact-content">
       <form>
         <div className="CRUDContact-content__contacts">
           {contacts.map((contact, contactIndex) =>
-            <div className="CRUDContact-content__contact" key={contactIndex}>
+            <div className="CRUDContact-content__contact" key={contactIndex} data-testid="contact">
               <div key={contactIndex}>
                 <img src={contacts[contactIndex].imgUrl} alt="logo" height="50rem" width="auto" />
                 <input type="text" value={contacts[contactIndex].imgUrl} onChange={e => setContacts(contacts.map((p, linkIndex) => {
@@ -121,24 +62,24 @@ const Contact = (props: IContactProps) => {
                 <div className="CRUDContact-content__contact-text">
                   <textarea
                     value={contact.text}
-                    onChange={e => setContacts(contacts.map((l, textindex) => {
+                    onChange={e => setContacts(contacts.map((c, textindex) => {
                       if (contactIndex === textindex) {
-                        l.text = e.target.value
+                        c.text = e.target.value
                       }
-                      return l;
+                      return c;
                     }))}
                     rows={2}
                     cols={50}
                   />
                 </div>
               </div>
-              <button className="CRUDContact-content__project-delete" type="button" onClick={() => deletecontact(contact.id)}>Delete</button>
+              <button className="CRUDContact-content__project-delete" type="button" onClick={() => deletecontact(contact.id)} data-testid={`delete${contactIndex}`} >Delete</button>
             </div>
           )}
         </div>
-        <button type="button" onClick={() => addcontact()}>Add contact</button>
+        <button type="button" onClick={() => addcontact()}>Add Contact</button>
         <div className="CRUDContact-content__Save">
-          <button type="button" onClick={() => handleContacts()} disabled={!adminAccess}>Update Contacts</button>
+          <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Contacts</button>
         </div>
       </form>
     </div>

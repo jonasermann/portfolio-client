@@ -8,6 +8,7 @@
 
 .App-nav__icon {
     padding: 1rem 4%;
+    cursor: pointer;
 }
 
 .App-nav__icon:hover {

@@ -17,61 +17,51 @@ const AppContext = createContext<IAppProps>({} as IAppProps)
 
 const App = () => {
 
-  const [aboutParagraphs, setAboutParagraphs] = useState([{ id: 0, text: '' }]);
-  const [homeLinks, setHomeLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
-  const [homeContent, setHomeContent] = useState({ id: 0, profilePicUrl: '', text: '' });
+  const [backgroundParagraphs, setBackgroundParagraphs] = useState([{ id: 0, text: '' }]);
+  const [mediaLinks, setMediaLinks] = useState([{ id: 0, imgUrl: '', url: '', text: '' }]);
+  const [introduction, setIntroduction] = useState({ id: 0, profilePicUrl: '', text: '' });
   const [projects, setProjects] = useState([{ id: 0, title: '', imgUrl: '', text: '', gitUrl: '' }]);
   const [contacts, setContacts] = useState([{ id: 0, imgUrl: '', text: '' }])
   const [skills, setSkills] = useState([{ id: 0, imgUrl: '', text: '', type: 0 }])
   const [token, setToken] = useState('Unauthorized');
+  const rootUrl: string = 'https://jeportapi.azurewebsites.net';
 
   useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-content')
+    fetch(`${rootUrl}/api/introduction`)
       .then(response => response.json())
-      .then(result => setHomeContent(result))
-  }, [])
+      .then(result => setIntroduction(result));
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/about/')
+    fetch(`${rootUrl}/api/backgroundparagraphs`)
       .then(response => response.json())
-      .then(result => setAboutParagraphs(result))
-  }, [])
+      .then(result => setBackgroundParagraphs(result));
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/home/home-links')
+    fetch(`${rootUrl}/api/medialinks`)
       .then(response => response.json())
-      .then(result => setHomeLinks(result))
+      .then(result => setMediaLinks(result));
 
-  }, [])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects/')
+    fetch(`${rootUrl}/api/projects`)
       .then(response => response.json())
-      .then(result => setProjects(result))
-  }, [])
+      .then(result => setProjects(result));
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/contacts')
+    fetch(`${rootUrl}/api/contacts`)
       .then(response => response.json())
       .then(result => setContacts(result));
-  }, []);
 
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/skills')
+    fetch(`${rootUrl}/api/skills`)
       .then(response => response.json())
-      .then(result => setSkills(result))
+      .then(result => setSkills(result));
   }, []);
 
   const homeProps: IHomeProps = {
-    homeContent, setHomeContent
+    introduction, setIntroduction
   }
 
   const aboutProps: IAboutProps = {
-    aboutParagraphs, setAboutParagraphs
+    backgroundParagraphs, setBackgroundParagraphs
   }
 
-  const homeLinkProps: IHomeLinkProps = {
-    homeLinks, setHomeLinks
+  const mediaLinkProps: IMediaLinkProps = {
+    mediaLinks, setMediaLinks
   }
 
   const projectProps: IProjectProps = {
@@ -87,7 +77,7 @@ const App = () => {
   }
 
   const appProps: IAppProps = {
-    homeProps, aboutProps, projectProps, contactProps, skillProps, homeLinkProps
+    homeProps, aboutProps, projectProps, contactProps, skillProps, mediaLinkProps, rootUrl
   }
 
   return (
@@ -102,17 +92,17 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigation />}>
-                <Route index element={<Home />} />
-                <Route path="about" element={<About />} />
-                <Route path="projects" element={<Projects />} />
+                <Route index element={<Home context={AppContext} />} />
+                <Route path="about" element={<About context={AppContext} />} />
+                <Route path="projects" element={<Projects context={AppContext} />} />
                 <Route path="crud" element={<Authentication token={token} setToken={setToken} />} />
                 <Route path="/crud/changes" element={<CRUDNavigation />} >
-                  <Route path="home" element={<CRUDHome token={token} />} />
-                  <Route path="about" element={<CRUDAbout token={token} />} />
-                  <Route path="projects" element={<CRUDProjects token={token} />} />
-                  <Route path="contact" element={<CRUDContact token={token} />} />
+                  <Route path="home" element={<CRUDHome context={AppContext} token={token} />} />
+                  <Route path="about" element={<CRUDAbout context={AppContext} token={token} />} />
+                  <Route path="projects" element={<CRUDProjects context={AppContext} token={token} />} />
+                  <Route path="contact" element={<CRUDContact context={AppContext} token={token} />} />
                 </Route>
-                <Route path="contact" element={<Contact />} />
+                <Route path="contact" element={<Contact context={AppContext} />} />
               </Route>
             </Routes>
           </BrowserRouter>

@@ -1,5 +1,5 @@
-import { useNavigate, Outlet } from 'react-router-dom';
 import './CRUDNavigation.css'
+import { useNavigate, Outlet } from 'react-router-dom';
 
 const Navigation = () => {
 

@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext } from 'react'
 import './CRUDProjects.css';
-import { AppContext } from '../App';
+import { useContext } from 'react';
+import { handleChanges, fetchOldData } from '../libraries/crudLibrary';
 
 interface IProjectProps {
+  context: React.Context<IAppProps>;
   token: string;
 }
 
@@ -15,18 +16,20 @@ interface IProject {
 
 const Projects = (props: IProjectProps) => {
 
-  const [oldProjects, setOldProjects] = useState([{ id: 1, title: '', imgUrl: '', text: '', gitUrl: '' }])
-
-  useEffect(() => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects')
-      .then(response => response.json())
-      .then(result => setOldProjects(result));
-  }, []);
-
   const adminAccess = props.token.length > 163;
-  const projectProps = useContext(AppContext).projectProps;
+  const appProps = useContext(props.context);
+  const rootUrl = appProps.rootUrl;
+  const projectProps = appProps.projectProps;
   const projects = projectProps.projects;
   const setProjects = projectProps.setProjects;
+
+  const initiateChange = async () => {
+    const url: string = `${rootUrl}/api/projects`;
+    const oldProjects = await fetchOldData(url) as IProject[];
+    handleChanges<IProject>(
+      projects, oldProjects, oldProjects.map(p => p.id), url, props.token
+    )
+  }
 
   const addProject = () => {
     const arrayLength = projects.length;
@@ -42,74 +45,12 @@ const Projects = (props: IProjectProps) => {
     )
   }
 
-  const postProject = (title: string, imgUrl: string, text: string, gitUrl: string) => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify({ title, imgUrl, text, gitUrl })
-    })
-  }
-
-  const putProject = (project: IProject) => {
-    fetch('https://jeportapi.azurewebsites.net/api/projects', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
-      },
-      body: JSON.stringify(project)
-    })
-  }
-
-  const deleteProject = (id: number) => {
-    fetch(`https://jeportapi.azurewebsites.net/api/projects/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${props.token}`
-      }
-    })
-  }
-
-  const handleProjects = () => {
-
-    const oldProjectsLength = oldProjects.length;
-    const newProjectsLength = projects.length;
-    const projectDifference = oldProjectsLength - newProjectsLength;
-
-    if (projectDifference < 0) {
-      for (let i = 0; i < oldProjectsLength; i++) {
-        putProject(projects[i])
-      }
-      for (let i = oldProjectsLength; i < newProjectsLength; i++) {
-        postProject(projects[i].title, projects[i].imgUrl, projects[i].text, projects[i].gitUrl)
-      }
-    }
-
-    if (projectDifference === 0) {
-      for (let i = 0; i < oldProjectsLength; i++) {
-        putProject(projects[i])
-      }
-    }
-
-    if (projectDifference > 0) {
-      for (let i = 0; i < newProjectsLength; i++) {
-        putProject(projects[i])
-      }
-      for (let i = newProjectsLength; i < oldProjectsLength; i++) {
-        deleteProject(oldProjects[i].id)
-      }
-    }
-  }
-
   return (
     <div className="CRUDProjects-content">
       <form>
         <div className="CRUDProjects-content__projects">
           {projects.map((project, projectIndex) =>
-            <div className="CRUDProjects-content__project" key={projectIndex}>
+            <div className="CRUDProjects-content__project" key={projectIndex} data-testid="project">
               <div key={projectIndex}>
                 <div>
                   <input type="text" value={projects[projectIndex].title} onChange={e => setProjects(projects.map((p, linkIndex) => {
@@ -123,41 +64,33 @@ const Projects = (props: IProjectProps) => {
                 <img src={projects[projectIndex].imgUrl} alt="logo" height="350rem" width="auto" />
                 <div>
                   <input type="text" value={projects[projectIndex].imgUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                    if (projectIndex === linkIndex) {
-                      p.imgUrl = e.target.value
-                    }
-                    return p;
-                  }))}
-                  />
+                    if (projectIndex === linkIndex) { p.imgUrl = e.target.value }; return p;
+                  }))} />
                 </div>
                 <textarea
                   value={project.text}
-                  onChange={e => setProjects(projects.map((l, textindex) => {
+                  onChange={e => setProjects(projects.map((p, textindex) => {
                     if (projectIndex === textindex) {
-                      l.text = e.target.value
-                    }
-                    return l;
+                      p.text = e.target.value
+                    };
+                    return p;
                   }))}
                   rows={5}
                   cols={100}
                 />
                 <div>
                   <input type="text" value={projects[projectIndex].gitUrl} onChange={e => setProjects(projects.map((p, linkIndex) => {
-                    if (projectIndex === linkIndex) {
-                      p.gitUrl = e.target.value
-                    }
-                    return p;
-                  }))}
-                  />
+                    if (projectIndex === linkIndex) { p.gitUrl = e.target.value }; return p;
+                  }))} />
                 </div>
               </div>
-              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)}>Delete</button>
+              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)} data-testid={`delete${projectIndex}`}>Delete</button>
             </div>
           )}
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>
         </div>
         <div className="CRUDProjects-content__Save">
-          <button type="button" onClick={() => handleProjects()} disabled={!adminAccess}>Update Projects</button>
+          <button type="button" onClick={() => initiateChange()} disabled={!adminAccess}>Update Projects</button>
         </div>
       </form>
     </div>

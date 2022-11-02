@@ -1,10 +1,13 @@
-import { useContext } from 'react';
 import './Skills.css';
-import { AppContext } from '../App';
+import { useContext } from 'react';
 
-const Skills = () => {
+interface ISkillsProps {
+  context: React.Context<IAppProps>
+}
 
-  const skillProps = useContext(AppContext).skillProps;
+const Skills = (props: ISkillsProps) => {
+
+  const skillProps = useContext(props.context).skillProps;
   const backend = skillProps.skills.filter(skill => skill.type === 0);
   const frontend = skillProps.skills.filter(skill => skill.type === 1);
   const languages = skillProps.skills.filter(skill => skill.type === 2);
@@ -17,8 +20,8 @@ const Skills = () => {
         <div className="Skills" key={type.name}>
           <h2>{type.name}</h2>
           <div className="Skills-row">
-            {type.type.map((content, index) => (
-              <div className="Skills-content" key={index}>
+            {type.type.map(content => (
+              <div className="Skills-content" key={content.text}>
                 <img src={content.imgUrl} alt="logo" width="100rem" height="auto" />
                 <p>{content.text}</p>
               </div>
