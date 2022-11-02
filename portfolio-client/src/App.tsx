@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react';
-import { BrowserRouter, Routes, Route, Red } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Navigation from './components/Navigation';
 import Home from './components/Home';
