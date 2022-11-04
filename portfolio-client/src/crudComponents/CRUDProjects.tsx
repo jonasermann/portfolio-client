@@ -22,6 +22,7 @@ const Projects = (props: IProjectProps) => {
   const projectProps = appProps.projectProps;
   const projects = projectProps.projects;
   const setProjects = projectProps.setProjects;
+  console.log(projects);
 
   const initiateChange = async () => {
     const url: string = `${rootUrl}/api/projects`;
@@ -37,12 +38,30 @@ const Projects = (props: IProjectProps) => {
     setProjects([...projects, { id: id, title: '', imgUrl: '', text: '', url: '' }])
   }
 
-  const deleteProject_ = (id: number) => {
+  const deleteProject = (id: number) => {
     setProjects(
       projects.filter(project =>
         project.id !== id
       )
     )
+  }
+
+  const upProject = (index: number) => {
+    const upperProject = projects[index - 1];
+    upperProject.id = index + 1;
+    projects[index].id = index;
+    projects[index - 1] = projects[index];
+    projects[index] = upperProject;
+    setProjects(projects);
+  }
+
+  const downProject = (index: number) => {
+    const lowerProject = projects[index + 1];
+    lowerProject.id = index + 1;
+    projects[index].id = index + 2;
+    projects[index + 1] = projects[index];
+    projects[index] = lowerProject;
+    setProjects(projects);
   }
 
   return (
@@ -84,7 +103,9 @@ const Projects = (props: IProjectProps) => {
                   }))} />
                 </div>
               </div>
-              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject_(project.id)} data-testid={`delete${projectIndex}`}>Delete</button>
+              <button className="CRUDProjects-content__project-delete" type="button" onClick={() => deleteProject(project.id)} data-testid={`delete${projectIndex}`}>Delete</button>
+              <button type="button" onClick={e => upProject(projectIndex)} disabled={projectIndex === 0}>up</button>
+              <button type="button" onClick={e => downProject(projectIndex)} disabled={projectIndex === projects.length - 1}>down</button>
             </div>
           )}
           <button className="CRUDProjects-content__Add" type="button" onClick={() => addProject()}>Add Project</button>

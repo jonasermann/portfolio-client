@@ -107,6 +107,9 @@ const App = () => {
             </Routes>
           </BrowserRouter>
         </div>
+        <br />
+        <br />
+        <br />
         <footer className="App-footer">
           <p className="App-footer__text">
             Made by me, Jonas Ermann, 2022.
