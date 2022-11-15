@@ -73,10 +73,10 @@ async function handleChanges<T>(
   }
 }
 
-async function fetchOldData(url: string) {
+async function fetchData(url: string) {
   const response = await fetch(url);
   if (!response.ok) { console.log(response.status) };
   return response.json() as unknown;
 }
 
-export { handleChanges, fetchOldData };
+export { handleChanges, fetchData };

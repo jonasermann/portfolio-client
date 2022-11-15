@@ -1,14 +1,12 @@
-import { useContext } from 'react';
 import './MediaLinks.css';
+import { useSelector, shallowEqual } from "react-redux";
 
-interface IMediaLinksProps {
-  context: React.Context<IAppProps>
-}
+const MediaLinks = () => {
 
-const MediaLinks = (props: IMediaLinksProps) => {
-
-  const mediaLinkProps = useContext(props.context).mediaLinkProps;
-  const mediaLinks = mediaLinkProps.mediaLinks;
+  const mediaLinks: IMediaLink[] = useSelector(
+    (state: AppState) => state.mediaLinks,
+    shallowEqual
+  )
 
   return (
     <div className="Media-links">

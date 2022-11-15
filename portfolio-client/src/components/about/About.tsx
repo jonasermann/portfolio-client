@@ -1,15 +1,13 @@
-import { useContext } from 'react';
 import './About.css';
-import MediaLinks from './MediaLinks'
+import MediaLinks from '../mediaLinks/MediaLinks'
+import { useSelector, shallowEqual } from "react-redux";
 
-interface IAboutProps {
-  context: React.Context<IAppProps>
-}
+const About = () => {
 
-const About = (props: IAboutProps) => {
-
-  const aboutProps = useContext(props.context).aboutProps;
-  const backgroundParagraphs = aboutProps.backgroundParagraphs;
+  const backgroundParagraphs: IBackgroundParagraph[] = useSelector(
+    (state: AppState) => state.backgroundParagraphs,
+    shallowEqual
+  )
 
   return (
     <div className="About">
@@ -19,7 +17,7 @@ const About = (props: IAboutProps) => {
           <p className="About-content__text">{backgroundParagraph.text}</p>
         </div>
       )}
-      <MediaLinks context={props.context} />
+      <MediaLinks />
     </div>
   )
 }

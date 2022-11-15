@@ -1,14 +1,12 @@
-import { useContext } from 'react';
 import './Contact.css';
+import { useSelector, shallowEqual } from "react-redux";
 
-interface IContactProps {
-  context: React.Context<IAppProps>
-}
+const Contact = () => {
 
-const Contact = (props: IContactProps) => {
-
-  const contactProps = useContext(props.context).contactProps;
-  const contacts = contactProps.contacts
+  const contacts: IContact[] = useSelector(
+    (state: AppState) => state.contacts,
+    shallowEqual
+  )
 
   return (
     <div className="Contact">

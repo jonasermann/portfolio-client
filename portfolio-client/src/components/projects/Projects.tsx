@@ -1,15 +1,12 @@
-import { useContext } from 'react';
 import './Projects.css';
-import { AppContext } from '../App';
+import { useSelector, shallowEqual } from "react-redux";
 
-interface IProjectProps {
-  context: React.Context<IAppProps>
-}
+const Projects = () => {
 
-const Projects = (props: IProjectProps) => {
-
-  const projectProps = useContext(props.context).projectProps;
-  const projects = projectProps.projects;
+  const projects: IProject[] = useSelector(
+    (state: AppState) => state.projects,
+    shallowEqual
+  )
 
   return (
     <div className="Projects">
@@ -27,4 +24,5 @@ const Projects = (props: IProjectProps) => {
   )
 }
 
+//connect(mapStateToProps, { fetchPostsWithRedux })(Projects);
 export default Projects;

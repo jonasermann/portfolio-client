@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
 
-interface IAuthenticationProps {
-  token: string
-  setToken: React.Dispatch<React.SetStateAction<string>>
-}
+//interface IAuthenticationProps {
+//  token: string
+//  setToken: React.Dispatch<React.SetStateAction<string>>
+//}
 
-const Authentication = (props: IAuthenticationProps) => {
+const Authentication = () => {
 
-  const token = props.token;
-  const setToken = props.setToken;
+  const token = '';
+  //const setToken = props.setToken;
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [admin, setAdmin] = useState('Admin')
@@ -37,21 +37,21 @@ const Authentication = (props: IAuthenticationProps) => {
     setAdmin('Admin');
   }
 
-  const fetchToken = async () => await fetch('https://jeportapi.azurewebsites.net/api/Authentication', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(password)
-  })
-    .then(response => response.text())
-    .then(token => setToken(token))
+  //const fetchToken = async () => await fetch('https://jeportapi.azurewebsites.net/api/Authentication', {
+  //  method: 'POST',
+  //  headers: {
+  //    'Content-Type': 'application/json',
+  //  },
+  //  body: JSON.stringify(password)
+  //})
+  //  .then(response => response.text())
+  //  .then(token => setToken(token))
 
 
-  const handleLogin = () => {
-    setAdmin('Wait');
-    fetchToken();
-  }
+  //const handleLogin = () => {
+  //  setAdmin('Wait');
+  //  fetchToken();
+  //}
 
   return (
     <div className="Login-content">
@@ -61,7 +61,7 @@ const Authentication = (props: IAuthenticationProps) => {
       </div>
       <div className="Login-content__Buttons">
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>
+        {/*<button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>*/}
         <p className="Login-content__Text" onClick={() => handleNavigation()}>Continue With Preview</p>
       </div>
     </div>
