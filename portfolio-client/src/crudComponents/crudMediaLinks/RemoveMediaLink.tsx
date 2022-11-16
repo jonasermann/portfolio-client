@@ -19,7 +19,7 @@ const RemoveMediaLink = (mediaLink: IMediaLink) => {
 
   return (
     <form onSubmit={e => removeOldMediaLink(e)} >
-      <button className="CRUDmediaLinks-content__mediaLink-delete">
+      <button className="delete-button">
         Delete
       </button>
     </form>

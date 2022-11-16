@@ -20,7 +20,7 @@ const RemoveSkill = (skill: ISkill) => {
   return (
     <form onSubmit={e => removeOldSkill(e)} >
       <button
-        className="CRUDSkill-content__project-delete"
+        className="delete-button"
         data-testid={`delete${skill.id}`}>
         Delete
       </button>

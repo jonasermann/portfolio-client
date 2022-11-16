@@ -14,7 +14,7 @@ const EditIntroduction = (introduction: IIntroduction) => {
 
   return (
     <div
-      className="CRUDHome-content__introduction">
+      className="mb">
       <img
         src={introduction.profilePicUrl}
         alt="profile-pic"
@@ -33,7 +33,7 @@ const EditIntroduction = (introduction: IIntroduction) => {
         }}
       />
       <textarea
-        className="CRUDHome-content__input"
+        className="mb"
         value={introduction.text}
         onChange={e => {
           const updatedIntroduction = {

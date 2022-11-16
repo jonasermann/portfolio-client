@@ -48,12 +48,12 @@ const Projects = (props: IAppProps) => {
 
   return (
     <div
-      className="CRUDProjects-content">
+      className="mb">
       <div
-        className="CRUDProjects-content__projects">
+        className="mb">
         {projects.map((project, projectIndex) =>
           <div
-            className="CRUDProjects-content__project"
+            className="mb"
             key={projectIndex}
             data-testid="project">
             <EditProject {...project} />
@@ -63,7 +63,7 @@ const Projects = (props: IAppProps) => {
         <AddProject {...{idToAdd}} />
       </div>
       <div
-        className="CRUDProjects-content__Save">
+        className="mb">
         <button
           type="button"
           onClick={() => initiateChange()}

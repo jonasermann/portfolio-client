@@ -1,12 +1,16 @@
-//export function fetchProjectsRequest() {
-//  const action: ProjectAction = {
-//    type: 'FETCH_REQUEST',
-//    project: {} as IProject,
-//    projects: []
-//  }
-//  return (dispatch: ProjectDispatch) =>
-//    dispatch(action)
-//}
+export function populateState(state: AppState) {
+  const action: AppAction = {
+    type: 'SET_STATE',
+    backgroundParagraph: {} as IBackgroundParagraph,
+    contact: {} as IContact,
+    introduction: {} as IIntroduction,
+    mediaLink: {} as IMediaLink,
+    project: {} as IProject,
+    skill: {} as ISkill,
+    state: state,
+  }
+  return (dispatch: AppDispatch) => dispatch(action);
+}
 
 export function addBackgroundParagraph(backgroundParagraph: IBackgroundParagraph) {
   const action: AppAction = {
@@ -16,7 +20,8 @@ export function addBackgroundParagraph(backgroundParagraph: IBackgroundParagraph
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -29,7 +34,8 @@ export function editBackgroundParagraph(backgroundParagraph: IBackgroundParagrap
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -42,7 +48,8 @@ export function removeBackgroundParagraph(backgroundParagraph: IBackgroundParagr
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -57,7 +64,8 @@ export function addContact(contact: IContact) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -70,7 +78,8 @@ export function editContact(contact: IContact) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -83,7 +92,8 @@ export function removeContact(contact: IContact) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -98,7 +108,8 @@ export function editIntroduction(introduction: IIntroduction) {
     introduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -113,7 +124,8 @@ export function addMediaLink(mediaLink: IMediaLink) {
     introduction: {} as IIntroduction,
     mediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -126,7 +138,8 @@ export function editMediaLink(mediaLink: IMediaLink) {
     introduction: {} as IIntroduction,
     mediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -139,7 +152,8 @@ export function removeMediaLink(mediaLink: IMediaLink) {
     introduction: {} as IIntroduction,
     mediaLink,
     project: {} as IProject,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -154,7 +168,8 @@ export function addProject(project: IProject) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -167,7 +182,8 @@ export function editProject(project: IProject) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -180,7 +196,8 @@ export function removeProject(project: IProject) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project,
-    skill: {} as ISkill
+    skill: {} as ISkill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -195,7 +212,8 @@ export function addSkill(skill: ISkill) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill
+    skill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -208,7 +226,8 @@ export function editSkill(skill: ISkill) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill
+    skill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }
@@ -221,7 +240,8 @@ export function removeSkill(skill: ISkill) {
     introduction: {} as IIntroduction,
     mediaLink: {} as IMediaLink,
     project: {} as IProject,
-    skill
+    skill,
+    state: {} as AppState,
   }
   return (dispatch: AppDispatch) => dispatch(action);
 }

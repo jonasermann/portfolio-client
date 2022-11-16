@@ -30,10 +30,10 @@ const MediaLinks = (props: IAppProps) => {
 
   return (
     <div
-      className="CRUDmediaLinks-content">
+      className="mb">
       {mediaLinks.map((mediaLink, mediaIndex) =>
         <div
-          className="CRUDmediaLinks-content__mediaLink"
+          className="mb"
           key={mediaIndex}
           data-testid="mediaLink">
           <EditMediaLink {...mediaLink} />
@@ -42,7 +42,7 @@ const MediaLinks = (props: IAppProps) => {
       )}
       <AddMediaLink {...{idToAdd}} />
       <div
-        className="CRUDmediaLinks-content__Save">
+        className="mb">
         <button
           type="button"
           onClick={() => initiateChange()}

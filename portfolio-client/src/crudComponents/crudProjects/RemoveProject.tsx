@@ -19,7 +19,7 @@ const RemoveProject = (project: IProject) => {
 
   return (
     <form onSubmit={e => removeOldProject(e)} >
-      <button className="CRUDprojects-content__project-delete">
+      <button className="delete-button">
         Delete
       </button>
     </form>

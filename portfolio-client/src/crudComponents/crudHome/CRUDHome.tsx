@@ -26,10 +26,10 @@ const Home = (props: IAppProps) => {
   return (
     <div>
       <div
-        className="CRUDHome-content">
+        className="mb">
         <EditIntroduction {...introduction } />
           <button
-            className="CRUDHome-content--Save"
+            className="mb"
             type="button"
             onClick={() => handleHomeContent()}
             disabled={!adminAccess}>

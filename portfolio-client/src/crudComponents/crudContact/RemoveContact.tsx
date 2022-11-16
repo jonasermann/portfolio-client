@@ -20,7 +20,7 @@ const RemoveContact = (contact: IContact) => {
   return (
     <form onSubmit={e => removeOldContact(e)} >
       <button
-        className="CRUDContact-content__project-delete"
+        className="delete-button"
         data-testid={`delete${contact.id}`}>
         Delete
       </button>

@@ -19,7 +19,7 @@ const AddProject = (get: { idToAdd(): number }) => {
 
   return (
     <form onSubmit={e => addNewProject(e)} >
-      <button className="CRUDProjects-content__Add">
+      <button>
         Add Project
       </button>
     </form>

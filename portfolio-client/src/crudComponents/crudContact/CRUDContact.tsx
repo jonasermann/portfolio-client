@@ -30,9 +30,9 @@ const Contact = (props: IAppProps) => {
 
   return (
     <div
-      className="CRUDContact-content">
+      className="mb">
       <div
-        className="CRUDContact-content__contacts">
+        className="mb">
         {contacts.map((contact, contactIndex) =>
           <div
             className="CRUDContact-content__contact"
@@ -45,7 +45,7 @@ const Contact = (props: IAppProps) => {
       </div>
       <AddContact {...{ idToAdd }} />
       <div
-        className="CRUDContact-content__Save">
+        className="mb">
         <button
           type="button"
           onClick={() => initiateChange()}

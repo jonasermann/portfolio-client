@@ -32,9 +32,9 @@ const About = (props: IAppProps) => {
   return (
     <div>
       <div
-        className="CRUDAbout-content">
+        className="mb">
         <div
-          className="CRUDAbout-content__backgroundParagraphs">
+          className="mb">
           {backgroundParagraphs.map((backgroundParagraph, paragraphIndex) =>
             <div key={paragraphIndex}>
               <EditBackgroundParagraph {...backgroundParagraph} />
@@ -42,9 +42,9 @@ const About = (props: IAppProps) => {
             </div>
           )}
         </div>
-        <AddBackgroundParagraph {...{ idToAdd }} />
+        <AddBackgroundParagraph {...{ idToAdd}} />
         <div
-          className="CRUDAbout-content__Save">
+          className="mb">
           <button
             type="button"
             onClick={() => initiateChange()}

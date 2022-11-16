@@ -31,11 +31,11 @@ const Skills = (props: IAppProps) => {
   return (
     <div>
       <div
-        className="CRUDSkills-content">
+        className="mb">
         {
           skills.map((skill, skillIndex) => (
             <div
-              className="CRUDSkills-content__skill"
+              className="mb"
               key={skillIndex}
               data-testid="skill">
               <EditSkill {...skill} />
@@ -46,7 +46,7 @@ const Skills = (props: IAppProps) => {
         <AddSkill {...{idToAdd}} />
       </div>
       <button
-        className="CRUDSkills-content--Save"
+        className="mb"
         type="submit"
         onClick={() => initiateChange()}
         disabled={!adminAccess}>

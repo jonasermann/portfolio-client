@@ -19,7 +19,7 @@ const RemoveBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) =>
 
   return (
     <form onSubmit={e => removeOldBackgroundParagraph(e)} >
-      <button>
+      <button className="delete-button">
         Delete
       </button>
     </form>

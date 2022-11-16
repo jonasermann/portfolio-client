@@ -1,77 +1,88 @@
 const initialState: AppState = {
 
-    backgroundParagraphs: [
-      {
-        id: 1,
-        text: 'text',
-      }
-    ],
+  backgroundParagraphs: [],
+  contacts: [],
+  introduction: {} as IIntroduction,
+  mediaLinks: [],
+  projects: [],
+  skills: [],
 
-    contacts: [
-      {
-        id: 1,
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-      }
-    ],
+  //backgroundParagraphs: [
+  //  {
+  //    id: 1,
+  //    text: 'text',
+  //  }
+  //],
 
-    introduction:
-    {
-      id: 1,
-      profilePicUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-      text: 'text',
-    },
+  //contacts: [
+  //  {
+  //    id: 1,
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //  }
+  //],
 
-    mediaLinks: [
-      {
-        id: 1,
-        url: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-      }
-    ],
+  //introduction:
+  //{
+  //  id: 1,
+  //  profilePicUrl: 'src',
+  //  text: 'text',
+  //},
 
-    projects: [
-      {
-        id: 1,
-        title: 'title',
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-        gitUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-      }
-    ],
+  //mediaLinks: [
+  //  {
+  //    id: 1,
+  //    url: 'src',
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //  }
+  //],
 
-    skills: [
-      {
-        id: 1,
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-        type: 0
-      },
-      {
-        id: 1,
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-        type: 1
-      },
-      {
-        id: 1,
-        imgUrl: 'https://th.bing.com/th/id/OIP.p7nqaITPepG75TidfxDmvQHaHa?pid=ImgDet&rs=1',
-        text: 'text',
-        type: 2
-      }
-    ]
-  }
+  //projects: [
+  //  {
+  //    id: 1,
+  //    title: 'title',
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //    gitUrl: 'src',
+  //  }
+  //],
+
+  //skills: [
+  //  {
+  //    id: 1,
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //    type: 0
+  //  },
+  //  {
+  //    id: 1,
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //    type: 1
+  //  },
+  //  {
+  //    id: 1,
+  //    imgUrl: 'src',
+  //    text: 'text',
+  //    type: 2
+  //  }
+  //]
+}
 
 const appReducer = (state = initialState, action: AppAction) => {
   switch (action.type) {
-    case "FETCH_REQUEST":
-      return state;
-    case "FETCH_SUCCESS":
+    case "SET_STATE":
+      console.log('state', state);
       return {
         ...state,
-        app: action
-      };
+        backgroundParagraphs: action.state.backgroundParagraphs,
+        contacts: action.state.contacts,
+        introduction: action.state.introduction,
+        mediaLinks: action.state.mediaLinks,
+        projects: action.state.projects,
+        skills: action.state.skills,
+      }
 
 
 

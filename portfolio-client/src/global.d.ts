@@ -144,6 +144,7 @@ type AppAction = {
   mediaLink: IMediaLink
   project: IProject
   skill: ISkill
+  state: AppState
 }
 
 type AppDispatch = (args: AppAction) => AppAction

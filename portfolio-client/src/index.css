@@ -9,3 +9,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.delete-button {
+    margin: 1rem;
+}
+
+.mb {
+    margin-bottom: 3rem;
+}

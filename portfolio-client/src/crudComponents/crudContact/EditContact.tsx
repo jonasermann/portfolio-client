@@ -35,7 +35,7 @@ const EditContact = (contact: IContact) => {
       />
 
       <div
-        className="CRUDContact-content__contact-text">
+        className="">
         <textarea
           value={contact.text}
           onChange={e => {

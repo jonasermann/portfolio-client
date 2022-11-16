@@ -14,7 +14,7 @@ const EditBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
 
   return (
     <div
-      className="CRUDAbout-content__backgroundParagraph"
+      className="mb"
       data-testid="backgroundParagraph">
       <textarea
         value={backgroundParagraph.text}
