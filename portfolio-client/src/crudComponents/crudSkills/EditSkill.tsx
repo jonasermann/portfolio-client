@@ -1,7 +1,8 @@
 import { editSkill } from '../../actions/crudActions';
 import * as React from "react";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const EditSkill = (skill: ISkill) => {
 
@@ -12,11 +13,16 @@ const EditSkill = (skill: ISkill) => {
     [dispatch]
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
   return (
     <div>
 
       <img
-        src={skill.imgUrl}
+        src={getImgUrl(skill.imgUrl, baseUrl)}
         alt="logo"
         height="auto"
         width="100rem" />

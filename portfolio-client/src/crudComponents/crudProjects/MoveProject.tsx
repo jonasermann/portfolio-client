@@ -37,6 +37,8 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
       mediaLinks: [],
       projects: updatedProjects,
       skills: [],
+      baseUrl: '',
+      token: '',
       })
   }
 
@@ -63,6 +65,8 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
       mediaLinks: [],
       projects: updatedProjects,
       skills: [],
+      baseUrl: '',
+      token: '',
     })
   }
 

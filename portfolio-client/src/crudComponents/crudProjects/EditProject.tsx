@@ -1,7 +1,8 @@
 import { editProject } from '../../actions/crudActions';
 import * as React from "react";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const EditProject = (project: IProject) => {
 
@@ -10,6 +11,11 @@ const EditProject = (project: IProject) => {
   const edit = React.useCallback(
     (project: IProject) => dispatch(editProject(project)),
     [dispatch]
+  )
+
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
   )
 
   return (
@@ -33,7 +39,7 @@ const EditProject = (project: IProject) => {
       </div>
 
       <img
-        src={project.imgUrl}
+        src={getImgUrl(project.imgUrl, baseUrl)}
         alt="logo"
         height="350rem"
         width="auto" />

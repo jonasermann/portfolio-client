@@ -7,14 +7,24 @@ import { useState } from 'react';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useSelector, shallowEqual } from "react-redux";
 
-const Projects = (props: IAppProps) => {
-
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
+const Projects = () => {
+  
   const projects: IProject[] = useSelector(
     (state: AppState) => state.projects,
     shallowEqual
   )
+
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
 
   const [currentProjects, setCurrentProjects] = useState(projects);
 
@@ -22,7 +32,7 @@ const Projects = (props: IAppProps) => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldProjects = await fetchData(url) as IProject[];
     handleChanges<IProject>(
-      projects, oldProjects, oldProjects.map(p => p.id), url, props.token
+      projects, oldProjects, oldProjects.map(p => p.id), url, token
     )
   }
 

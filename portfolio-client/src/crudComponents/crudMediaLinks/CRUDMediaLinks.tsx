@@ -5,20 +5,30 @@ import AddMediaLink from './AddMediaLink';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useSelector, shallowEqual } from "react-redux";
 
-const MediaLinks = (props: IAppProps) => {
+const MediaLinks = () => {
 
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
   const mediaLinks: IMediaLink[] = useSelector(
     (state: AppState) => state.mediaLinks,
     shallowEqual
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
+
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldMediaLinks = await fetchData(url) as IMediaLink[];
     handleChanges<IMediaLink>(
-      mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, props.token
+      mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, token
     )
   }
 

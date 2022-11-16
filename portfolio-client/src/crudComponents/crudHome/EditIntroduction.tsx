@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { editIntroduction } from '../../actions/crudActions';
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const EditIntroduction = (introduction: IIntroduction) => {
 
@@ -12,11 +13,16 @@ const EditIntroduction = (introduction: IIntroduction) => {
     [dispatch]
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
   return (
     <div
       className="mb">
       <img
-        src={introduction.profilePicUrl}
+        src={getImgUrl(introduction.profilePicUrl, baseUrl)}
         alt="profile-pic"
         height="100rem"
         width="auto" />

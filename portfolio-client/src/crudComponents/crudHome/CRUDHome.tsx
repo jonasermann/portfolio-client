@@ -3,21 +3,31 @@ import EditIntroduction from './EditIntroduction';
 import CRUDSkills from '../crudSkills/CRUDSkills';
 import { useSelector, shallowEqual } from 'react-redux';
 
-const Home = (props: IAppProps) => {
+const Home = () => {
 
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
   const introduction: IIntroduction = useSelector(
     (state: AppState) => state.introduction,
     shallowEqual
   )
+
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
 
   const handleHomeContent = () => {
     fetch(`${baseUrl}/api/introduction`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${props.token}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(introduction)
     });
@@ -36,9 +46,7 @@ const Home = (props: IAppProps) => {
             Update Home
           </button>
       </div>
-      <CRUDSkills
-        baseUrl=""
-        token={props.token} />
+      <CRUDSkills />
     </div>
   )
 }

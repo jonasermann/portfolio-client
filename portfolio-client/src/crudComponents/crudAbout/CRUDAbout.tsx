@@ -6,20 +6,30 @@ import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import CRUDMediaLinks from '../crudMediaLinks/CRUDMediaLinks';
 import { useSelector, shallowEqual } from "react-redux";
 
-const About = (props: IAppProps) => {
+const About = () => {
 
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
   const backgroundParagraphs: IBackgroundParagraph[] = useSelector(
     (state: AppState) => state.backgroundParagraphs,
     shallowEqual
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
+
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldBackgroundParagraphs = await fetchData(url) as IBackgroundParagraph[];
     handleChanges<IBackgroundParagraph>(
-      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, props.token
+      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, token
     )
   }
 
@@ -51,7 +61,7 @@ const About = (props: IAppProps) => {
             disabled={!adminAccess}>Update About</button>
         </div>
       </div>
-      <CRUDMediaLinks baseUrl="" token={props.token} />
+      <CRUDMediaLinks />
     </div>
   )
 }

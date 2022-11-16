@@ -1,7 +1,8 @@
 import { editContact } from '../../actions/crudActions';
 import * as React from "react";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const EditContact = (contact: IContact) => {
 
@@ -12,11 +13,16 @@ const EditContact = (contact: IContact) => {
     [dispatch]
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
   return (
     <div>
 
       <img
-        src={contact.imgUrl}
+        src={getImgUrl(contact.imgUrl, baseUrl)}
         alt="logo"
         height="50rem"
         width="auto" />

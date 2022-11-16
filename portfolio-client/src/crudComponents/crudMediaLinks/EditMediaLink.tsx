@@ -1,7 +1,8 @@
 import { editMediaLink } from '../../actions/crudActions';
 import * as React from "react";
 import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const EditMediaLink = (mediaLink: IMediaLink) => {
 
@@ -12,10 +13,15 @@ const EditMediaLink = (mediaLink: IMediaLink) => {
     [dispatch]
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
   return (
     <div>
       <img
-        src={mediaLink.imgUrl}
+        src={getImgUrl(mediaLink.imgUrl, baseUrl)}
         alt="logo"
         height="50rem"
         width="auto" />

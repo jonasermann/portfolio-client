@@ -5,20 +5,30 @@ import AddContact from './AddContact';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useSelector, shallowEqual } from "react-redux";
 
-const Contact = (props: IAppProps) => {
+const Contact = () => {
 
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
   const contacts: IContact[] = useSelector(
     (state: AppState) => state.contacts,
     shallowEqual
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
+
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/contacts`;
     const oldContacts = await fetchData(url) as IContact[];
     handleChanges<IContact>(
-      contacts, oldContacts, oldContacts.map(p => p.id), url, props.token
+      contacts, oldContacts, oldContacts.map(p => p.id), url, token 
     )
   }
 

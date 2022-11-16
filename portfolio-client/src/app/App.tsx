@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 
 const App = () => {
 
-  const baseUrl: string = 'https://jeportapi.azurewebsites.net/api';
+  const baseUrl: string = 'http://localhost:5133';
   const dispatch: Dispatch<any> = useDispatch()
 
   const set = React.useCallback(
@@ -28,27 +28,27 @@ const App = () => {
   )
 
   const fetchData: () => Promise<AppState> = async () => {
-    const backgroundParagraphsResponse = await fetch(`${baseUrl}/backgroundParagraphs`);
+    const backgroundParagraphsResponse = await fetch(`${baseUrl}/api/backgroundParagraphs`);
     const backgroundParagraphsJson = await backgroundParagraphsResponse.json() as IBackgroundParagraph[];
     const backgroundParagraphs = backgroundParagraphsJson;
 
-    const contactsResponse = await fetch(`${baseUrl}/contacts`);
+    const contactsResponse = await fetch(`${baseUrl}/api/contacts`);
     const contactsJson = await contactsResponse.json() as IContact[];
     const contacts = contactsJson;
 
-    const introductionResponse = await fetch(`${baseUrl}/introduction`);
+    const introductionResponse = await fetch(`${baseUrl}/api/introduction`);
     const introductionJson = await introductionResponse.json() as IIntroduction;
     const introduction = introductionJson;
 
-    const mediaLinksResponse = await fetch(`${baseUrl}/mediaLinks`);
+    const mediaLinksResponse = await fetch(`${baseUrl}/api/mediaLinks`);
     const mediaLinksJson = await mediaLinksResponse.json() as IMediaLink[];
     const mediaLinks = mediaLinksJson;
 
-    const projectsResponse = await fetch(`${baseUrl}/projects`);
+    const projectsResponse = await fetch(`${baseUrl}/api/projects`);
     const projectsJson = await projectsResponse.json() as IProject[];
     const projects = projectsJson;
 
-    const skillsResponse = await fetch(`${baseUrl}/skills`);
+    const skillsResponse = await fetch(`${baseUrl}/api/skills`);
     const skillsJson = await skillsResponse.json() as ISkill[];
     const skills = skillsJson;
 
@@ -58,7 +58,9 @@ const App = () => {
       introduction,
       mediaLinks,
       projects,
-      skills
+      skills,
+      baseUrl,
+      token: '',
     };
   };
 
@@ -87,10 +89,10 @@ const App = () => {
               <Route path="projects" element={<Projects />} />
               <Route path="crud" element={<Authentication />} />
               <Route path="/crud/changes" element={<CRUDNavigation />} >
-                <Route path="home" element={<CRUDHome baseUrl="" token="" />} />
-                <Route path="about" element={<CRUDAbout baseUrl="" token="" />} />
-                <Route path="projects" element={<CRUDProjects baseUrl="" token="" />} />
-                <Route path="contact" element={<CRUDContact baseUrl="" token="" />} />
+                <Route path="home" element={<CRUDHome />} />
+                <Route path="about" element={<CRUDAbout  />} />
+                <Route path="projects" element={<CRUDProjects />} />
+                <Route path="contact" element={<CRUDContact  />} />
               </Route>
               <Route path="contact" element={<Contact />} />
             </Route>

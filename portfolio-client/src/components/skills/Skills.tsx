@@ -1,10 +1,16 @@
 import './Skills.css';
 import { useSelector, shallowEqual } from "react-redux";
+import { getImgUrl } from '../../libraries/portfolioLibrary';
 
 const Skills = () => {
 
   const skills: ISkill[] = useSelector(
     (state: AppState) => state.skills,
+    shallowEqual
+  )
+
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
     shallowEqual
   )
 
@@ -22,7 +28,7 @@ const Skills = () => {
           <div className="Skills-row">
             {type.type.map(content => (
               <div className="Skills-content" key={content.text}>
-                <img src={content.imgUrl} alt="logo" width="100rem" height="auto" />
+                <img src={getImgUrl(content.imgUrl, baseUrl)} alt="logo" width="100rem" height="auto" />
                 <p>{content.text}</p>
               </div>
             ))}

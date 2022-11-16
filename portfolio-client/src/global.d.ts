@@ -134,6 +134,8 @@ interface AppState {
   mediaLinks: IMediaLink[]
   projects: IProject[]
   skills: ISkill[]
+  baseUrl: string
+  token: string
 }
 
 type AppAction = {

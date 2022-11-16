@@ -5,20 +5,30 @@ import AddSkill from './AddSkill';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useSelector, shallowEqual } from "react-redux";
 
-const Skills = (props: IAppProps) => {
+const Skills = () => {
 
-  const adminAccess = props.token.length > 163;
-  const baseUrl = props.baseUrl;
   const skills: ISkill[] = useSelector(
     (state: AppState) => state.skills,
     shallowEqual
   )
 
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual
+  )
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual
+  )
+
+  const adminAccess = token.length > 163;
+
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/skills`;
     const oldSkills = await fetchData(url) as ISkill[];
     handleChanges<ISkill>(
-      skills, oldSkills, oldSkills.map(p => p.id), url, props.token
+      skills, oldSkills, oldSkills.map(p => p.id), url, token
     )
   }
 

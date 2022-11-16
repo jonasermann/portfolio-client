@@ -6,13 +6,16 @@ const initialState: AppState = {
   mediaLinks: [],
   projects: [],
   skills: [],
-
+  baseUrl: 'http://localhost:5133',
+  token: '',
 }
 
 const appReducer = (state = initialState, action: AppAction) => {
   switch (action.type) {
+
+
+
     case "SET_STATE":
-      console.log('state', state);
       return {
         ...state,
         backgroundParagraphs: action.state.backgroundParagraphs,
