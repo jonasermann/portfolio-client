@@ -2,6 +2,8 @@ import './CRUDProjects.css';
 import EditProject from './EditProject';
 import RemoveProject from './RemoveProject';
 import AddProject from './AddProject';
+import MoveProject from './MoveProject';
+import { useState } from 'react';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useSelector, shallowEqual } from "react-redux";
 
@@ -13,6 +15,8 @@ const Projects = (props: IAppProps) => {
     (state: AppState) => state.projects,
     shallowEqual
   )
+
+  const [currentProjects, setCurrentProjects] = useState(projects);
 
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
@@ -28,24 +32,6 @@ const Projects = (props: IAppProps) => {
       project.id)[arrayLength - 1].id + 1;
   }
 
-  //const upProject = (index: number) => {
-  //  const upperProject = projects[index - 1];
-  //  upperProject.id = index + 1;
-  //  projects[index].id = index;
-  //  projects[index - 1] = projects[index];
-  //  projects[index] = upperProject;
-  //  setProjects(projects);
-  //}
-
-  //const downProject = (index: number) => {
-  //  const lowerProject = projects[index + 1];
-  //  lowerProject.id = index + 1;
-  //  projects[index].id = index + 2;
-  //  projects[index + 1] = projects[index];
-  //  projects[index] = lowerProject;
-  //  setProjects(projects);
-  //}
-
   return (
     <div
       className="mb">
@@ -57,6 +43,7 @@ const Projects = (props: IAppProps) => {
             key={projectIndex}
             data-testid="project">
             <EditProject {...project} />
+            <MoveProject projectIndex={projectIndex} project={project} projects={currentProjects} setProjects={setCurrentProjects} />
             <RemoveProject {...project} />
           </div>
         )}

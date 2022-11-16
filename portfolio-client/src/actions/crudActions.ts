@@ -158,7 +158,19 @@ export function removeMediaLink(mediaLink: IMediaLink) {
   return (dispatch: AppDispatch) => dispatch(action);
 }
 
-
+export function updateProjects(state: AppState) {
+  const action: AppAction = {
+    type: 'UPDATE_PROJECTs',
+    backgroundParagraph: {} as IBackgroundParagraph,
+    contact: {} as IContact,
+    introduction: {} as IIntroduction,
+    mediaLink: {} as IMediaLink,
+    project: {} as IProject,
+    skill: {} as ISkill,
+    state: state,
+  }
+  return (dispatch: AppDispatch) => dispatch(action);
+}
 
 export function addProject(project: IProject) {
   const action: AppAction = {

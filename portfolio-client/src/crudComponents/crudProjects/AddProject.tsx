@@ -1,7 +1,7 @@
-import { addProject } from '../../actions/crudActions';
 import * as React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
+import { addProject } from '../../actions/crudActions';
 
 const AddProject = (get: { idToAdd(): number }) => {
 
