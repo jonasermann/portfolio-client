@@ -1,14 +1,14 @@
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
 import { updateProjects } from '../../actions/crudActions';
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
   ({ projectIndex: number, project: IProject, projects: IProject[], triggerMovement: () => void })) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const update = React.useCallback(
+  const update = useCallback(
     (state: AppState) => dispatch(updateProjects(state)),
     [dispatch]);
 

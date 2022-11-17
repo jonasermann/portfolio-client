@@ -1,4 +1,4 @@
-import About from '../about/About';
+import Home from './Home';
 import reducer from '../../reducers/AppReducer';
 import thunk from 'redux-thunk';
 import { mockState } from '../../mock/state';
@@ -10,7 +10,7 @@ const store: Store<AppState, AppAction> & {
   dispatch: AppDispatch
 } = createStore(reducer, applyMiddleware(thunk))
 
-describe("About Component", () => {
+describe("Home Component", () => {
 
   beforeEach(() => {
 
@@ -27,19 +27,16 @@ describe("About Component", () => {
 
     render(
       <Provider store={store}>
-        <About />;
+        <Home />;
       </Provider>
     )
   });
 
-  it('has title', () => {
-    expect(screen.getByText('Background')).toBeInTheDocument();
+  it('has image', () => {
+    expect(screen.getByAltText('Profile')).toBeInTheDocument();
   })
 
-  it('has paragraphs', () => {
-    expect(screen.getByText('About Test 1')).toBeInTheDocument();
-    expect(screen.getByText('About Test 2')).toBeInTheDocument();
-    expect(screen.getByText('About Test 3')).toBeInTheDocument();
-    expect(screen.getByText('About Test 4')).toBeInTheDocument();
+  it('has text', () => {
+    expect(screen.getByText('Home Test')).toBeInTheDocument();
   });
 });

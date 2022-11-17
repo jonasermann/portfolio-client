@@ -1,14 +1,14 @@
 import { editSkill } from '../../actions/crudActions';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditSkill = (skill: ISkill) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (skill: ISkill) => dispatch(editSkill(skill)),
     [dispatch]);
 

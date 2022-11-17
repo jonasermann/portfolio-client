@@ -1,17 +1,17 @@
 import { removeSkill } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const RemoveSkill = (skill: ISkill) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const remove = React.useCallback(
+  const remove = useCallback(
     (skill: ISkill) => dispatch(removeSkill(skill)),
     [dispatch]);
 
-  const removeOldSkill = (e: React.FormEvent) => {
+  const removeOldSkill = (e: FormEvent) => {
     e.preventDefault();
     remove(skill);
   };

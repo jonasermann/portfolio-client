@@ -1,8 +1,8 @@
-import About from '../about/About';
+import CRUDProjects from './CRUDProjects';
 import reducer from '../../reducers/AppReducer';
 import thunk from 'redux-thunk';
 import { mockState } from '../../mock/state';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createStore, applyMiddleware, Store } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -10,7 +10,7 @@ const store: Store<AppState, AppAction> & {
   dispatch: AppDispatch
 } = createStore(reducer, applyMiddleware(thunk))
 
-describe("About Component", () => {
+describe("CRUDProjects Component", () => {
 
   beforeEach(() => {
 
@@ -27,19 +27,17 @@ describe("About Component", () => {
 
     render(
       <Provider store={store}>
-        <About />;
+        <CRUDProjects />;
       </Provider>
     )
   });
 
-  it('has title', () => {
-    expect(screen.getByText('Background')).toBeInTheDocument();
+  it('adds an empty project', () => {
+    expect(screen.getAllByTestId('project')).toHaveLength(5);
+    fireEvent.click(screen.getByText('Add Project'));
+    expect(screen.getAllByTestId('project')).toHaveLength(6);
+    fireEvent.click(screen.getByTestId('delete5'));
+    expect(screen.getAllByTestId('project')).toHaveLength(5);
   })
 
-  it('has paragraphs', () => {
-    expect(screen.getByText('About Test 1')).toBeInTheDocument();
-    expect(screen.getByText('About Test 2')).toBeInTheDocument();
-    expect(screen.getByText('About Test 3')).toBeInTheDocument();
-    expect(screen.getByText('About Test 4')).toBeInTheDocument();
-  });
 });

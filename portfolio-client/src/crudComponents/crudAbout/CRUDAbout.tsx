@@ -4,7 +4,7 @@ import AddBackgroundParagraph from './AddBackgroundParagraph';
 import EditBackgroundParagraph from './EditBackgroundParagraph';
 import RemoveBackgroundParagraph from './RemoveBackgroundParagraph';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const About = () => {
 

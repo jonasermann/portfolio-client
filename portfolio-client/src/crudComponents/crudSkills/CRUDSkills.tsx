@@ -3,7 +3,7 @@ import AddSkill from './AddSkill';
 import EditSkill from './EditSkill';
 import RemoveSkill from './RemoveSkill';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Skills = () => {
 

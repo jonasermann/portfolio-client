@@ -1,14 +1,14 @@
 import { editProject } from '../../actions/crudActions';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditProject = (project: IProject) => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (project: IProject) => dispatch(editProject(project)),
     [dispatch]);
 

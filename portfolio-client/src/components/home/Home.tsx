@@ -1,7 +1,7 @@
 import './Home.css';
 import Skills from '../skills/Skills';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Home = () => {
 

@@ -1,6 +1,6 @@
 import './Authentication.css';
-import React, { useState, useEffect } from 'react';
-import { Dispatch } from "redux";
+import { useState, useEffect, useCallback } from 'react';
+import { Dispatch } from 'redux';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { setToken } from '../actions/crudActions';
@@ -14,7 +14,7 @@ const Authentication = () => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
-  const authenticate = React.useCallback(
+  const authenticate = useCallback(
     (state: AppState) => dispatch(setToken(state)),
     [dispatch]);
 

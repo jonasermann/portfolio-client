@@ -1,4 +1,4 @@
-import About from '../about/About';
+import Skills from './Skills';
 import reducer from '../../reducers/AppReducer';
 import thunk from 'redux-thunk';
 import { mockState } from '../../mock/state';
@@ -10,7 +10,7 @@ const store: Store<AppState, AppAction> & {
   dispatch: AppDispatch
 } = createStore(reducer, applyMiddleware(thunk))
 
-describe("About Component", () => {
+describe("Skills Component", () => {
 
   beforeEach(() => {
 
@@ -27,19 +27,22 @@ describe("About Component", () => {
 
     render(
       <Provider store={store}>
-        <About />;
+        <Skills />;
       </Provider>
     )
   });
 
-  it('has title', () => {
-    expect(screen.getByText('Background')).toBeInTheDocument();
+  it('has images', () => {
+    expect(screen.getAllByAltText('logo')).toHaveLength(12);
   })
 
-  it('has paragraphs', () => {
-    expect(screen.getByText('About Test 1')).toBeInTheDocument();
-    expect(screen.getByText('About Test 2')).toBeInTheDocument();
-    expect(screen.getByText('About Test 3')).toBeInTheDocument();
-    expect(screen.getByText('About Test 4')).toBeInTheDocument();
+  it('has text', () => {
+    expect(screen.getByText('ASP.NET Core')).toBeInTheDocument();
   });
+
+  it('has rows', () => {
+    expect(screen.getByText('languages')).toBeInTheDocument();
+    expect(screen.getByText('backend')).toBeInTheDocument();
+    expect(screen.getByText('frontend')).toBeInTheDocument();
+  })
 });

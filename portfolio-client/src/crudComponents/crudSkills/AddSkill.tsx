@@ -1,17 +1,17 @@
 import { addSkill } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const AddSkill = (get: { idToAdd(): number }) => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
-  const add = React.useCallback(
+  const add = useCallback(
     (skill: ISkill) => dispatch(addSkill(skill)),
     [dispatch]);
 
-  const addNewSkill = (e: React.FormEvent) => {
+  const addNewSkill = (e: FormEvent) => {
     e.preventDefault();
     add({ id: get.idToAdd(), text: '', imgUrl: '', type: 0 });
   };

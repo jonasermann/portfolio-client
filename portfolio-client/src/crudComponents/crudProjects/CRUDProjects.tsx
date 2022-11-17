@@ -5,7 +5,7 @@ import MoveProject from './MoveProject';
 import RemoveProject from './RemoveProject';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
 import { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Projects = () => {
 

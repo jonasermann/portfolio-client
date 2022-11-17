@@ -3,7 +3,7 @@ import AddContact from './AddContact';
 import EditContact from './EditContact';
 import RemoveContact from './RemoveContact';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Contact = () => {
 

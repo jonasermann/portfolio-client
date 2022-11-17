@@ -3,7 +3,7 @@ import AddMediaLink from './AddMediaLink';
 import EditMediaLink from './EditMediaLink';
 import RemoveMediaLink from './RemoveMediaLink';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector} from "react-redux";
+import { useSelector} from 'react-redux';
 
 const MediaLinks = () => {
 

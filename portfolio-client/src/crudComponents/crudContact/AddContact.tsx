@@ -1,17 +1,17 @@
 import { addContact } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const AddContact = (get: { idToAdd(): number }) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const add = React.useCallback(
+  const add = useCallback(
     (contact: IContact) => dispatch(addContact(contact)),
     [dispatch]);
 
-  const addNewContact = (e: React.FormEvent) => {
+  const addNewContact = (e: FormEvent) => {
     e.preventDefault();
     add({ id: get.idToAdd(), text: '', imgUrl: '' });
   };

@@ -1,14 +1,14 @@
 import { getImgUrl } from '../../libraries/portfolioLibrary';
 import { editContact } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector} from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 const EditContact = (contact: IContact) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (contact: IContact) => dispatch(editContact(contact)),
     [dispatch]);
 

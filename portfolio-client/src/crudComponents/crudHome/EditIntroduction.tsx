@@ -1,14 +1,14 @@
 import { getImgUrl } from '../../libraries/portfolioLibrary';
 import { editIntroduction } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector} from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 const EditIntroduction = (introduction: IIntroduction) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (introduction: IIntroduction) => dispatch(editIntroduction(introduction)),
     [dispatch]);
 

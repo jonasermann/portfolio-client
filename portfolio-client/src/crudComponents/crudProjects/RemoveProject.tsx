@@ -1,17 +1,17 @@
 import { removeProject } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const RemoveProject = (project: IProject) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const remove = React.useCallback(
+  const remove = useCallback(
     (project: IProject) => dispatch(removeProject(project)),
     [dispatch]);
 
-  const removeOldProject = (e: React.FormEvent) => {
+  const removeOldProject = (e: FormEvent) => {
     e.preventDefault();
     remove(project);
   };

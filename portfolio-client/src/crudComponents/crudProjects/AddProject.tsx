@@ -1,17 +1,17 @@
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 import { addProject } from '../../actions/crudActions';
 
 const AddProject = (get: { idToAdd(): number }) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const add = React.useCallback(
+  const add = useCallback(
     (project: IProject) => dispatch(addProject(project)),
     [dispatch]);
 
-  const addNewProject = (e: React.FormEvent) => {
+  const addNewProject = (e: FormEvent) => {
     e.preventDefault();
     add({ id: get.idToAdd(), title: '', text: '', imgUrl: '', gitUrl: '' });
   };

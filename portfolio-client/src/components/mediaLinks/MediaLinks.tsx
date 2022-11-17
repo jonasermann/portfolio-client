@@ -1,6 +1,6 @@
 import './MediaLinks.css';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const MediaLinks = () => {
 

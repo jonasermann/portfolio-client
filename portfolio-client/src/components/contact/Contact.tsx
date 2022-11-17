@@ -18,7 +18,7 @@ const Contact = () => {
           <img src={getImgUrl(contact.imgUrl, baseUrl)} alt="mail icon" height="50rem" width="50rem" />
           <p>{contact.text}</p>
         </div>
-      )};
+      )}
     </div>
   );
 };

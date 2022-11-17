@@ -1,28 +1,27 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from '../components/navigation/Navigation';
-import Home from '../components/home/Home';
-import About from '../components/about/About';
-import Projects from '../components/projects/Projects';
-import Contact from '../components/contact/Contact';
 import Authentication from '../authentication/Authentication';
+import About from '../components/about/About';
+import Contact from '../components/contact/Contact';
+import Home from '../components/home/Home';
+import Navigation from '../components/navigation/Navigation';
+import Projects from '../components/projects/Projects';
+import CRUDAbout from '../crudComponents/crudAbout/CRUDAbout';
+import CRUDContact from '../crudComponents/crudContact/CRUDContact';
 import CRUDNavigation from '../crudComponents/crudNavigation/CRUDNavigation'
 import CRUDHome from '../crudComponents/crudHome/CRUDHome';
-import CRUDAbout from '../crudComponents/crudAbout/CRUDAbout';
 import CRUDProjects from '../crudComponents/crudProjects/CRUDProjects';
-import CRUDContact from '../crudComponents/crudContact/CRUDContact';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { populateState } from '../actions/crudActions';
-import { useEffect } from 'react';
-import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useEffect, useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
 
   const baseUrl: string = 'http://localhost:5133';
   const dispatch: Dispatch<any> = useDispatch();
 
-  const set = React.useCallback(
+  const set = useCallback(
     (state: AppState) => dispatch(populateState(state)),
     [dispatch]);
 

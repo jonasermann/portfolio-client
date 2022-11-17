@@ -1,6 +1,6 @@
 import './Skills.css';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Skills = () => {
 
@@ -26,11 +26,11 @@ const Skills = () => {
                   <img src={getImgUrl(content.imgUrl, baseUrl)} alt="logo" width="100rem" height="auto" />
                   <p>{content.text}</p>
                 </div>
-              ))};
+              ))}
             </div>
           </div>
         ))
-      };
+      }
     </div>
   );
 };

@@ -1,17 +1,17 @@
 import { addMediaLink } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback, FormEvent } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const AddMediaLink = (get: { idToAdd(): number }) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const add = React.useCallback(
+  const add = useCallback(
     (mediaLink: IMediaLink) => dispatch(addMediaLink(mediaLink)),
     [dispatch]);
 
-  const addNewMediaLink = (e: React.FormEvent) => {
+  const addNewMediaLink = (e: FormEvent) => {
     e.preventDefault();
     add({ id: get.idToAdd(), text: '', imgUrl: '', url: '' });
   };
@@ -19,7 +19,7 @@ const AddMediaLink = (get: { idToAdd(): number }) => {
   return (
     <form onSubmit={e => addNewMediaLink(e)} >
       <button className="mb">
-        Add MediaLink
+        Add Media Link
       </button>
     </form>
   );

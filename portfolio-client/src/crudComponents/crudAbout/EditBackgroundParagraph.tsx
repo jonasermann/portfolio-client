@@ -1,13 +1,13 @@
 import { editBackgroundParagraph } from '../../actions/crudActions';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 
 const EditBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
 
   const dispatch: Dispatch<any> = useDispatch();
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (backgroundParagraph: IBackgroundParagraph) => dispatch(editBackgroundParagraph(backgroundParagraph)),
     [dispatch]);
 

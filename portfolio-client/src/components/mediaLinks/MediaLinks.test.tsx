@@ -1,4 +1,4 @@
-import About from '../about/About';
+import MediaLinks from './MediaLinks';
 import reducer from '../../reducers/AppReducer';
 import thunk from 'redux-thunk';
 import { mockState } from '../../mock/state';
@@ -10,7 +10,7 @@ const store: Store<AppState, AppAction> & {
   dispatch: AppDispatch
 } = createStore(reducer, applyMiddleware(thunk))
 
-describe("About Component", () => {
+describe("MediaLinks Component", () => {
 
   beforeEach(() => {
 
@@ -27,19 +27,13 @@ describe("About Component", () => {
 
     render(
       <Provider store={store}>
-        <About />;
+        <MediaLinks />;
       </Provider>
     )
   });
 
-  it('has title', () => {
-    expect(screen.getByText('Background')).toBeInTheDocument();
-  })
-
-  it('has paragraphs', () => {
-    expect(screen.getByText('About Test 1')).toBeInTheDocument();
-    expect(screen.getByText('About Test 2')).toBeInTheDocument();
-    expect(screen.getByText('About Test 3')).toBeInTheDocument();
-    expect(screen.getByText('About Test 4')).toBeInTheDocument();
+  it('has MediaLinks', () => {
+    expect(screen.getByText('media link 1')).toBeInTheDocument();
+    expect(screen.getByText('media link 1')).toBeInTheDocument();
   });
 });

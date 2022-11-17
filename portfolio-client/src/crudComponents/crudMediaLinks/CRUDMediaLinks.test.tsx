@@ -1,8 +1,8 @@
-import About from '../about/About';
+import CRUDMediaLinks from './CRUDMediaLinks';
 import reducer from '../../reducers/AppReducer';
 import thunk from 'redux-thunk';
 import { mockState } from '../../mock/state';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createStore, applyMiddleware, Store } from 'redux';
 import { Provider } from 'react-redux';
 
@@ -10,7 +10,7 @@ const store: Store<AppState, AppAction> & {
   dispatch: AppDispatch
 } = createStore(reducer, applyMiddleware(thunk))
 
-describe("About Component", () => {
+describe("CRUDMediaLinks Component", () => {
 
   beforeEach(() => {
 
@@ -27,19 +27,17 @@ describe("About Component", () => {
 
     render(
       <Provider store={store}>
-        <About />;
+        <CRUDMediaLinks />;
       </Provider>
     )
   });
 
-  it('has title', () => {
-    expect(screen.getByText('Background')).toBeInTheDocument();
+  it('adds an empty media link', () => {
+    expect(screen.getAllByTestId('mediaLink')).toHaveLength(2);
+    fireEvent.click(screen.getByText('Add Media Link'));
+    expect(screen.getAllByTestId('mediaLink')).toHaveLength(3);
+    fireEvent.click(screen.getByTestId('delete2'));
+    expect(screen.getAllByTestId('mediaLink')).toHaveLength(2);
   })
 
-  it('has paragraphs', () => {
-    expect(screen.getByText('About Test 1')).toBeInTheDocument();
-    expect(screen.getByText('About Test 2')).toBeInTheDocument();
-    expect(screen.getByText('About Test 3')).toBeInTheDocument();
-    expect(screen.getByText('About Test 4')).toBeInTheDocument();
-  });
 });

@@ -1,14 +1,14 @@
 import { editMediaLink } from '../../actions/crudActions';
 import { getImgUrl } from '../../libraries/portfolioLibrary';
-import React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from 'react';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditMediaLink = (mediaLink: IMediaLink) => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
-  const edit = React.useCallback(
+  const edit = useCallback(
     (mediaLink: IMediaLink) => dispatch(editMediaLink(mediaLink)),
     [dispatch]);
 
