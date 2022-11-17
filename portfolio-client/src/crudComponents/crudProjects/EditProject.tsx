@@ -1,8 +1,8 @@
 import { editProject } from '../../actions/crudActions';
-import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import React from "react";
+import { Dispatch } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditProject = (project: IProject) => {
 
@@ -10,13 +10,10 @@ const EditProject = (project: IProject) => {
 
   const edit = React.useCallback(
     (project: IProject) => dispatch(editProject(project)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   return (
     <div>
@@ -32,7 +29,7 @@ const EditProject = (project: IProject) => {
               imgUrl: project.imgUrl,
               gitUrl: project.gitUrl,
               title: e.target.value,
-              }
+            }
             edit(updatedProject);
           }}
         />
@@ -95,7 +92,7 @@ const EditProject = (project: IProject) => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 export default EditProject;

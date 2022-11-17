@@ -1,16 +1,15 @@
 import { removeBackgroundParagraph } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const RemoveBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const remove = React.useCallback(
     (backgroundParagraph: IBackgroundParagraph) => dispatch(removeBackgroundParagraph(backgroundParagraph)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const removeOldBackgroundParagraph = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const RemoveBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) =>
         Delete
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default RemoveBackgroundParagraph;

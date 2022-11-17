@@ -1,16 +1,15 @@
 import { removeMediaLink } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const RemoveMediaLink = (mediaLink: IMediaLink) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const remove = React.useCallback(
     (mediaLink: IMediaLink) => dispatch(removeMediaLink(mediaLink)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const removeOldMediaLink = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const RemoveMediaLink = (mediaLink: IMediaLink) => {
         Delete
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default RemoveMediaLink;

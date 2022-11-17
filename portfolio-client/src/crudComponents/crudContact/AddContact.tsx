@@ -1,16 +1,15 @@
 import { addContact } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const AddContact = (get: { idToAdd(): number }) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const add = React.useCallback(
     (contact: IContact) => dispatch(addContact(contact)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const addNewContact = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const AddContact = (get: { idToAdd(): number }) => {
         Add Contact
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default AddContact;

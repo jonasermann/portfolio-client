@@ -1,16 +1,15 @@
 import { removeContact } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const RemoveContact = (contact: IContact) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const remove = React.useCallback(
     (contact: IContact) => dispatch(removeContact(contact)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const removeOldContact = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +24,7 @@ const RemoveContact = (contact: IContact) => {
         Delete
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default RemoveContact;

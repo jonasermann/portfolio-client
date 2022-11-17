@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { updateProjects } from '../../actions/crudActions';
@@ -6,12 +6,11 @@ import { updateProjects } from '../../actions/crudActions';
 const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
   ({ projectIndex: number, project: IProject, projects: IProject[], triggerMovement: () => void })) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const update = React.useCallback(
     (state: AppState) => dispatch(updateProjects(state)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const upProject = () => {
 
@@ -37,10 +36,10 @@ const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
       skills: [],
       baseUrl: '',
       token: '',
-    })
+    });
 
     triggerMovement();
-  }
+  };
 
   const downProject = () => {
     const lowerProject = projects[projectIndex + 1];
@@ -65,10 +64,10 @@ const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
       skills: [],
       baseUrl: '',
       token: '',
-    })
+    });
 
     triggerMovement();
-  }
+  };
 
   return (
     <div>
@@ -79,7 +78,7 @@ const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
         Down
       </button>
     </div>
-    )
-}
+  );
+};
 
 export default MoveProject;

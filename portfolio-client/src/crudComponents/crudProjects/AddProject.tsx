@@ -1,16 +1,15 @@
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { addProject } from '../../actions/crudActions';
 
 const AddProject = (get: { idToAdd(): number }) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const add = React.useCallback(
     (project: IProject) => dispatch(addProject(project)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const addNewProject = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const AddProject = (get: { idToAdd(): number }) => {
         Add Project
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default AddProject;

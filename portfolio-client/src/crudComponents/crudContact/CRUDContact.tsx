@@ -1,26 +1,20 @@
 import './CRUDContact.css';
+import AddContact from './AddContact';
 import EditContact from './EditContact';
 import RemoveContact from './RemoveContact';
-import AddContact from './AddContact';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
 
   const contacts: IContact[] = useSelector(
-    (state: AppState) => state.contacts,
-    shallowEqual
-  )
+    (state: AppState) => state.contacts);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   const token: string = useSelector(
-    (state: AppState) => state.token,
-    shallowEqual
-  )
+    (state: AppState) => state.token);
 
   const adminAccess = token.length > 163;
 
@@ -28,15 +22,14 @@ const Contact = () => {
     const url: string = `${baseUrl}/api/contacts`;
     const oldContacts = await fetchData(url) as IContact[];
     handleChanges<IContact>(
-      contacts, oldContacts, oldContacts.map(p => p.id), url, token 
-    )
-  }
+      contacts, oldContacts, oldContacts.map(p => p.id), url, token);
+  };
 
   const idToAdd = () => {
     const arrayLength = contacts.length;
     return contacts.sort(contact =>
       contact.id)[arrayLength - 1].id + 1;
-  }
+  };
 
   return (
     <div
@@ -62,7 +55,7 @@ const Contact = () => {
           disabled={!adminAccess}>Update Contacts</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Contact;

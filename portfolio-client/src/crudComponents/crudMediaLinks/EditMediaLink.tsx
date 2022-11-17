@@ -1,8 +1,8 @@
 import { editMediaLink } from '../../actions/crudActions';
-import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import React from "react";
+import { Dispatch } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditMediaLink = (mediaLink: IMediaLink) => {
 
@@ -10,21 +10,21 @@ const EditMediaLink = (mediaLink: IMediaLink) => {
 
   const edit = React.useCallback(
     (mediaLink: IMediaLink) => dispatch(editMediaLink(mediaLink)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   return (
     <div>
+
       <img
         src={getImgUrl(mediaLink.imgUrl, baseUrl)}
         alt="logo"
         height="50rem"
-        width="auto" />
+        width="auto"
+      />
+
       <input
         type="text"
         value={mediaLink.imgUrl}
@@ -34,9 +34,11 @@ const EditMediaLink = (mediaLink: IMediaLink) => {
             text: mediaLink.text,
             url: mediaLink.url,
             imgUrl: e.target.value
-          }
-          edit(updatedMediaLink);}}
+          };
+          edit(updatedMediaLink);
+        }}
       />
+
       <textarea
         value={mediaLink.text}
         onChange={e => {
@@ -45,12 +47,13 @@ const EditMediaLink = (mediaLink: IMediaLink) => {
             imgUrl: mediaLink.imgUrl,
             url: mediaLink.url,
             text: e.target.value,
-          }
+          };
           edit(updatedMediaLink);
         }}
         rows={2}
         cols={100}
       />
+
       <div>
         <input
           type="text"
@@ -61,13 +64,13 @@ const EditMediaLink = (mediaLink: IMediaLink) => {
               text: mediaLink.text,
               imgUrl: mediaLink.imgUrl,
               url: e.target.value
-            }
+            };
             edit(updatedMediaLink);
           }}
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default EditMediaLink;

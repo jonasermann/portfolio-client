@@ -1,16 +1,15 @@
 import { editBackgroundParagraph } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const EditBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const edit = React.useCallback(
     (backgroundParagraph: IBackgroundParagraph) => dispatch(editBackgroundParagraph(backgroundParagraph)),
-    [dispatch]
-  )
+    [dispatch]);
 
   return (
     <div
@@ -28,7 +27,7 @@ const EditBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
         cols={100}
       />
     </div>
-  )
-}
+  );
+};
 
 export default EditBackgroundParagraph;

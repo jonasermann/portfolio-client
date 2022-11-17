@@ -20,12 +20,11 @@ import { useDispatch } from "react-redux";
 const App = () => {
 
   const baseUrl: string = 'http://localhost:5133';
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const set = React.useCallback(
     (state: AppState) => dispatch(populateState(state)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const fetchData: () => Promise<AppState> = async () => {
     const backgroundParagraphsResponse = await fetch(`${baseUrl}/api/backgroundParagraphs`);
@@ -64,14 +63,16 @@ const App = () => {
     };
   };
 
+  const initiateFetch = async () => {
+    const fetchedState = fetchData();
+    fetchedState
+      .then(state => set(state))
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
-    (async () => {
-      const fetchedState = fetchData();
-      fetchedState
-        .then(state => set(state))
-        .catch(err => console.log(err));
-    })();
-  }, [])
+    initiateFetch();
+  }, []);
 
   return (
     <div className="App">
@@ -90,9 +91,9 @@ const App = () => {
               <Route path="crud" element={<Authentication />} />
               <Route path="/crud/changes" element={<CRUDNavigation />} >
                 <Route path="home" element={<CRUDHome />} />
-                <Route path="about" element={<CRUDAbout  />} />
+                <Route path="about" element={<CRUDAbout />} />
                 <Route path="projects" element={<CRUDProjects />} />
-                <Route path="contact" element={<CRUDContact  />} />
+                <Route path="contact" element={<CRUDContact />} />
               </Route>
               <Route path="contact" element={<Contact />} />
             </Route>
@@ -109,6 +110,6 @@ const App = () => {
       </footer>
     </div>
   );
-}
+};
 
 export default App;

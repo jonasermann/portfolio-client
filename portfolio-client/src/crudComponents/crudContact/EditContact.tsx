@@ -1,20 +1,19 @@
-import { editContact } from '../../actions/crudActions';
-import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import { editContact } from '../../actions/crudActions';
+import React from "react";
+import { Dispatch } from "redux";
+import { useDispatch, useSelector} from "react-redux";
 
 const EditContact = (contact: IContact) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const edit = React.useCallback(
     (contact: IContact) => dispatch(editContact(contact)),
     [dispatch]);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual);
+    (state: AppState) => state.baseUrl);
 
   return (
     <div>
@@ -56,7 +55,7 @@ const EditContact = (contact: IContact) => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
 export default EditContact;

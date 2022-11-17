@@ -1,18 +1,14 @@
 import './Projects.css';
-import { useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import { useSelector } from "react-redux";
 
 const Projects = () => {
 
   const projects: IProject[] = useSelector(
-    (state: AppState) => state.projects,
-    shallowEqual
-  )
+    (state: AppState) => state.projects);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   return (
     <div className="Projects">
@@ -27,8 +23,7 @@ const Projects = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-//connect(mapStateToProps, { fetchPostsWithRedux })(Projects);
 export default Projects;

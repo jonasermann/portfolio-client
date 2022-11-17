@@ -3,14 +3,13 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
-const AddBackgroundParagraph = (get : {idToAdd() : number}) => {
+const AddBackgroundParagraph = (get: { idToAdd(): number }) => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
   const add = React.useCallback(
     (backgroundParagraph: IBackgroundParagraph) => dispatch(addBackgroundParagraph(backgroundParagraph)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const addNewBackgroundParagraph = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const AddBackgroundParagraph = (get : {idToAdd() : number}) => {
         Add Paragraph
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default AddBackgroundParagraph;

@@ -1,26 +1,20 @@
 import './CRUDSkills.css';
+import AddSkill from './AddSkill';
 import EditSkill from './EditSkill';
 import RemoveSkill from './RemoveSkill';
-import AddSkill from './AddSkill';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Skills = () => {
 
   const skills: ISkill[] = useSelector(
-    (state: AppState) => state.skills,
-    shallowEqual
-  )
+    (state: AppState) => state.skills);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   const token: string = useSelector(
-    (state: AppState) => state.token,
-    shallowEqual
-  )
+    (state: AppState) => state.token);
 
   const adminAccess = token.length > 163;
 
@@ -28,15 +22,14 @@ const Skills = () => {
     const url: string = `${baseUrl}/api/skills`;
     const oldSkills = await fetchData(url) as ISkill[];
     handleChanges<ISkill>(
-      skills, oldSkills, oldSkills.map(p => p.id), url, token
-    )
-  }
+      skills, oldSkills, oldSkills.map(p => p.id), url, token);
+  };
 
   const idToAdd = () => {
     const arrayLength = skills.length;
     return skills.sort(skill =>
       skill.id)[arrayLength - 1].id + 1;
-  }
+  };
 
   return (
     <div>
@@ -53,7 +46,7 @@ const Skills = () => {
             </div>
           ))
         }
-        <AddSkill {...{idToAdd}} />
+        <AddSkill {...{ idToAdd }} />
       </div>
       <button
         className="mb"
@@ -63,7 +56,7 @@ const Skills = () => {
         Update Skills
       </button>
     </div>
-  )
-}
+  );
+};
 
 export default Skills;

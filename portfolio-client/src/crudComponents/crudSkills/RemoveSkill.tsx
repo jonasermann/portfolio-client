@@ -1,16 +1,15 @@
 import { removeSkill } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
 const RemoveSkill = (skill: ISkill) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const remove = React.useCallback(
     (skill: ISkill) => dispatch(removeSkill(skill)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const removeOldSkill = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +24,7 @@ const RemoveSkill = (skill: ISkill) => {
         Delete
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default RemoveSkill;

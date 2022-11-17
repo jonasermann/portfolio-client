@@ -1,27 +1,21 @@
 import './CRUDAbout.css';
+import CRUDMediaLinks from '../crudMediaLinks/CRUDMediaLinks';
+import AddBackgroundParagraph from './AddBackgroundParagraph';
 import EditBackgroundParagraph from './EditBackgroundParagraph';
 import RemoveBackgroundParagraph from './RemoveBackgroundParagraph';
-import AddBackgroundParagraph from './AddBackgroundParagraph';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import CRUDMediaLinks from '../crudMediaLinks/CRUDMediaLinks';
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 
 const About = () => {
 
   const backgroundParagraphs: IBackgroundParagraph[] = useSelector(
-    (state: AppState) => state.backgroundParagraphs,
-    shallowEqual
-  )
+    (state: AppState) => state.backgroundParagraphs);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   const token: string = useSelector(
-    (state: AppState) => state.token,
-    shallowEqual
-  )
+    (state: AppState) => state.token);
 
   const adminAccess = token.length > 163;
 
@@ -29,15 +23,14 @@ const About = () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldBackgroundParagraphs = await fetchData(url) as IBackgroundParagraph[];
     handleChanges<IBackgroundParagraph>(
-      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, token
-    )
-  }
+      backgroundParagraphs, oldBackgroundParagraphs, oldBackgroundParagraphs.map(p => p.id), url, token);
+  };
 
   const idToAdd = () => {
     const arrayLength = backgroundParagraphs.length;
     return backgroundParagraphs.sort(backgroundParagraph =>
       backgroundParagraph.id)[arrayLength - 1].id + 1;
-  }
+  };
 
   return (
     <div>
@@ -51,7 +44,7 @@ const About = () => {
             </div>
           )}
         </div>
-        <AddBackgroundParagraph {...{ idToAdd}} />
+        <AddBackgroundParagraph {...{ idToAdd }} />
         <div
           className="mb">
           <button
@@ -62,7 +55,7 @@ const About = () => {
       </div>
       <CRUDMediaLinks />
     </div>
-  )
-}
+  );
+};
 
 export default About;

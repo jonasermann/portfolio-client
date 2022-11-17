@@ -1,20 +1,26 @@
+interface IBackgroundParagraph {
+  id: number
+  text: string
+};
+
+interface IContact {
+  id: number
+  imgUrl: string
+  text: string
+};
+
 interface IIntroduction {
   id: number
   profilePicUrl: string
   text: string
-}
-
-interface IBackgroundParagraph {
-  id: number
-  text: string
-}
+};
 
 interface IMediaLink {
   id: number
   imgUrl: string
   url: string
   text: string
-}
+};
 
 interface IProject {
   id: number
@@ -22,29 +28,14 @@ interface IProject {
   imgUrl: string
   text: string
   gitUrl: string
-}
-
-interface IContact {
-  id: number
-  imgUrl: string
-  text: string
-}
+};
 
 interface ISkill {
   id: number
   imgUrl: string
   text: string
   type: number
-}
-
-interface IApp {
-  backgroundParagraphs: IBackgroundParagraph[]
-  contacts: IContact[]
-  introduction: IIntroduction
-  mediaLinks: IMediaLink[]
-  projects: IProject[]
-  skills: ISkill[]
-}
+};
 
 interface AppState {
   backgroundParagraphs: IBackgroundParagraph[]
@@ -55,7 +46,7 @@ interface AppState {
   skills: ISkill[]
   baseUrl: string
   token: string
-}
+};
 
 type AppAction = {
   type: string
@@ -66,7 +57,7 @@ type AppAction = {
   project: IProject
   skill: ISkill
   state: AppState
-}
+};
 
 type AppDispatch = (args: AppAction) => AppAction
 

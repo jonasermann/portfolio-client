@@ -1,18 +1,14 @@
 import './MediaLinks.css';
-import { useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import { useSelector } from "react-redux";
 
 const MediaLinks = () => {
 
   const mediaLinks: IMediaLink[] = useSelector(
-    (state: AppState) => state.mediaLinks,
-    shallowEqual
-  )
+    (state: AppState) => state.mediaLinks);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   return (
     <div className="Media-links">
@@ -23,7 +19,7 @@ const MediaLinks = () => {
         </div>
       ))}
     </div>
-    )
-}
+  );
+};
 
 export default MediaLinks;

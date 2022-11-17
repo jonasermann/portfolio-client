@@ -24,7 +24,7 @@ const appReducer = (state = initialState, action: AppAction) => {
         mediaLinks: action.state.mediaLinks,
         projects: action.state.projects,
         skills: action.state.skills,
-      }
+      };
 
 
 
@@ -32,7 +32,7 @@ const appReducer = (state = initialState, action: AppAction) => {
       return {
         ...state,
         token: action.state.token,
-      }
+      };
 
 
 
@@ -102,7 +102,7 @@ const appReducer = (state = initialState, action: AppAction) => {
       return {
         ...state,
         projects: [...action.state.projects]
-        }
+      };
     case 'ADD_PROJECT':
       return {
         ...state,
@@ -141,7 +141,7 @@ const appReducer = (state = initialState, action: AppAction) => {
 
     default:
       return state;
-  }
+  };
 };
 
 export default appReducer;

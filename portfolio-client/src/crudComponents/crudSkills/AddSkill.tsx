@@ -1,5 +1,5 @@
 import { addSkill } from '../../actions/crudActions';
-import * as React from "react";
+import React from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 
@@ -9,8 +9,7 @@ const AddSkill = (get: { idToAdd(): number }) => {
 
   const add = React.useCallback(
     (skill: ISkill) => dispatch(addSkill(skill)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const addNewSkill = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ const AddSkill = (get: { idToAdd(): number }) => {
         Add Skill
       </button>
     </form>
-  )
-}
+  );
+};
 
 export default AddSkill;

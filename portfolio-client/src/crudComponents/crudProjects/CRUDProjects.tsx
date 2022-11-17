@@ -1,14 +1,14 @@
 import './CRUDProjects.css';
-import EditProject from './EditProject';
-import RemoveProject from './RemoveProject';
 import AddProject from './AddProject';
+import EditProject from './EditProject';
 import MoveProject from './MoveProject';
-import { useState, useEffect } from 'react';
+import RemoveProject from './RemoveProject';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
+import { useState } from 'react';
 import { useSelector } from "react-redux";
 
 const Projects = () => {
-  
+
   let projects: IProject[] = useSelector(
     (state: AppState) => state.projects);
 
@@ -26,19 +26,18 @@ const Projects = () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldProjects = await fetchData(url) as IProject[];
     handleChanges<IProject>(
-      projects, oldProjects, oldProjects.map(p => p.id), url, token
-    )
+      projects, oldProjects, oldProjects.map(p => p.id), url, token);
   };
 
   const idToAdd = () => {
     const arrayLength = projects.length;
     return projects.sort(project =>
       project.id)[arrayLength - 1].id + 1;
-  }
+  };
 
   const triggerMovement = () => {
     trigger === 'trigger' ? setTrigger('') : setTrigger('trigger');
-  }
+  };
 
   return (
     <div
@@ -60,7 +59,7 @@ const Projects = () => {
             <RemoveProject {...project} />
           </div>
         )}
-        <AddProject {...{idToAdd}} />
+        <AddProject {...{ idToAdd }} />
       </div>
       <div
         className="mb">
@@ -70,7 +69,7 @@ const Projects = () => {
           disabled={!adminAccess}>Update Projects</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Projects;

@@ -1,26 +1,20 @@
 import './CRUDMediaLinks.css';
+import AddMediaLink from './AddMediaLink';
 import EditMediaLink from './EditMediaLink';
 import RemoveMediaLink from './RemoveMediaLink';
-import AddMediaLink from './AddMediaLink';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector} from "react-redux";
 
 const MediaLinks = () => {
 
   const mediaLinks: IMediaLink[] = useSelector(
-    (state: AppState) => state.mediaLinks,
-    shallowEqual
-  )
+    (state: AppState) => state.mediaLinks);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   const token: string = useSelector(
-    (state: AppState) => state.token,
-    shallowEqual
-  )
+    (state: AppState) => state.token);
 
   const adminAccess = token.length > 163;
 
@@ -28,15 +22,14 @@ const MediaLinks = () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
     const oldMediaLinks = await fetchData(url) as IMediaLink[];
     handleChanges<IMediaLink>(
-      mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, token
-    )
-  }
+      mediaLinks, oldMediaLinks, oldMediaLinks.map(p => p.id), url, token);
+  };
 
   const idToAdd = () => {
     const arrayLength = mediaLinks.length;
     return mediaLinks.sort(mediaLink =>
       mediaLink.id)[arrayLength - 1].id + 1;
-  }
+  };
 
   return (
     <div
@@ -50,7 +43,7 @@ const MediaLinks = () => {
           <RemoveMediaLink {...mediaLink} />
         </div>
       )}
-      <AddMediaLink {...{idToAdd}} />
+      <AddMediaLink {...{ idToAdd }} />
       <div
         className="mb">
         <button
@@ -59,7 +52,7 @@ const MediaLinks = () => {
           disabled={!adminAccess}>Update Links</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MediaLinks;

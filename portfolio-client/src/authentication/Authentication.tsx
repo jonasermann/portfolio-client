@@ -63,7 +63,6 @@ const Authentication = () => {
   }
 
   useEffect(() => {
-    console.log('effect')
     handleToken();
   }, [token])
 

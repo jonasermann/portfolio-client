@@ -1,22 +1,19 @@
 import { editSkill } from '../../actions/crudActions';
-import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getImgUrl } from '../../libraries/portfolioLibrary';
+import React from "react";
+import { Dispatch } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const EditSkill = (skill: ISkill) => {
 
-  const dispatch: Dispatch<any> = useDispatch()
+  const dispatch: Dispatch<any> = useDispatch();
 
   const edit = React.useCallback(
     (skill: ISkill) => dispatch(editSkill(skill)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   return (
     <div>
@@ -36,7 +33,7 @@ const EditSkill = (skill: ISkill) => {
             text: skill.text,
             type: skill.type,
             imgUrl: e.target.value,
-            }
+          }
           edit(updatedSkill);
         }}
       />
@@ -70,7 +67,7 @@ const EditSkill = (skill: ISkill) => {
       />
 
     </div>
-  )
-}
+  );
+};
 
 export default EditSkill;
