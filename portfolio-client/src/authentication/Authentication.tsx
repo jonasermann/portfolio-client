@@ -60,23 +60,35 @@ const Authentication = () => {
   const handleLogin = () => {
     setAdmin('Wait');
     fetchToken();
-    handleToken();
   }
 
   useEffect(() => {
+    console.log('effect')
     handleToken();
   }, [token])
 
   return (
-    <div className="Login-content">
-      <div className="Login-content__Description">
+    <div
+      className="Login-content">
+      <div
+        className="Login-content__Description">
         Here, you can perform CRUD operations on the website! Don't worry, as long as you don't know the password,
         you cannot do real changes. Press on "Continue With Preview" to do temporary changes to the site!
       </div>
-      <div className="Login-content__Buttons">
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>
-        <p className="Login-content__Text" onClick={() => handleNavigation()}>Continue With Preview</p>
+      <div
+        className="Login-content__Buttons">
+        <input
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)} />
+        <button
+          onClick={() => handleLogin()}
+          disabled={admin !== 'Admin'}>{admin}
+        </button>
+        <p
+          className="Login-content__Text"
+          onClick={() => handleNavigation()}>Continue With Preview
+        </p>
       </div>
     </div>
   )

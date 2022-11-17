@@ -97,6 +97,7 @@ const appReducer = (state = initialState, action: AppAction) => {
       };
 
 
+
     case 'SET_PROJECTS':
       return {
         ...state,
@@ -135,6 +136,8 @@ const appReducer = (state = initialState, action: AppAction) => {
         ...state,
         skills: [...state.skills.filter((skill) => skill.id !== action.skill.id)],
       };
+
+
 
     default:
       return state;

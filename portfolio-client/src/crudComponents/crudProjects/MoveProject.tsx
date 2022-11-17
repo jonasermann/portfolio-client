@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { updateProjects } from '../../actions/crudActions';
 
-const MoveProject = ({ projectIndex, project, projects, setProjects }:
-  ({ projectIndex: number, project: IProject, projects: IProject[], setProjects: React.Dispatch<React.SetStateAction<IProject[]>> })) => {
+const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
+  ({ projectIndex: number, project: IProject, projects: IProject[], triggerMovement: () => void })) => {
 
   const dispatch: Dispatch<any> = useDispatch()
 
@@ -28,8 +28,6 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
 
     const updatedProjects = projects;
 
-    setProjects(updatedProjects);
-
     update({
       backgroundParagraphs: [],
       contacts: [],
@@ -39,7 +37,9 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
       skills: [],
       baseUrl: '',
       token: '',
-      })
+    })
+
+    triggerMovement();
   }
 
   const downProject = () => {
@@ -56,8 +56,6 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
 
     const updatedProjects = projects;
 
-    setProjects(updatedProjects);
-
     update({
       backgroundParagraphs: [],
       contacts: [],
@@ -68,6 +66,8 @@ const MoveProject = ({ projectIndex, project, projects, setProjects }:
       baseUrl: '',
       token: '',
     })
+
+    triggerMovement();
   }
 
   return (

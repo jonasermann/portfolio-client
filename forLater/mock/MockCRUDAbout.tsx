@@ -1,30 +1,32 @@
-import { useState, createContext } from 'react';
-import { mockAppProps } from './data';
+//import { useState, createContext } from 'react';
+//import { mockAppProps } from './data';
 
-import CRUDAbout from '../crudComponents/CRUDAbout';
-const MockContext = createContext<IAppProps>({} as IAppProps)
+//import CRUDAbout from '../crudComponents/CRUDAbout';
+//const MockContext = createContext<IAppProps>({} as IAppProps)
 
-function MockCRUDAbout() {
+//function MockCRUDAbout() {
 
-  const [backgroundParagraphs, setBackgroundParagraphs] = useState(mockAppProps.aboutProps.backgroundParagraphs);
-  const [mediaLinks, setMediaLinks] = useState(mockAppProps.mediaLinkProps.mediaLinks);
+//  const [backgroundParagraphs, setBackgroundParagraphs] = useState(mockAppProps.aboutProps.backgroundParagraphs);
+//  const [mediaLinks, setMediaLinks] = useState(mockAppProps.mediaLinkProps.mediaLinks);
 
-  const appProps: IAppProps = {
-    homeProps: {} as IHomeProps,
-    aboutProps: { backgroundParagraphs, setBackgroundParagraphs },
-    projectProps: {} as IProjectProps,
-    contactProps: {} as IContactProps,
-    skillProps: {} as ISkillsProps,
-    mediaLinkProps: { mediaLinks, setMediaLinks },
-    rootUrl: ''
-  }
+//  const appProps: IAppProps = {
+//    homeProps: {} as IHomeProps,
+//    aboutProps: { backgroundParagraphs, setBackgroundParagraphs },
+//    projectProps: {} as IProjectProps,
+//    contactProps: {} as IContactProps,
+//    skillProps: {} as ISkillsProps,
+//    mediaLinkProps: { mediaLinks, setMediaLinks },
+//    rootUrl: ''
+//  }
 
-  return (
-    <MockContext.Provider value={appProps}>
-      <CRUDAbout context={MockContext} token={'Unauthorized'} />
-    </MockContext.Provider>
-  );
-}
+//  return (
+//    <MockContext.Provider value={appProps}>
+//      <CRUDAbout context={MockContext} token={'Unauthorized'} />
+//    </MockContext.Provider>
+//  );
+//}
 
-export default MockCRUDAbout;
-export { MockContext }
+//export default MockCRUDAbout;
+//export { MockContext }
+
+export { };

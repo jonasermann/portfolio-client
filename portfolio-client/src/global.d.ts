@@ -4,37 +4,10 @@ interface IIntroduction {
   text: string
 }
 
-interface IntroductionState {
-  introduction : IIntroduction
-}
-
-type IntroductionAction = {
-  type: string
-  introduction: IIntroduction
-}
-
-type IntroductionDispatch = (args: IntroductionAction) => IntroductionAction
-
-
-
 interface IBackgroundParagraph {
   id: number
   text: string
 }
-
-interface BackgroundParagraphsState {
-  backgroundParagraphs: IBackgroundParagraph[]
-}
-
-type BackgroundParagraphAction = {
-  type: string
-  backgroundParagraph: IBackgroundParagraph
-  backgroundParagraphs: IBackgroundParagraph[]
-}
-
-type BackgroundParagraphDispatch = (args: BackgroundParagraphAction) => BackgroundParagraphAction
-
-
 
 interface IMediaLink {
   id: number
@@ -42,20 +15,6 @@ interface IMediaLink {
   url: string
   text: string
 }
-
-interface MediaLinksState {
-  mediaLinks: IMediaLink[]
-}
-
-type MediaLinkAction = {
-  type: string
-  mediaLink: IMediaLink
-  mediaLinks: IMediaLink[]
-}
-
-type MediaLinkDispatch = (args: MediaLinkAction) => MediaLinkAction
-
-
 
 interface IProject {
   id: number
@@ -65,39 +24,11 @@ interface IProject {
   gitUrl: string
 }
 
-interface ProjectsState {
-  projects: IProject[]
-}
-
-type ProjectAction = {
-  type: string
-  project: IProject
-  projects: IProject[]
-}
-
-type ProjectDispatch = (args: ProjectAction) => ProjectAction
-
-
-
 interface IContact {
   id: number
   imgUrl: string
   text: string
 }
-
-interface ContactsState {
-  contacts: IContact[]
-}
-
-type ContactAction = {
-  type: string
-  contact: IContact
-  contacts: IContact[]
-}
-
-type ContactDispatch = (args: ContactAction) => ContactAction
-
-
 
 interface ISkill {
   id: number
@@ -105,18 +36,6 @@ interface ISkill {
   text: string
   type: number
 }
-
-interface SkillsState {
-  skills: ISkill[]
-}
-
-type SkillAction = {
-  type: string
-  skill: ISkill
-  skills: ISkill[]
-}
-
-type SkillDispatch = (args: SkillAction) => SkillAction
 
 interface IApp {
   backgroundParagraphs: IBackgroundParagraph[]

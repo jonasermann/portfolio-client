@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { createContext } from 'react';
-import { mockAppProps } from '../mock/data';
+/*import { mockAppProps } from '../mock/data';*/
 import About from './About';
 
 const MockAppContext = createContext<IAppProps>({} as IAppProps);
 
 describe("About Component", () => {
 
-  beforeEach(() => {
-    render(
-      <MockAppContext.Provider value={mockAppProps}>
-        <About context={MockAppContext} />);
-      </MockAppContext.Provider>
-    )
-  });
+  //beforeEach(() => {
+  //  render(
+  //    <MockAppContext.Provider value={mockAppProps}>
+  //      <About context={MockAppContext} />);
+  //    </MockAppContext.Provider>
+  //  )
+  //});
 
   it('has title', () => {
     expect(screen.getByText('Background')).toBeInTheDocument();

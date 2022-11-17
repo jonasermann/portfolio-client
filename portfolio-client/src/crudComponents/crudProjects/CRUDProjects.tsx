@@ -3,30 +3,24 @@ import EditProject from './EditProject';
 import RemoveProject from './RemoveProject';
 import AddProject from './AddProject';
 import MoveProject from './MoveProject';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { handleChanges, fetchData } from '../../libraries/crudLibrary';
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Projects = () => {
   
-  const projects: IProject[] = useSelector(
-    (state: AppState) => state.projects,
-    shallowEqual
-  )
+  let projects: IProject[] = useSelector(
+    (state: AppState) => state.projects);
 
   const baseUrl: string = useSelector(
-    (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    (state: AppState) => state.baseUrl);
 
   const token: string = useSelector(
-    (state: AppState) => state.token,
-    shallowEqual
-  )
+    (state: AppState) => state.token);
+
+  const [trigger, setTrigger] = useState('trigger');
 
   const adminAccess = token.length > 163;
-
-  const [currentProjects, setCurrentProjects] = useState(projects);
 
   const initiateChange = async () => {
     const url: string = `${baseUrl}/api/backgroundparagraphs`;
@@ -34,12 +28,16 @@ const Projects = () => {
     handleChanges<IProject>(
       projects, oldProjects, oldProjects.map(p => p.id), url, token
     )
-  }
+  };
 
   const idToAdd = () => {
     const arrayLength = projects.length;
     return projects.sort(project =>
       project.id)[arrayLength - 1].id + 1;
+  }
+
+  const triggerMovement = () => {
+    trigger === 'trigger' ? setTrigger('') : setTrigger('trigger');
   }
 
   return (
@@ -53,7 +51,12 @@ const Projects = () => {
             key={projectIndex}
             data-testid="project">
             <EditProject {...project} />
-            <MoveProject projectIndex={projectIndex} project={project} projects={currentProjects} setProjects={setCurrentProjects} />
+            <MoveProject
+              projectIndex={projectIndex}
+              project={project}
+              projects={projects}
+              triggerMovement={triggerMovement}
+            />
             <RemoveProject {...project} />
           </div>
         )}
