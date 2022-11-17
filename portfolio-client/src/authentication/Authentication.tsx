@@ -1,57 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
-
-//interface IAuthenticationProps {
-//  token: string
-//  setToken: React.Dispatch<React.SetStateAction<string>>
-//}
+import React, { useState, useEffect } from 'react';
+import { Dispatch } from "redux";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { setToken } from '../actions/crudActions';
 
 const Authentication = () => {
 
-  const token = '';
-  //const setToken = props.setToken;
   const navigate = useNavigate();
+  const handleNavigation = () => navigate('/crud/changes/home');
   const [password, setPassword] = useState('');
-  const [admin, setAdmin] = useState('Admin')
+  const [admin, setAdmin] = useState('Admin');
 
-  const handleNavigation = () => navigate('/crud/changes/home', {
-    state: {
-      token: token,
-    }
+  const dispatch: Dispatch<any> = useDispatch()
+
+  const authenticate = React.useCallback(
+    (state: AppState) => dispatch(setToken(state)),
+    [dispatch]);
+
+  const baseUrl: string = useSelector(
+    (state: AppState) => state.baseUrl,
+    shallowEqual);
+
+  const token: string = useSelector(
+    (state: AppState) => state.token,
+    shallowEqual);
+
+  const fetchToken = async () => await fetch(`${baseUrl}/api/Authentication`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(password),
   })
-
-  useEffect(() => {
-    handleToken()
-  }, [token])
+    .then(response => response.text())
+    .then(token => authenticate(
+      {
+        backgroundParagraphs: [],
+        contacts: [],
+        introduction: {} as IIntroduction,
+        mediaLinks: [],
+        projects: [],
+        skills: [],
+        baseUrl: '',
+        token: token,
+      }
+    ));
 
   const handleToken = () => {
-
     if (token.length < 163) {
       setPassword('');
     }
     else {
       handleNavigation()
     }
-
     setAdmin('Admin');
   }
 
-  //const fetchToken = async () => await fetch('https://jeportapi.azurewebsites.net/api/Authentication', {
-  //  method: 'POST',
-  //  headers: {
-  //    'Content-Type': 'application/json',
-  //  },
-  //  body: JSON.stringify(password)
-  //})
-  //  .then(response => response.text())
-  //  .then(token => setToken(token))
+  const handleLogin = () => {
+    setAdmin('Wait');
+    fetchToken();
+    handleToken();
+  }
 
-
-  //const handleLogin = () => {
-  //  setAdmin('Wait');
-  //  fetchToken();
-  //}
+  useEffect(() => {
+    handleToken();
+  }, [token])
 
   return (
     <div className="Login-content">
@@ -61,7 +75,7 @@ const Authentication = () => {
       </div>
       <div className="Login-content__Buttons">
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        {/*<button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>*/}
+        <button onClick={() => handleLogin()} disabled={admin !== 'Admin'}>{admin}</button>
         <p className="Login-content__Text" onClick={() => handleNavigation()}>Continue With Preview</p>
       </div>
     </div>

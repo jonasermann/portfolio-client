@@ -43,8 +43,7 @@ const About = () => {
     <div>
       <div
         className="mb">
-        <div
-          className="mb">
+        <div>
           {backgroundParagraphs.map((backgroundParagraph, paragraphIndex) =>
             <div key={paragraphIndex}>
               <EditBackgroundParagraph {...backgroundParagraph} />

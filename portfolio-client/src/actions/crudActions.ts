@@ -12,6 +12,20 @@ export function populateState(state: AppState) {
   return (dispatch: AppDispatch) => dispatch(action);
 }
 
+export function setToken(state: AppState) {
+  const action: AppAction = {
+    type: 'SET_TOKEN',
+    backgroundParagraph: {} as IBackgroundParagraph,
+    contact: {} as IContact,
+    introduction: {} as IIntroduction,
+    mediaLink: {} as IMediaLink,
+    project: {} as IProject,
+    skill: {} as ISkill,
+    state: state,
+  }
+  return (dispatch: AppDispatch) => dispatch(action);
+}
+
 export function addBackgroundParagraph(backgroundParagraph: IBackgroundParagraph) {
   const action: AppAction = {
     type: 'ADD_BACKGROUNDPARAGRAPH',

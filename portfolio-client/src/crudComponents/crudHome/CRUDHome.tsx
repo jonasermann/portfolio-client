@@ -35,11 +35,9 @@ const Home = () => {
 
   return (
     <div>
-      <div
-        className="mb">
+      <div className="mb">
         <EditIntroduction {...introduction } />
           <button
-            className="mb"
             type="button"
             onClick={() => handleHomeContent()}
             disabled={!adminAccess}>

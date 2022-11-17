@@ -10,13 +10,11 @@ const EditContact = (contact: IContact) => {
 
   const edit = React.useCallback(
     (contact: IContact) => dispatch(editContact(contact)),
-    [dispatch]
-  )
+    [dispatch]);
 
   const baseUrl: string = useSelector(
     (state: AppState) => state.baseUrl,
-    shallowEqual
-  )
+    shallowEqual);
 
   return (
     <div>

@@ -28,6 +28,14 @@ const appReducer = (state = initialState, action: AppAction) => {
 
 
 
+    case "SET_TOKEN":
+      return {
+        ...state,
+        token: action.state.token,
+      }
+
+
+
     case 'ADD_BACKGROUNDPARAGRAPH':
       return {
         ...state,

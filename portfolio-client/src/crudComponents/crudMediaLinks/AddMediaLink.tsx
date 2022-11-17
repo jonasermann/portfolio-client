@@ -19,7 +19,7 @@ const AddMediaLink = (get: { idToAdd(): number }) => {
 
   return (
     <form onSubmit={e => addNewMediaLink(e)} >
-      <button>
+      <button className="mb">
         Add MediaLink
       </button>
     </form>

@@ -19,7 +19,7 @@ const AddContact = (get: { idToAdd(): number }) => {
 
   return (
     <form onSubmit={e => addNewContact(e)} >
-      <button>
+      <button className="mb">
         Add Contact
       </button>
     </form>

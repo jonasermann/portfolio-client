@@ -14,7 +14,6 @@ const EditBackgroundParagraph = (backgroundParagraph: IBackgroundParagraph) => {
 
   return (
     <div
-      className="mb"
       data-testid="backgroundParagraph">
       <textarea
         value={backgroundParagraph.text}

@@ -19,7 +19,7 @@ const AddBackgroundParagraph = (get : {idToAdd() : number}) => {
 
   return (
     <form onSubmit={e => addNewBackgroundParagraph(e)} >
-      <button>
+      <button className="mb">
         Add Paragraph
       </button>
     </form>
