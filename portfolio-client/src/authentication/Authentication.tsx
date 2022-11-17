@@ -50,21 +50,21 @@ const Authentication = () => {
   const handleToken = () => {
     if (token.length < 163) {
       setPassword('');
+      setAdmin('Admin');
     }
     else {
       handleNavigation()
-    }
-    setAdmin('Admin');
-  }
+    };
+  };
 
   const handleLogin = () => {
     setAdmin('Wait');
     fetchToken();
-  }
+  };
 
   useEffect(() => {
     handleToken();
-  }, [token])
+  }, [token]);
 
   return (
     <div
@@ -90,7 +90,7 @@ const Authentication = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Authentication;
