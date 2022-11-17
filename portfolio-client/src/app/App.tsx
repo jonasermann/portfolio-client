@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 
 const App = () => {
 
-  const baseUrl: string = 'https://jeportapi.azurewebsites.net';
+  const baseUrl: string = 'http://localhost:5133';
   const dispatch: Dispatch<any> = useDispatch();
 
   const set = useCallback(
