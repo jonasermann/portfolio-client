@@ -71,10 +71,18 @@ const MoveProject = ({ projectIndex, project, projects, triggerMovement }:
 
   return (
     <div>
-      <button type="button" onClick={() => upProject()}>
+      <button
+        type="button"
+        onClick={() => upProject()}
+        disabled={projectIndex === 0}
+      >
         Up
       </button>
-      <button type="button" onClick={() => downProject()}>
+      <button
+        type="button"
+        onClick={() => downProject()}
+        disabled={projectIndex === projects.length - 1}
+      >
         Down
       </button>
     </div>
