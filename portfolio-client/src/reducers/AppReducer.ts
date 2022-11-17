@@ -6,7 +6,7 @@ const initialState: AppState = {
   mediaLinks: [],
   projects: [],
   skills: [],
-  baseUrl: 'http://localhost:5133',
+  baseUrl: 'https://jeportapi.azurewebsites.net',
   token: '',
 }
 
